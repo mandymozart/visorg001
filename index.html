@@ -1,32 +1,60 @@
 <html>
 
 <head>
-    <title>Project Templates</title>
+    <title>Epic Template - </title>
 </head>
 
 <body>
-    <div class="template">
-        <form>
-            <button type="button">Add all issues to Sprint Backlog</button>
-            <ul>
-                <li><input type="checkbox" value="" />Abriss der Workitems der Show <a href="">create</a></li>
-                <li>Customer Auftragsbesprechung <a href="">create</a></li>
-                <li>Ticket 3</li>
-                <li>Ticket 4</li>
-            </ul>
-            <button type="submit">Add only selected issues to Sprint Backlog</button>
-        </form>
+    <div class="templates">
+
     </div>
+<div class="hide">
+    <div class="template"  id="template">
+        <h3 class="title"></h3>
+        <button type="button" class="addAllButton">Add all issues to Sprint Backlog</button>
+        <ul class="issueList"></ul>
+        <button type="button" class="addSelectedButton">Add only selected issues to Sprint Backlog</button>
+    </div>
+
+    <li id="issue"><input type="checkbox" /> <span class="title"></span></li>
+</div>
     <script>
 
-        
+        const run = () => {
+            templates.forEach((template) => {
+                // id
+                // issues
+                let tt = document.querySelector('#template').cloneNode(true);
+                ti.querySelector('.title').innerHTML = issue.title;
+                let issueList = tt.querySelector('.issueList');
+                template.issues.forEach((issue) => {
+                    // id
+                    // title
+                    // description
+                    let ti = document.querySelector('#issue').cloneNode(true);
+                    ti.querySelector('input').setAttribute('name',issue.id);
+                    ti.querySelector('input').setAttribute('value',true);
+                    ti.querySelector('input').setAttribute('required','required');
+                    ti.querySelector('.title').innerHTML = issue.title;
+                    issueList.append(ti);
+                })
+                tt.append(issueList);
+            })
+            document.querySelector('.templates').append(tt);
+        }
+
+        run()
+
         let templates = [
             {
                 id: 'planning-a-show',
+                title: 'Preplanned items for planning the show planning.',
+                descripton: '',
                 issues: [
                     {
                         id: '1',
                         title: 'Test 1',
+                        required: true,
                         description: `
                         # User Story
                         Jo
@@ -49,7 +77,7 @@
                         * [ ] SDFKJSDKF
                         /lable ~VISSTS ~Role: Handy Person
                         `,
-                    },{
+                    }, {
                         id: '3',
                         title: 'Test 3',
                         description: `
@@ -67,12 +95,10 @@
             {
                 id: 'planning-a-concert',
                 issues: [
-                    {}
-                ]
-            }
+                    {},
+                ],
+            },
         ];
-
-        document.querySelector('')
 
     </script>
 </body>

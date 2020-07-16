@@ -1,0 +1,144 @@
+<html>
+
+<head>
+    <title>Epic Template - </title>
+    <style>
+        .hide {
+            display: none;
+        }
+
+        .template {
+            border-bottom: 1px solid;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Epic Templates - ET</h1>
+    <div class="templates">
+
+    </div>
+    <div class="hide">
+        <div class="template" id="template">
+            <h3 class="title"></h3>
+            <button type="button" class="addAllButton">Add all issues to Sprint Backlog</button>
+            <ul class="issueList"></ul>
+            <button type="button" class="addSelectedButton">Add only selected issues to Sprint Backlog</button>
+        </div>
+
+        <li id="issue"><input type="checkbox" /> <span class="title"></span></li>
+    </div>
+    <script>
+
+
+
+        let templates = [
+            {
+                id: 'planning-a-show',
+                title: 'Preplanned items for planning the show planning.',
+                descripton: '',
+                issues: [
+                    {
+                        id: '1',
+                        title: 'Test 1',
+                        required: true,
+                        description: `
+                        # User Story
+                        Jo
+
+                        # Acceptance criteria
+
+                        * [ ] SDFKJSDKF
+                        /label ~VISSTS ~Role: Handy Person
+                        `,
+                    },
+                    {
+                        id: '2',
+                        title: 'Test 2',
+                        required: false,
+                        description: `
+                        # User Story
+                        Jo
+
+                        # Acceptance criteria
+
+                        * [ ] SDFKJSDKF
+                        /lable ~VISSTS ~Role: Handy Person
+                        `,
+                    }, {
+                        id: '3',
+                        title: 'Test 3',
+                        required: false,
+                        description: `
+                        # User Story
+                        Jo
+
+                        # Acceptance criteria
+
+                        * [ ] SDFKJSDKF
+                        /lable ~VISSTS ~Role: Handy Person
+                        `,
+                    }
+                ]
+            },
+            {
+                id: 'planning-a-concert',
+                title: 'Pre-Planning of a planning of a concert planning',
+                description: '',
+                issues: [
+                    {
+                        id: '4',
+                        title: 'Geht',
+                        description: '',
+                        required: true,
+                    },
+                ],
+            },
+        ];
+
+        const createIssue = () => {
+
+        }
+
+        const run = () => {
+            let templatesList = document.querySelectorAll('.templates')[0];
+            let tt = document.getElementById('template').cloneNode(true);
+            let issueList = tt.querySelector('.issueList').cloneNode(true);
+
+            templates.forEach((template) => {
+                tt = document.getElementById('template').cloneNode(true);
+                console.log(tt)
+                issueList = tt.querySelector('.issueList');
+                // id
+                // issues
+                // tt.querySelector('.title').innerHTML = template.title;
+
+                template.issues.forEach((issue) => {
+                    // id
+                    // title
+                    // description
+                    let ti = document.getElementById('issue').cloneNode(true);
+                    // ti.querySelector('input').setAttribute('name', issue.id);
+                    // ti.querySelector('input').setAttribute('value', true);
+                    // if (issue.required) document.querySelector('input').setAttribute('required', 'required');
+                    // ti.querySelector('.title').innerHTML = issue.title;
+                    issueList.append(ti);
+                })
+                tt.append(issueList);
+                console.log(template,tt,issueList);
+                issueList = undefined;
+                templatesList.append(tt);
+                tt = undefined;
+            })
+        }
+
+        document.addEventListener("DOMContentLoaded", function (event) {
+            run()
+
+        });
+
+
+    </script>
+</body>
+
+</html>

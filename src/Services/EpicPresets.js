@@ -1,62 +1,80 @@
 export const epics = [
     {
         id: 'planning-a-show',
-        title: 'Preplanned items for planning the show planning.',
-        descripton: '',
+        title: 'Show Planning',
+        description: 'Preplanned items for planning the show planning.',
         issues: [
             {
-                id: '1',
+                id: '38ushdj',
                 title: 'Test 1',
                 required: true,
-                description: `
-                # User Story
-                Jo
+                selected: true,
+                description: `# User Story
+Jo
 
-                # Acceptance criteria
+# Acceptance criteria
 
-                * [ ] SDFKJSDKF
-                /label ~VISSTS ~Role: Handy Person
+/label ~VISSTS ~Role: Handy Person
                 `,
             },
             {
-                id: '2',
+                id: '382shdj',
+                title: 'Ein Langer Titel mit grosser Bedeutung',
+                required: true,
+                selected: true,
+                description: `# User Story
+Jo
+
+# Acceptance criteria
+
+* [ ] SDFKJSDKF
+* [ ] SDFKJSDKF
+* [ ] SDFKJSDKF
+* [ ] SDFKJSDKF
+* [ ] SDFKJSDKF
+/label ~VISSTS ~Role: Handy Person
+                `,
+            },
+            {
+                id: '23hgsgj',
                 title: 'Test 2',
                 required: false,
-                description: `
-                # User Story
-                Jo
+                selected: true,
+                description: `# User Story
+Jo
 
-                # Acceptance criteria
+# Acceptance criteria
 
-                * [ ] SDFKJSDKF
-                /lable ~VISSTS ~Role: Handy Person
+* [ ] SDFKJSDKF
+/lable ~VISSTS ~Role: Handy Person
                 `,
             }, {
-                id: '3',
+                id: '234uhufh',
                 title: 'Test 3',
                 required: false,
-                description: `
-                # User Story
-                Jo
+                selected: false,
+                description: `# User Story
+Jo
 
-                # Acceptance criteria
+# Acceptance criteria
 
-                * [ ] SDFKJSDKF
-                /lable ~VISSTS ~Role: Handy Person
+* [ ] SDFKJSDKF
+/lable ~VISSTS ~Role: Handy Person
                 `,
             }
         ]
     },
     {
         id: 'planning-a-concert',
-        title: 'Pre-Planning of a planning of a concert planning',
-        description: '',
+        title: 'Conert Planning',
+        description: 'Pre-Planning of a planning of a concert planning',
         issues: [
             {
                 id: '4',
                 title: 'Geht',
-                description: '',
+                description: 'What the fuck',
                 required: true,
+                selected: true,
             },
         ],
     },

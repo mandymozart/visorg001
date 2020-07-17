@@ -1,0 +1,37 @@
+.epic {
+    border: 1px solid;
+    margin-bottom: 1rem;
+    box-shadow: -.25rem .25rem 0 black;
+    border-radius: .5rem;
+}
+.epic > h3 {
+    margin: 0;
+    border-bottom: 1px solid;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: 8fr 5fr;
+    align-items: center;
+}
+
+.epic > h3 > span {
+    justify-self: center;
+    font-size: .75rem;
+    color: #636363;
+    font-weight: 100;
+}
+
+.epic__issues > div {
+    border-bottom: 1px solid;
+}
+.epic__description {
+    padding: 0 1rem;
+}
+.epic__action {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1rem;
+    padding: 1rem;
+}
+.epic__action button {
+    height: 2rem;
+}

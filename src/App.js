@@ -1,18 +1,25 @@
 import React from 'react';
 import { Create } from './Pages/Create';
-import logo from './logo.svg';
 import './App.css';
+
+
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <div className="App-logo">
+          <img src="/logo.png" alt="Vienna Struggle" />
+        </div>
+        <h1>
+          EPIC TEMPLATES
+        </h1>
         <p>
-          Templates for common VIS projects.
+        Templates for common VIS projects.
         </p>
        
       </header>
-      <div class="router-outlet">
+      <div className="App-main">
         <Create/>
       </div>
     </div>

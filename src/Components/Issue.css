@@ -1,0 +1,55 @@
+.issue {
+    height: 3rem;
+    transition: all .2s cubic-bezier(1, 0, 0, 1);
+}
+.issue.selected {
+    height: 15rem;
+    overflow: hidden;
+}
+.issue.selected .issue__description {
+    display: block;
+}
+.issue__description {
+    display: none;
+    height: 10rem;
+    overflow-y: auto;
+    padding: 1rem;
+}
+.issue__description > * {
+    font-size: .75rem;
+}
+.issue > h3 {
+    padding: 1rem;
+    display: grid;
+    margin: 0;
+    font-size: 1rem;
+    grid-template-columns: auto 8rem;
+    align-items: center;
+}
+
+.issue > h3 > span {
+    justify-self: center;
+}
+.issue > h3 > span > button {
+    font-size: .75rem;
+    justify-self: center;
+    color: #636363;
+    font-weight: 100;
+    cursor: pointer;
+}
+.issue > h3 > span > button:first-of-type {
+    margin-right: 1rem;
+}
+.issue {
+    background: lightgray;
+}
+.issue.selected {
+    background: white;
+}
+.issue:hover {
+    background: rgb(255, 251, 133);
+    /* cursor: se-resize; */
+}
+.issue.selected:hover {
+    /* cursor: nw-resize; */
+}

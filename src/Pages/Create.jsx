@@ -3,19 +3,10 @@ import { epics } from '../Services/EpicPresets';
 import { Epic } from '../Components/Epic';
 
 export const Create = () => {
-
-    const createIssue = () => {
-        
-    }
-
-    const create = () => {
-
-    }
-
     return(
-        <div class="create-page">
-            <h2>Create Epics from Templates</h2>
-                {epics.map((epic) => <Epic epic={epic} />)}
+        <div className="create-page">
+            <h2>Create Template</h2>
+                {epics.map((epic) => <Epic key={epic.id} epic={epic} />)}
         </div>
     );
 }

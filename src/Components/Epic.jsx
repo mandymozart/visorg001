@@ -1,6 +1,6 @@
 import React from 'react';
 import { Issue } from '../Components/Issue';
-import { config } from '../config';
+// import { config } from '../config';
 import './Epic.css';
 
 export const urlEncodeParams = (data) => {

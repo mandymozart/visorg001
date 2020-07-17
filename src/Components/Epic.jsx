@@ -20,11 +20,11 @@ export const Epic = (props) => {
 
     const epic = props.epic;
 
-    const open = (issue) => {
-        console.log('create issue:',issue)
-        return window.open(config.repoURL + '/issues/new?' + urlEncodeParams(issue).join('&'), "_blank");
+    // const open = (issue) => {
+    //     console.log('create issue:',issue)
+    //     return window.open(config.repoURL + '/issues/new?' + urlEncodeParams(issue).join('&'), "_blank");
 
-    }
+    // }
 
     // const createEpic = () => {
     //     console.log(epic)
@@ -36,10 +36,10 @@ export const Epic = (props) => {
 
     return (
         <div className="epic">
-            <h3>{props.epic.title} 
+            <h3>{epic.title} 
             {/* <span className="epic__id">{props.epic.id}</span> */}
             </h3>
-            <p className="epic__description">{props.epic.description}</p>
+            <p className="epic__description">{epic.description}</p>
             <div className="epic__issues">
                 {epic.issues.map((issue) =>
                     <div key={issue.id} className={'epic__issue'}>

@@ -41,7 +41,7 @@
     margin-right: 1rem;
 }
 .issue {
-    background: lightgray;
+    /* background: lightgray; */
 }
 .issue.selected {
     background: white;

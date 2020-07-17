@@ -9,7 +9,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <div className="App-logo">
-          <img src="/logo.png" alt="Vienna Struggle" />
+          <img src="/logo.svg" alt="Vienna Struggle" />
         </div>
         <h1>
           EPIC TEMPLATES

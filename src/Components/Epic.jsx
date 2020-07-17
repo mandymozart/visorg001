@@ -26,13 +26,13 @@ export const Epic = (props) => {
 
     }
 
-    const createEpic = () => {
-        console.log(epic)
-        props.epic.issues.map((issue) => {
-            open(issue)
-        })
-        return 
-    }
+    // const createEpic = () => {
+    //     console.log(epic)
+    //     props.epic.issues.map((issue) => {
+    //         open(issue)
+    //     })
+    //     return 
+    // }
 
     return (
         <div className="epic">

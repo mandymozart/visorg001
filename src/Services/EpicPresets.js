@@ -32,7 +32,7 @@ Jo
 * [ ] SDFKJSDKF
 * [ ] SDFKJSDKF
 * [ ] SDFKJSDKF
-/label ~VISSTS ~Role: Handy Person
+/label ~VISSTS ~Role:HandyPerson
                 `,
             },
             {
@@ -46,7 +46,7 @@ Jo
 # Acceptance criteria
 
 * [ ] SDFKJSDKF
-/lable ~VISSTS ~Role: Handy Person
+/label ~VISSTS ~Role:HandyPerson
                 `,
             }, {
                 id: '234uhufh',
@@ -59,7 +59,7 @@ Jo
 # Acceptance criteria
 
 * [ ] SDFKJSDKF
-/lable ~VISSTS ~Role: Handy Person
+/label ~VISSTS ~Role:HandyPerson
                 `,
             }
         ]

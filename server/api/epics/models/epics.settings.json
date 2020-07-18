@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "epics",
+  "info": {
+    "name": "Epics"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "selected": {
+      "type": "boolean"
+    },
+    "Issue": {
+      "type": "component",
+      "repeatable": false,
+      "component": "issue.issue"
+    }
+  }
+}

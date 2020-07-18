@@ -1,12 +1,48 @@
-import React from 'react';
-import { epics } from '../Services/EpicPresets';
-import { Epic } from '../Components/Epic';
+import React, { useEffect, useState } from 'react';
+import Prismic from 'prismic-javascript'
+import { client } from '../../prismic-configuration'
+// import { epics } from '../../Services/EpicPresets';
+import { Epic } from '../../Components/Epic';
+import { Navigation } from '../../Components/Navigation';
 
-export const Create = () => {
-    return(
+export default (props) => {
+    const [epics, setEpics] = useState(null)
+    const [hasError, setHasError] = useState(false)
+
+    useEffect(() => {
+        const fetchData = async () => {
+            // We are using the function to get a document by its UID
+            client.query(
+                Prismic.Predicates.at('document.type', 'epic'),
+                { orderings: '[my.epic.title desc]' }
+            ).then(res => {
+                // res is the response object, res.results holds the documents
+                console.log(res.results)
+                return setEpics(res.results)
+            }).catch(error => {
+
+                console.warn('Epics not found. Make sure it exists in your Prismic repository',error)
+                setHasError(true);
+                return
+            })
+
+        }
+        fetchData()
+
+    }, [props])
+    return (
         <div className="create-page">
+            <Navigation/>
             <h2>Create Template</h2>
-                {epics.map((epic) => <Epic key={epic.id} epic={epic} />)}
+            {hasError && (
+                <>Has Error</>
+            )}
+            {epics && (<>
+                {epics.map((epic) => 
+                // <>{epic.id}</>
+                <Epic key={epic.id} epic={epic} />
+                )}
+            </>)}
         </div>
     );
 }

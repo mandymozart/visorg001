@@ -1,5 +1,7 @@
 import React from 'react';
+import ReactMarkdown from 'react-markdown';
 import { Issue } from '../Components/Issue';
+import { convertToPlainText } from './../utils';
 // import { config } from '../config';
 import './Epic.css';
 
@@ -18,7 +20,8 @@ export const urlEncodeParams = (data) => {
 
 export const Epic = (props) => {
 
-    const epic = props.epic;
+    const epic = props.epic.data;
+    // console.log(epic)
 
     // const open = (issue) => {
     //     console.log('create issue:',issue)
@@ -36,20 +39,24 @@ export const Epic = (props) => {
 
     return (
         <div className="epic">
-            <h3>{epic.title} 
-            {/* <span className="epic__id">{props.epic.id}</span> */}
-            </h3>
-            <p className="epic__description">{epic.description}</p>
-            <div className="epic__issues">
-                {epic.issues.map((issue) =>
-                    <div key={issue.id} className={'epic__issue'}>
-                        <Issue issue={issue} />
+            {epic && (
+                <>
+                    <h3>{epic.titel[0].text}
+                        {/* <span className="epic__id">{props.epic.id}</span> */}
+                    </h3>
+                    <ReactMarkdown source={convertToPlainText(epic.description)}  className="epic__description"/>
+                    <div className="epic__issues">
+                        {epic.issues.map((issue) =>
+                            <div key={issue.issue.id} className={'epic__issue'}>
+                                <Issue uid={issue.issue.uid} />
+                            </div>
+                        )}
                     </div>
-                )}
-            </div>
-            <div className="epic__action">
-                {/* <button type="button" onClick={() => createEpic()}>Add to Sprint Backlog</button> */}
-            </div>
+                    <div className="epic__action">
+                        {/* <button type="button" onClick={() => createEpic()}>Add to Sprint Backlog</button> */}
+                    </div>
+                </>
+            )}
         </div>
     );
 }

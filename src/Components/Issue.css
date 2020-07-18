@@ -18,8 +18,17 @@
 .issue__description > * {
     font-size: .75rem;
 }
+.issue__required-label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #ffb3b3;
+    width: .25rem;
+    height: 3rem;
+}
 .issue > h3 {
-    padding: 1rem;
+    line-height: 3rem;
+    padding: 0 1rem;
     display: grid;
     margin: 0;
     font-size: 1rem;
@@ -42,6 +51,7 @@
 }
 .issue {
     /* background: lightgray; */
+    position: relative;
 }
 .issue.selected {
     background: white;

@@ -67,7 +67,8 @@ export const Issue = (props) => {
                 <>
                     <h3>{issue.titel[0].text}
                         <span>
-                            <button onClick={() => setVisible(!visible)} className="issue__id">Expand</button><button onClick={() => open(issue)} className="issue__id primary">Create</button>
+                            <button onClick={() => open(issue)} className="issue__id primary">Create</button>
+                            <button onClick={() => setVisible(!visible)} className="issue__id">Expand</button>
                         </span>
                     </h3>
                     {issue.required && (<span className='issue__required-label'></span>)}

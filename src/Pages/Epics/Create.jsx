@@ -32,7 +32,6 @@ export default (props) => {
     }, [props])
     return (
         <div className="create-page">
-            <Navigation/>
             <h2>Create Template</h2>
             {hasError && (
                 <>Has Error</>

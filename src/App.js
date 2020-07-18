@@ -10,6 +10,7 @@ import {
 } from 'react-router-dom'
 import { apiEndpoint } from './prismic-configuration'
 import { NotFound, Page, CreateEpics } from './Pages'
+import { Navigation } from './Components/Navigation';
 
 function App() {
   const repoNameArray = /([^/]+)\.cdn.prismic\.io\/api/.exec(apiEndpoint)
@@ -18,34 +19,37 @@ function App() {
 
   return (
     <Fragment>
-    <Helmet>
-      <script async defer src={`//static.cdn.prismic.io/prismic.js?repo=${repoName}&new=true`} />
-    </Helmet>
-    <div className="App">
-      <header className="App-header">
-        <div className="App-logo">
-          <img src="/logo.svg" alt="Vienna Struggle" />
-        </div>
-        <h1>
-          EPIC TEMPLATES
+      <Helmet>
+        <script async defer src={`//static.cdn.prismic.io/prismic.js?repo=${repoName}&new=true`} />
+      </Helmet>
+      <BrowserRouter>
+        <div className="App">
+          <header className="App-header">
+            <div className="App-logo">
+              <img src="/logo.svg" alt="Vienna Struggle" />
+            <Navigation />
+            </div>
+            <div>
+              <h1>
+              EPIC TEMPLATES
         </h1>
-        <p>
-        Templates for common VIS projects.
+            <p>
+              Templates for common VIS projects.
         </p>
-       
-      </header>
-      <div className="App-main">
-        <BrowserRouter>
-          <Switch>
-            <Redirect exact from='/' to='/page/terms' />
-            <Route exact path='/epics/create' component={CreateEpics} />
-            <Route exact path='/page/:uid' component={Page} />
-            <Route component={NotFound} />
-          </Switch>
-        </BrowserRouter>
-      </div>
-    </div>
-  </Fragment>
+              </div>
+
+          </header>
+          <div className="App-main">
+            <Switch>
+              <Redirect exact from='/' to='/page/terms' />
+              <Route exact path='/epics/create' component={CreateEpics} />
+              <Route exact path='/page/:uid' component={Page} />
+              <Route component={NotFound} />
+            </Switch>
+          </div>
+        </div>
+      </BrowserRouter>
+    </Fragment>
   );
 }
 

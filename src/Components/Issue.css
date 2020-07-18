@@ -39,13 +39,6 @@
 .issue > h3 > span {
     justify-self: center;
 }
-.issue > h3 > span > button {
-    font-size: .75rem;
-    justify-self: center;
-    color: #636363;
-    font-weight: 100;
-    cursor: pointer;
-}
 .issue > h3 > span > button:first-of-type {
     margin-right: 1rem;
 }

@@ -31,7 +31,6 @@ const Page = ({ match }) => {
   if (doc) {
     return (
       <div className="page">
-        <Navigation/>
         <h1>{RichText.asText(doc.data.title)}</h1>
         <RichText render={doc.data.description} linkResolver={linkResolver} />
         {/* <img src={doc.data.image.url} alt={doc.data.image.alt} /> */}

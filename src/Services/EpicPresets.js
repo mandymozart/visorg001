@@ -50,7 +50,7 @@ Jo
                 `,
             }, {
                 id: '234uhufh',
-                title: 'Test 3',
+                title: 'Pre-Planning of a planning of a concert planning',
                 required: false,
                 selected: false,
                 description: `# User Story
@@ -59,7 +59,7 @@ Jo
 # Acceptance criteria
 
 * [ ] SDFKJSDKF
-/lable ~VISSTS ~Role: Handy Person
+/label ~VISSTS ~"Role: Handy Person" ~"VISEXT002"
                 `,
             }
         ]

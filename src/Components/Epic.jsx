@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Issue } from '../Components/Issue';
 import { convertToPlainText } from './../utils';
@@ -19,7 +19,7 @@ export const urlEncodeParams = (data) => {
 }
 
 export const Epic = (props) => {
-
+    const [visible, setVisible] = useState(false);
     const epic = props.epic.data;
     // console.log(epic)
 
@@ -42,19 +42,23 @@ export const Epic = (props) => {
             {epic && (
                 <>
                     <h3>{epic.titel[0].text}
-                        {/* <span className="epic__id">{props.epic.id}</span> */}
+                        <button className="epic__id" onClick={() => setVisible(!visible)}>Expand</button>
                     </h3>
-                    <ReactMarkdown source={convertToPlainText(epic.description)}  className="epic__description"/>
-                    <div className="epic__issues">
-                        {epic.issues.map((issue) =>
-                            <div key={issue.issue.id} className={'epic__issue'}>
-                                <Issue uid={issue.issue.uid} />
+                    {visible && (
+                        <>
+                            <ReactMarkdown source={convertToPlainText(epic.description)} className="epic__description" />
+                            <div className="epic__issues">
+                                {epic.issues.map((issue) =>
+                                    <div key={issue.issue.id} className={'epic__issue'}>
+                                        <Issue uid={issue.issue.uid} />
+                                    </div>
+                                )}
                             </div>
-                        )}
-                    </div>
-                    <div className="epic__action">
-                        {/* <button type="button" onClick={() => createEpic()}>Add to Sprint Backlog</button> */}
-                    </div>
+                            {/* <div className="epic__action">
+                                <button type="button" onClick={() => createEpic()}>Add to Sprint Backlog</button>
+                            </div>  */}
+                        </>
+                    )}
                 </>
             )}
         </div>

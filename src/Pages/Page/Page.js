@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { RichText } from 'prismic-reactjs'
 import { client, linkResolver } from '../../prismic-configuration'
 import NotFound from '../NotFound'
-import { Navigation } from '../../Components/Navigation'
 
 const Page = ({ match }) => {
   const [doc, setDocData] = useState(null)

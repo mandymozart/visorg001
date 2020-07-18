@@ -31,7 +31,7 @@ export const Issue = (props) => {
         const fetchData = async () => {
             // We are using the function to get a document by its UID
             let res = await client.getByUID('issue', props.uid)
-            console.log(res)
+            // console.log(res)
             if (res) {
                 // res is the response object, res.results holds the documents
                 // console.log(res.results)
@@ -48,7 +48,7 @@ export const Issue = (props) => {
     }, [props])
 
     const open = (issue) => {
-        console.log('create issue:', issue)
+        // console.log('create issue:', issue)
         let issueMap = {
             title:  convertToPlainText(issue.titel),
             description: convertToPlainText(issue.description)

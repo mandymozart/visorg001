@@ -1,13 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState/*, useContext */} from 'react';
 import Prismic from 'prismic-javascript'
 import { client } from '../../prismic-configuration'
 // import { epics } from '../../Services/EpicPresets';
 import { Epic } from '../../Components/Epic';
-import { Navigation } from '../../Components/Navigation';
+import { project, ProjectProvider } from '../Contexts/Project';
+import './Create.css';
+// import { Formik, Field, ErrorMessage, Form } from 'formik';
 
 export default (props) => {
     const [epics, setEpics] = useState(null)
     const [hasError, setHasError] = useState(false)
+
+    // const globalState = useContext(project);
+    // const { dispatch } = globalState;
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -17,11 +23,11 @@ export default (props) => {
                 { orderings: '[my.epic.title desc]' }
             ).then(res => {
                 // res is the response object, res.results holds the documents
-                console.log(res.results)
+                // console.log(res.results)
                 return setEpics(res.results)
             }).catch(error => {
 
-                console.warn('Epics not found. Make sure it exists in your Prismic repository',error)
+                console.warn('Epics not found. Make sure it exists in your Prismic repository', error)
                 setHasError(true);
                 return
             })
@@ -30,18 +36,84 @@ export default (props) => {
         fetchData()
 
     }, [props])
+
     return (
-        <div className="create-page">
-            <h2>Create Template</h2>
-            {hasError && (
-                <>Has Error</>
-            )}
-            {epics && (<>
-                {epics.map((epic) => 
-                // <>{epic.id}</>
-                <Epic key={epic.id} epic={epic} />
+
+        <div className="Create">
+            <ProjectProvider>
+                <div className='page__header'>
+                    <h2>Create Epic {project && (<span>{project.id}</span>)}</h2>
+                    <p>
+                        You can create epics from templates. To edit or add templates you have to use the <a href="https://visorg001.prismic.io/documents" rel="noopener noreferrer" target="_blank">external CMS editor</a>.
+                </p>
+                </div>
+                {hasError && (
+                    <>Has Error</>
                 )}
-            </>)}
+
+                {epics ? (<>
+                    {/* <Formik
+                        initialValues={{
+                            id: '',
+                            lang: 'en-GB',
+                            labels: '~Epic, ~Draft'
+                        }}
+                        validate={values => {
+                            const errors = {};
+                            if (!values.id) {
+                                errors.id = 'Required';
+                            }
+                            return errors;
+                        }}
+                        onSubmit={(values, { setSubmitting }) => {
+                            dispatch({ type: 'update', payload: values })
+                            setSubmitting(false);
+                            setTimeout(() => {
+                                alert(JSON.stringify(project, null, 2));
+                            }, 400);
+                        }}
+                    >
+                        {({
+                            isSubmitting,
+                        }) => (
+                                <Form>
+                                    <p>If you provide a project id (VISSTS002, VISEXT002, etc.) it will automatically tag all tickets correctly.</p>
+                                    <div className="field">
+                                        <label for='id'>
+                                            Project Id
+                                        </label>
+                                        <Field
+                                            type="text"
+                                            name="id"
+                                            placeholder='VISSTS:021'
+                                        />
+                                        <ErrorMessage name="id" component="p" />
+
+                                    </div>
+                                    <div className="field">
+                                        <label for='labels'>
+                                            Labels (ex: ~"Role: Designer" ~VISSTS ~"Role: Organ Player")
+                                </label>
+                                        <Field label='labels'
+                                            type="text"
+                                            name="labels"
+                                        />
+                                        <ErrorMessage name="lang" component="p" />
+
+                                    </div>
+                                    <button type="submit" disabled={isSubmitting}>Change</button>
+                                </Form>
+                            )}
+                    </Formik> */}
+                    {epics.map((epic) =>
+                        // <>{epic.id}</>
+                        <Epic key={epic.id} epic={epic} />
+                    )}
+                </>) : (
+                        <small>Loading...</small>
+                    )
+                }
+            </ProjectProvider>
         </div>
     );
 }

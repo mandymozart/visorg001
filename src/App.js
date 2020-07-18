@@ -27,16 +27,8 @@ function App() {
           <header className="App-header">
             <div className="App-logo">
               <img src="/logo.svg" alt="Vienna Struggle" />
-            <Navigation />
             </div>
-            <div>
-              <h1>
-              EPIC TEMPLATES
-        </h1>
-            <p>
-              Templates for common VIS projects.
-        </p>
-              </div>
+            <Navigation />
 
           </header>
           <div className="App-main">
@@ -46,6 +38,7 @@ function App() {
               <Route exact path='/page/:uid' component={Page} />
               <Route component={NotFound} />
             </Switch>
+            <small>&copy; 2020 Vienna Struggle Media GmbH</small>
           </div>
         </div>
       </BrowserRouter>

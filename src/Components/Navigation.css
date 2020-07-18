@@ -1,0 +1,24 @@
+.Navigation h4 {
+    margin: 0;
+    font-size: .75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+}
+
+.Navigation ul {
+    margin: 0;
+    padding: 0;
+}
+
+.Navigation li {
+    list-style: none;
+    border-bottom: 1px solid;
+    line-height: 2.5rem;
+}
+.Navigation li:last-of-type {
+    border: 0;
+}
+
+.Navigation li:before {
+    content: '⟶ ';
+}

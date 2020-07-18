@@ -12,6 +12,13 @@ code {
     monospace;
 }
 
+:root {
+  --color: #3369ff;
+}
+p {
+  line-height: 1.5rem;
+}
+
 button {
   font-size: .75rem;
   justify-self: center;
@@ -24,8 +31,8 @@ button {
   box-sizing: border-box;
   text-decoration: none;
   color: #FFFFFF;
-  background-color: #3369ff;
-  box-shadow: inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
+  background-color: var(--color);
+  box-shadow: inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.23);
   text-align: center;
   position: relative;
   transition: all .2s cubic-bezier(1, 0, 0, 1);
@@ -33,4 +40,50 @@ button {
 }
 button:hover {
   transform: translateY(-.1rem);
+}
+.field {
+  display: block;
+  line-height: 2rem;
+}
+.field input {
+
+  font-weight: 900;
+  /* border: 1px solid; */
+  border: 0;
+  /* padding: 0 .5rem; */
+  display: block;
+  line-height: 1.5rem;
+  border-radius: 0.15em;
+  box-sizing: border-box;
+  text-decoration: none;
+  position: relative;
+  transition: all .3s cubic-bezier(1, 0, 0, 1);
+  outline: none;
+  margin-right: .5rem;
+  width: 100%;
+}
+.field label {
+  font-size: .75rem;
+  display: block;
+}
+input:hover {
+  color: var(--color);
+}
+input:focus {
+  border-color: greenyellow;
+}
+form button {
+  margin: 1rem 0;
+  width: 100%;
+}
+a {
+  text-decoration: none;
+  color: var(--color);
+  transition: all .2s cubic-bezier(1, 0, 0, 1);
+  display: inline-block;
+  transform: translateX(0) translateY(0);
+}
+a:hover {
+  color: black;
+  transform: translateY(-.15rem) translateX(.15rem);
 }

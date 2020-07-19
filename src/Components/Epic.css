@@ -3,6 +3,7 @@
     margin-bottom: 1rem;
     box-shadow: -.25rem .25rem 0 black;
     border-radius: .5rem;
+    background: white;
 }
 .epic > h3 {
     margin: 0;

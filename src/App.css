@@ -1,43 +1,16 @@
-
-.App-header {
-  border: 1px solid black;
-  margin: 2rem;
-  padding: 1rem;
-  /* box-shadow: -.25rem .25rem 0 black; */
-  border-radius: .5rem;
-  position: fixed;
-  background: white;
-  width: 11rem;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  /* align-items: center; */
-  z-index: 10;
-}
-.App-header h1 {
-  font-size: 1.5rem;
-  font-weight: 200
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-.App-logo {
-  width: 100%;
-  margin-right: 2rem;
-  margin-bottom: 1rem;
-}
-.App-logo img {
-  width: 100%;
-}
 .App-main {
   padding: 2rem;
-  /* margin-top: 15rem; */
-  /* margin-left: 14rem; */
   margin-left: 15rem;
 }
 .App-main > div > h2 {
   margin: 0 0 1rem 0;
   text-align: right;
+}
+
+@media (max-width: 1024px) {
+  .App-main {
+    margin-left: 0;
+    margin-top: 5rem;
+    padding: 1rem;
+  }
 }

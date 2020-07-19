@@ -10,7 +10,9 @@ import {
 } from 'react-router-dom'
 import { apiEndpoint } from './prismic-configuration'
 import { NotFound, Page, CreateEpics } from './Pages'
-import { Navigation } from './Components/Navigation';
+import Header from './Components/Header';
+import Background from './Components/Background';
+import Footer from './Components/Footer';
 
 function App() {
   const repoNameArray = /([^/]+)\.cdn.prismic\.io\/api/.exec(apiEndpoint)
@@ -23,14 +25,9 @@ function App() {
         <script async defer src={`//static.cdn.prismic.io/prismic.js?repo=${repoName}&new=true`} />
       </Helmet>
       <BrowserRouter>
+      <Background/>
         <div className="App">
-          <header className="App-header">
-            <div className="App-logo">
-              <img src="/logo.svg" alt="Vienna Struggle" />
-            </div>
-            <Navigation />
-
-          </header>
+          <Header/>
           <div className="App-main">
             <Switch>
               <Redirect exact from='/' to='/page/terms' />
@@ -38,7 +35,7 @@ function App() {
               <Route exact path='/page/:uid' component={Page} />
               <Route component={NotFound} />
             </Switch>
-            <small>&copy; 2020 Vienna Struggle Media GmbH</small>
+            <Footer/>
           </div>
         </div>
       </BrowserRouter>

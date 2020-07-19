@@ -1,0 +1,21 @@
+.Footer {
+}
+.Footer .Navigation {
+    background: transparent;
+    box-shadow: none;
+}
+.Footer .Navigation h4 {
+    text-align: left;
+}
+.Footer .Navigation ul {
+}
+.Footer .Navigation ul li {
+    line-height: 1.5rem;
+    font-size: .75rem;
+    border: 0;
+}
+
+
+@media (max-width: 1024px) {
+   
+}

@@ -22,3 +22,15 @@
 .Navigation li:before {
     content: '⟶ ';
 }
+@media (max-width: 1024px) {
+
+    .Navigation {
+        background: white;
+        padding: 2rem 0;
+        margin: 0;
+        box-shadow: 0 1px black;
+    }
+    .Navigation h4 {
+        text-align: center;
+    }
+}

@@ -1,0 +1,12 @@
+.Background {
+    position: fixed;
+    top: 0;
+    opacity: 0.1;
+    z-index: -10000;
+}
+.Background img {
+    width: 200vw;
+    object-fit: cover;   
+    height: 200vh;
+    transform:  rotateX(-15deg) rotateY(7deg) rotateZ(-19deg) translateX(-45px) translateY(-41px) translateZ(17px);
+}

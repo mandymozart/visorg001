@@ -42,9 +42,9 @@ export default (props) => {
         <div className="Create">
             <ProjectProvider>
                 <div className='page__header'>
-                    <h2>Create Epic {project && (<span>{project.id}</span>)}</h2>
+                    <h2>Browser Epics {project && (<span>{project.id}</span>)}</h2>
                     <p>
-                        You can create epics from templates. To edit or add templates you have to use the <a href="https://visorg001.prismic.io/documents" rel="noopener noreferrer" target="_blank">external CMS editor</a>.
+                        You can create issues of epics from these templates. To edit or add templates you have to use the <a href="https://visorg001.prismic.io/documents" rel="noopener noreferrer" target="_blank">external CMS editor</a>.
                 </p>
                 </div>
                 {hasError && (

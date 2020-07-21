@@ -1,3 +1,5 @@
+import { config } from './config';
+
 export const stripHtml = (html) => {
     var tmp = document.createElement("DIV");
     tmp.innerHTML = html;
@@ -13,6 +15,18 @@ export const convertToPlainText = (prismicText) => {
     return result;
 }
 
+export const urlEncodeParams = (data) => {
+    let out = [];
+
+    for (let key in data) {
+        if (data.hasOwnProperty(key)) {
+            out.push(`issue[${key}]=${encodeURIComponent(data[key])}`);
+        }
+    }
+    out.join('&');
+    console.log(out)
+    return out;
+}
 
 export const oepnNewGitlabIssue = (issue) => {
     // console.log('create issue:', issue)

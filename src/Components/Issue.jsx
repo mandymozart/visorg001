@@ -5,21 +5,6 @@ import React, { useEffect, useState } from 'react';
 import { client } from '../prismic-configuration'
 import { convertToPlainText, oepnNewGitlabIssue } from './../utils';
 
-
-export const urlEncodeParams = (data) => {
-    let out = [];
-
-    for (let key in data) {
-        if (data.hasOwnProperty(key)) {
-            out.push(`issue[${key}]=${encodeURIComponent(data[key])}`);
-        }
-    }
-    out.join('&');
-    console.log(out)
-    return out;
-}
-
-
 export const Issue = (props) => {
 
     const [visible, setVisible] = useState(false);
@@ -55,7 +40,7 @@ export const Issue = (props) => {
                     <h3>{issue.titel[0].text}
                         <span>
                             <button onClick={() => oepnNewGitlabIssue(issue)} className="issue__id primary">Create</button>
-                            <button onClick={() => setVisible(!visible)} className="issue__id">Expand</button>
+                            <button onClick={() => setVisible(!visible)} className="issue__id">Details</button>
                         </span>
                     </h3>
                     {issue.required && (<span className='issue__required-label'></span>)}

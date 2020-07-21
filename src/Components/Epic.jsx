@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Issue } from '../Components/Issue';
-import { convertToPlainText } from './../utils';
+import { convertToPlainText, oepnNewGitlabIssue } from './../utils';
 // import { config } from '../config';
 import './Epic.css';
 
@@ -27,9 +27,11 @@ export const Epic = (props) => {
             {epic && (
                 <>
                     <h3>{epic.titel[0].text}
-                        <button onClick={() => oepnNewGitlabIssue(epic)} className="issue__id primary">Create</button>
-                        <button className="epic__id" onClick={() => setVisible(!visible)}>Expand</button>
                     </h3>
+                    <div class="epic__actions">
+                    <button onClick={() => oepnNewGitlabIssue(epic)} className="issue__id primary">Create</button>
+                    <button className="epic__id" onClick={() => setVisible(!visible)}>Details</button>
+                    </div>
                     {visible && (
                         <>
                             <ReactMarkdown source={convertToPlainText(epic.description)} className="epic__description" />

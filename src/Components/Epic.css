@@ -9,16 +9,10 @@
     margin: 0;
     /* border-bottom: 1px solid; */
     padding: 1rem;
-    display: grid;
-    grid-template-columns: auto 4rem;
+    display: block;
+    /* display: grid;
+    grid-template-columns: auto 8rem; */
     align-items: center;
-}
-
-.epic > h3 >  {
-    /* justify-self: center; */
-    font-size: .75rem;
-    color: #636363;
-    font-weight: 100;
 }
 
 .epic__issues > div {
@@ -41,12 +35,10 @@
 .epic__description h6 {
     font-size: 1rem;
 }
-.epic__action {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 1rem;
+.epic__actions {
     padding: 1rem;
+    padding-top: 0;
 }
-.epic__action button {
-    height: 2rem;
+.epic__actions button {
+    margin-right: 1rem;
 }

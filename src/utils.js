@@ -12,3 +12,15 @@ export const convertToPlainText = (prismicText) => {
     })
     return result;
 }
+
+
+export const oepnNewGitlabIssue = (issue) => {
+    // console.log('create issue:', issue)
+    let issueMap = {
+        title:  convertToPlainText(issue.titel),
+        description: convertToPlainText(issue.description)
+    }
+
+    return window.open(config.repoURL + '/issues/new?' + urlEncodeParams(issueMap).join('&'), "_blank");
+
+}

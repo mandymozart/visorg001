@@ -3,7 +3,7 @@ import './Issue.css';
 import { config } from '../config';
 import React, { useEffect, useState } from 'react';
 import { client } from '../prismic-configuration'
-import { convertToPlainText } from './../utils';
+import { convertToPlainText, oepnNewGitlabIssue } from './../utils';
 
 
 export const urlEncodeParams = (data) => {
@@ -47,19 +47,6 @@ export const Issue = (props) => {
 
     }, [props])
 
-    const open = (issue) => {
-        // console.log('create issue:', issue)
-        let issueMap = {
-            title:  convertToPlainText(issue.titel),
-            description: convertToPlainText(issue.description)
-        }
-
-        return window.open(config.repoURL + '/issues/new?' + urlEncodeParams(issueMap).join('&'), "_blank");
-
-    }
-
-
-
     return (
         <div className={visible ? "issue selected" : "issue"}>
             {hasError && (<>Has Error</>)}
@@ -67,7 +54,7 @@ export const Issue = (props) => {
                 <>
                     <h3>{issue.titel[0].text}
                         <span>
-                            <button onClick={() => open(issue)} className="issue__id primary">Create</button>
+                            <button onClick={() => oepnNewGitlabIssue(issue)} className="issue__id primary">Create</button>
                             <button onClick={() => setVisible(!visible)} className="issue__id">Expand</button>
                         </span>
                     </h3>

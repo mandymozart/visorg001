@@ -21,27 +21,13 @@ export const urlEncodeParams = (data) => {
 export const Epic = (props) => {
     const [visible, setVisible] = useState(false);
     const epic = props.epic.data;
-    // console.log(epic)
-
-    // const open = (issue) => {
-    //     console.log('create issue:',issue)
-    //     return window.open(config.repoURL + '/issues/new?' + urlEncodeParams(issue).join('&'), "_blank");
-
-    // }
-
-    // const createEpic = () => {
-    //     console.log(epic)
-    //     props.epic.issues.map((issue) => {
-    //         open(issue)
-    //     })
-    //     return 
-    // }
 
     return (
         <div className="epic">
             {epic && (
                 <>
                     <h3>{epic.titel[0].text}
+                        <button onClick={() => oepnNewGitlabIssue(epic)} className="issue__id primary">Create</button>
                         <button className="epic__id" onClick={() => setVisible(!visible)}>Expand</button>
                     </h3>
                     {visible && (

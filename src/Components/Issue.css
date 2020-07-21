@@ -18,6 +18,9 @@
 .issue__description > * {
     font-size: .75rem;
 }
+.issue__id.is-clicked {
+    background: #24b301;
+}
 .issue__required-label {
     position: absolute;
     top: 1.25rem;

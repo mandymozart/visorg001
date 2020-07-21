@@ -28,7 +28,7 @@ export const urlEncodeParams = (data) => {
     return out;
 }
 
-export const oepnNewGitlabIssue = (issue) => {
+export const openNewGitlabIssue = (issue) => {
     // console.log('create issue:', issue)
     let issueMap = {
         title:  convertToPlainText(issue.titel),

@@ -3,7 +3,7 @@ import './Issue.css';
 import { config } from '../config';
 import React, { useEffect, useState } from 'react';
 import { client } from '../prismic-configuration'
-import { convertToPlainText, oepnNewGitlabIssue } from './../utils';
+import { convertToPlainText, openNewGitlabIssue } from './../utils';
 
 export const Issue = (props) => {
 
@@ -32,6 +32,14 @@ export const Issue = (props) => {
 
     }, [props])
 
+    const [isClicked, setIsClicked] = useState(false);
+
+    const openIssue = (epic) => {
+        setIsClicked(true);
+        openNewGitlabIssue(epic);
+    }
+
+
     return (
         <div className={visible ? "issue selected" : "issue"}>
             {hasError && (<>Has Error</>)}
@@ -39,7 +47,7 @@ export const Issue = (props) => {
                 <>
                     <h3>{issue.titel[0].text}
                         <span>
-                            <button onClick={() => oepnNewGitlabIssue(issue)} className="issue__id primary">Create</button>
+                        <button onClick={() => openIssue(issue)} className={isClicked ? 'issue__id is-clicked' : 'issue__id primary'}>Create</button>
                             <button onClick={() => setVisible(!visible)} className="issue__id">Details</button>
                         </span>
                     </h3>

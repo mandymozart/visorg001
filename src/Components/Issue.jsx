@@ -1,6 +1,5 @@
 import ReactMarkdown from 'react-markdown';
 import './Issue.css';
-import { config } from '../config';
 import React, { useEffect, useState } from 'react';
 import { client } from '../prismic-configuration'
 import { convertToPlainText, openNewGitlabIssue } from './../utils';

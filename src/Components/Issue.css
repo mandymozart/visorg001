@@ -1,5 +1,5 @@
 .issue {
-    height: 3rem;
+    /* height: 3rem; */
     transition: all .2s cubic-bezier(1, 0, 0, 1);
 }
 .issue.selected {
@@ -23,7 +23,7 @@
 }
 .issue__required-label {
     position: absolute;
-    top: 1.25rem;
+    top: .75rem;
     left: .25rem;
     background: #ffb3b3;
     width: .5rem;
@@ -32,20 +32,19 @@
     /* border-bottom-left-radius: .5rem; */
 }
 .issue > h3 {
-    line-height: 3rem;
-    padding: 0 1rem;
+    line-height: 2rem;
+    padding: 0 0 1rem 1rem;
     display: grid;
     margin: 0;
-    font-size: 1rem;
-    grid-template-columns: auto 8rem;
-    align-items: center;
+    font-size: .75rem;
+    grid-template-columns: auto 7rem;
 }
 
 .issue > h3 > span {
     justify-self: center;
 }
 .issue > h3 > span > button:first-of-type {
-    margin-right: 1rem;
+    margin-right: .5rem;
 }
 .issue {
     /* background: lightgray; */

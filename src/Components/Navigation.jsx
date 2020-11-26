@@ -8,6 +8,7 @@ export const Navigation = () => {
             <h4>Tracking</h4>
             <ul>
                 <li><Link to={'/tracking/add'}>Add</Link></li>
+                <li><Link to={'/tracking/add-organisation-weight'}>Organisation Weight</Link></li>
             </ul>
             <h4>Templates</h4>
             <ul>

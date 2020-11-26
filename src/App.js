@@ -4,7 +4,7 @@ import React, { Fragment } from "react";
 import { Helmet } from "react-helmet";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import { apiEndpoint } from "./prismic-configuration";
-import { NotFound, Page, CreateEpics, Add } from "./Pages";
+import { NotFound, Page, CreateEpics, Add, AddOrganisationWeight } from "./Pages";
 import { ToastProvider } from "react-toast-notifications";
 import Header from "./Components/Header";
 import Background from "./Components/Background";
@@ -34,6 +34,7 @@ function App() {
                 <Route exact path="/epics/create" component={CreateEpics} />
                 <Route exact path="/page/:uid" component={Page} />
                 <Route exact path="/tracking/add" component={Add} />
+                <Route exact path="/tracking/add-organisation-weight" component={AddOrganisationWeight} />
                 <Route component={NotFound} />
               </Switch>
               <Footer />

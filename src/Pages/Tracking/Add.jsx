@@ -127,7 +127,7 @@ export default () => {
                   </div>
                 </div>
                 <div className="field">
-                  <label htmlFor="hours">Hours</label>
+                  <label htmlFor="hours">Hours (quarter hours in decimals only 1.25h, 5.5h, 10.75 hours)</label>
                   <input
                     label="hours"
                     maxLength={5}

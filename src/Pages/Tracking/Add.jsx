@@ -113,7 +113,7 @@ export default () => {
                   </div>
                 </div>
                 <div className="field">
-                  <label htmlFor="circleWeight">Circle Weight</label>
+                  <label htmlFor="circleWeight">Circle Weight (0, .5, 1, 2, 4, 8, 16, 32)</label>
                   <input
                     label="circleWeight"
                     maxLength={2}

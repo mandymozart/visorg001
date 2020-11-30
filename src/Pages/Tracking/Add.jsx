@@ -101,7 +101,7 @@ export default () => {
                   <label htmlFor="alias">Alias</label>
                   <input
                     type="text"
-                    maxLength={3}
+                    maxLength={255}
                     label="alias"
                     placeholder="abc"
                     name="alias"
@@ -113,7 +113,7 @@ export default () => {
                   </div>
                 </div>
                 <div className="field">
-                  <label htmlFor="circleWeight">Circle Weight (0, .5, 1, 2, 4, 8, 16, 32)</label>
+                  <label htmlFor="circleWeight">Estimate Circle Weight (0, .5, 1, 2, 4, 8, 16, 32)</label>
                   <input
                     label="circleWeight"
                     maxLength={2}
@@ -130,7 +130,7 @@ export default () => {
                   <label htmlFor="hours">Hours</label>
                   <input
                     label="hours"
-                    maxLength={2}
+                    maxLength={5}
                     type="text"
                     name="hours"
                     value={values.hours}

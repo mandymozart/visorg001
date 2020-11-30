@@ -101,7 +101,7 @@ export default () => {
                   <label htmlFor="alias">Alias</label>
                   <input
                     type="text"
-                    maxLength={255}
+                    maxLength={3}
                     label="alias"
                     placeholder="abc"
                     name="alias"

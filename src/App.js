@@ -1,6 +1,6 @@
 import "./App.css";
 
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment } from "react";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { Helmet } from "react-helmet";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";

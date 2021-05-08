@@ -1,5 +1,4 @@
 import React from "react";
-import "./Add.css";
 import { Formik, ErrorMessage, Form } from "formik";
 import { useToasts } from "react-toast-notifications";
 import axios from "axios";

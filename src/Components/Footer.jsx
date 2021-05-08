@@ -1,12 +1,15 @@
-import React from 'react';
-import './Footer.css';
+import styled from "@emotion/styled";
+import React from "react";
 
+const Container = styled.footer`
+    margin-top: 1rem;
+`
 const Footer = () => {
-    return (
-        <div className='Footer'>
-            <small>&copy; 2020 Vienna Struggle</small>
-        </div>
-    )
-}
+  return (
+    <Container>
+      <small>&copy; 2020 Vienna Struggle</small>
+    </Container>
+  );
+};
 
 export default Footer;

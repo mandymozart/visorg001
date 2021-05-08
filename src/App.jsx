@@ -22,7 +22,6 @@ import NewProject from "./Pages/Projects/New";
 import styled from "@emotion/styled";
 import Detail from "./Pages/Projects/Detail";
 import MyProjects from "./Pages/Projects/MyProjects";
-import PublicBazar from "./Pages/Projects/PublicBazar";
 import OpenCalls from "./Pages/Projects/OpenCalls";
 import LandingPage from "./Pages/LandingPage/LandingPage";
 

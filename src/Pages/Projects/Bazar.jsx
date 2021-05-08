@@ -1,9 +1,15 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import React from "react";
-import { ProjectListItem } from "../../Components/ProjectListItem";
+import ProjectList from "../../Components/ProjectList";
+
 import { useGetProjects } from "../../Hooks/Queries";
 
 export default () => {
-  const { error, isLoading, data } = useGetProjects({ status: "opencall" });
+  const { user } = useAuth0();
+  const { error, isLoading, data } = useGetProjects({
+    status: "opencall",
+    notOwnerId: user.sub,
+  });
 
   if (isLoading) return "Loading...";
 
@@ -13,12 +19,13 @@ export default () => {
     <div className="Bazar">
       <div className="page__header">
         <h3>Bazar</h3>
-        <p>Interested in joining exciting projects? Our daily picks for your profile.</p>
+        <p>
+          Interested in joining exciting projects? Our daily picks for your
+          profile.
+        </p>
       </div>
 
-      {data.message.map((project) => (
-        <ProjectListItem key={project.projectId} project={project} />
-      ))}
+      <ProjectList projects={data.message} />
     </div>
   );
 };

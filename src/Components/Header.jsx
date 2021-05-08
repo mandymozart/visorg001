@@ -13,7 +13,7 @@ const Container = styled.header`
   padding: 1rem;
   background: white;
   overflow: auto;
-  transition: all .7s cubic-bezier(1,0,0,1);
+  transition: all 0.7s cubic-bezier(1, 0, 0, 1);
   opacity: 1;
   &.isCollapsed {
     transform: translateX(-15rem) scale(1.05);
@@ -34,7 +34,9 @@ const Header = ({ isCollapsed }) => {
   return (
     <Container className={clsx({ isCollapsed: isCollapsed })}>
       <div className="logo">
-        <img src="/logo.svg" alt="Vienna Struggle" />
+        <Link to={"/dashboard"}>
+          <img src="/logo.svg" alt="Vienna Struggle" />
+        </Link>
       </div>
       {isAuthenticated ? (
         <>
@@ -45,7 +47,7 @@ const Header = ({ isCollapsed }) => {
         <LoginButton />
       )}
       <Navigation />
-      <Footer/>
+      <Footer />
     </Container>
   );
 };

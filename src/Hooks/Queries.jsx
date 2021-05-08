@@ -39,14 +39,7 @@ export const useAddProject = () => {
     axios
       .post(
         `https://visinn001.viennastruggle.at/api/project-add`,
-        {
-          project_id: data.projecttId,
-          title: data.title,
-          description: data.organisationWeight,
-          owner_id: data.ownerId,
-          tags: data.tags,
-          participants: data.participants,
-        },
+        data,
         {
           headers: {
             "Content-Type": "application/json",

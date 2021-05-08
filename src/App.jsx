@@ -18,11 +18,11 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Profile from "./Pages/Profile/Profile";
 import LogoutButton from "./Components/LogoutButton";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
 import NewProject from "./Pages/Projects/New";
 import Bazar from "./Pages/Projects/Bazar";
 import styled from "@emotion/styled";
 import Detail from "./Pages/Projects/Detail";
+import MyProjects from "./Pages/Projects/MyProjects";
 
 const Container = styled.div`
   .toggle {
@@ -101,6 +101,7 @@ const AppInner = () => {
                   </button>
                   <Switch>
                     <Redirect exact from="/" to="/login" />
+                    <Route exact path="/projects" component={MyProjects} />
                     <Route exact path="/bazar" component={Bazar} />
                     <Route exact path="/new" component={NewProject} />
                     <Route exact path="/detail/:projectId" component={Detail} />
@@ -154,7 +155,7 @@ function App() {
     >
       <QueryClientProvider client={queryClient}>
         <AppInner />
-        <ReactQueryDevtools initialIsOpen={false} />
+        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
       </QueryClientProvider>
     </Auth0Provider>
   );

@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
 import Tags from "./Tags";
+import Status from "./Status";
 
-const Container = styled.section`
+const Container = styled(Link)`
   border: 1px solid;
-  margin-bottom: 1rem;
   box-shadow: -0.25rem 0.25rem 0 var(--color);
   border-radius: 0.5rem;
   background: white;
   padding: 1rem;
+  display: block;
+  &:hover {
+    box-shadow: -0.4rem 0.4rem 0 var(--color);
+  }
 
   h3 {
     margin: 0;
@@ -21,11 +25,9 @@ const Container = styled.section`
 export const ProjectListItem = ({ project }) => {
   if (!project) return null;
   return (
-    <Link to={`/detail/${project.projectId}`}>
-      <Container>
-        <h3>{project.title}</h3>
-        <Tags tags={project.tags}/>
-      </Container>
-    </Link>
+    <Container to={`/detail/${project.projectId}`}>
+      <h3>{project.title}</h3>
+      <Status>{project.status}</Status> <Tags tags={project.tags} />
+    </Container>
   );
 };

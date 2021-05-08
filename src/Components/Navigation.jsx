@@ -8,6 +8,7 @@ h4 {
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.1rem;
+    margin-top: 1rem;
 }
 
 ul {
@@ -43,19 +44,19 @@ export const Navigation = () => {
     <Container>
       <ul>
         <li>
-          <Link to={"/dashboard"}>Dashboard</Link>
+          <Link to={"/projects"}>My Projects</Link>
+        </li>
+        <li>
+          <Link to={"/new"}>New Project</Link>
         </li>
         <li>
           <Link to={"/bazar"}>Bazar</Link>
-        </li>
-        <li>
-          <Link to={"/new"}>New</Link>
         </li>
       </ul>
       <h4>Legacy Tools</h4>
       <ul>
         <li>
-          <Link to={"/epics/create"}>Templates</Link>
+          <Link to={"/epics/create"}>Gitlab Templates</Link>
         </li>
         <li>
           <Link to={"/tracking/add"}>Add Tracking</Link>

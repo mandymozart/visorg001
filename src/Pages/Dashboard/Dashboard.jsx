@@ -1,6 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import React from "react";
-import Bazar from "../Projects/Bazar";
+import Bazar from "../Projects/OpenCalls";
 import MyProjects from "../Projects/MyProjects";
 
 export default () => {

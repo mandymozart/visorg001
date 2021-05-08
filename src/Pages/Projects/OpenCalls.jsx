@@ -16,16 +16,15 @@ export default () => {
   if (error) return "An error has occurred: " + error.message;
 
   return (
-    <div className="Bazar">
+    <>
       <div className="page__header">
-        <h3>Bazar</h3>
+        <h3>Open Calls</h3>
         <p>
-          Interested in joining exciting projects? Our daily picks for your
-          profile.
+          We are trying to find projects for you that match your profile and role definitions.
         </p>
       </div>
 
       <ProjectList projects={data.message} />
-    </div>
+    </>
   );
 };

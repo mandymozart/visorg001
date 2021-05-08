@@ -50,7 +50,7 @@ export const Navigation = () => {
           <Link to={"/new"}>New Project</Link>
         </li>
         <li>
-          <Link to={"/bazar"}>Bazar</Link>
+          <Link to={"/opencalls"}>Open Calls</Link>
         </li>
       </ul>
       <h4>Legacy Tools</h4>

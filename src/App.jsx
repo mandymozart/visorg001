@@ -19,10 +19,12 @@ import Profile from "./Pages/Profile/Profile";
 import LogoutButton from "./Components/LogoutButton";
 import { QueryClient, QueryClientProvider } from "react-query";
 import NewProject from "./Pages/Projects/New";
-import Bazar from "./Pages/Projects/Bazar";
 import styled from "@emotion/styled";
 import Detail from "./Pages/Projects/Detail";
 import MyProjects from "./Pages/Projects/MyProjects";
+import PublicBazar from "./Pages/Projects/PublicBazar";
+import OpenCalls from "./Pages/Projects/OpenCalls";
+import LandingPage from "./Pages/LandingPage/LandingPage";
 
 const Container = styled.div`
   .toggle {
@@ -100,9 +102,9 @@ const AppInner = () => {
                     </span>
                   </button>
                   <Switch>
-                    <Redirect exact from="/" to="/login" />
+                    <Redirect exact from="/" to="/dashboard" />
                     <Route exact path="/projects" component={MyProjects} />
-                    <Route exact path="/bazar" component={Bazar} />
+                    <Route exact path="/opencalls" component={OpenCalls} />
                     <Route exact path="/new" component={NewProject} />
                     <Route exact path="/detail/:projectId" component={Detail} />
                     <Route exact path="/epics/create" component={CreateEpics} />
@@ -136,7 +138,7 @@ const AppInner = () => {
               </Information>
             </Layout>
           ) : (
-            <>{isLoading ? "loading..." : <LoginButton />}</>
+            <>{isLoading ? "loading..." : <LandingPage/>}</>
           )}
         </ToastProvider>
       </BrowserRouter>

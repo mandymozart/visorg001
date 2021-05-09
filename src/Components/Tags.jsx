@@ -9,7 +9,7 @@ const Tags = ({ tags }) => {
     <Container>
       {tags.split(",").map((tag) => {
         tag = tag.trim();
-        return <><Tag key={tag}>{tag}</Tag>{" "}</>;
+        return <span key={tag}><Tag >{tag}</Tag>{" "}</span>;
       })}
     </Container>
   );

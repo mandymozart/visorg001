@@ -11,7 +11,7 @@ import {
   AddOrganisationWeight,
 } from "./Pages";
 import { ToastProvider } from "react-toast-notifications";
-import Header from "./Components/Header";
+import Sidebar from "./Components/Sidebar";
 import LoginButton from "./Components/LoginButton";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -24,6 +24,7 @@ import Detail from "./Pages/Projects/Detail";
 import MyProjects from "./Pages/Projects/MyProjects";
 import OpenCalls from "./Pages/Projects/OpenCalls";
 import LandingPage from "./Pages/LandingPage/LandingPage";
+import Header from "./Components/Header";
 
 const Container = styled.div`
   .toggle {
@@ -35,23 +36,32 @@ const Container = styled.div`
 
 const Layout = styled.div`
   display: grid;
-  grid-template-columns: 15rem auto 15rem;
   min-height: 100vh;
+  grid-template-rows: var(--header-height) 1fr;
+  grid-template-columns: auto var(--sidebar-width);
+  grid-template-areas:
+    "header header"
+    "content information";
+  margin: 0;
+  transition: all 1s;
 `;
 
 const Content = styled.div`
-  overflow: auto;
-  height: 100vh;
-  background-image: linear-gradient(180deg, #A9C9FF 0%, #FFBBEC 100%);  
+  grid-area: content;
+  min-height: var(--content-height);
   div > h2 {
     text-align: center;
   }
+  // Inner
   > div {
     padding: 1rem;
+    width: var(--content-width);
+    margin:0 auto;
   }
 `;
 
 const Information = styled.div`
+  grid-area: information;
   height: 100vh;
   text-align: center;
   overflow: auto;
@@ -62,7 +72,7 @@ const Information = styled.div`
   }
   a {
     display: block;
-    padding:1rem;
+    padding: 1rem;
     img {
       width: 100%;
     }
@@ -73,7 +83,7 @@ const AppInner = () => {
   const repoNameArray = /([^/]+)\.cdn.prismic\.io\/api/.exec(apiEndpoint);
   const repoName = repoNameArray[1];
   const { isAuthenticated, isLoading } = useAuth0();
-  const [collapsed, setCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
 
   return (
     <Container>
@@ -89,23 +99,22 @@ const AppInner = () => {
         <ToastProvider>
           {isAuthenticated ? (
             <Layout>
-              <Header isCollapsed={collapsed} />
+              <Header
+                isCollapsed={isCollapsed}
+                setIsCollapsed={setIsCollapsed}
+              />
+              <Sidebar
+                isCollapsed={isCollapsed}
+                setIsCollapsed={setIsCollapsed}
+              />
               <Content>
                 <div>
-                  <button
-                    className="toggle"
-                    onClick={() => setCollapsed(!collapsed)}
-                  >
-                    <span role="img" aria-labelledby="epics">
-                      {collapsed ? "👋" : "👊"}
-                    </span>
-                  </button>
                   <Switch>
                     <Redirect exact from="/" to="/dashboard" />
                     <Route exact path="/projects" component={MyProjects} />
                     <Route exact path="/opencalls" component={OpenCalls} />
                     <Route exact path="/new" component={NewProject} />
-                    <Route exact path="/detail/:projectId" component={Detail} />
+                    <Route exact path="/project/:projectId" component={Detail} />
                     <Route exact path="/epics/create" component={CreateEpics} />
                     <Route exact path="/page/:uid" component={Page} />
                     <Route exact path="/login" component={LoginButton} />
@@ -137,7 +146,7 @@ const AppInner = () => {
               </Information>
             </Layout>
           ) : (
-            <>{isLoading ? "loading..." : <LandingPage/>}</>
+            <>{isLoading ? "loading..." : <LandingPage />}</>
           )}
         </ToastProvider>
       </BrowserRouter>

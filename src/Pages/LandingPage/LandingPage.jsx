@@ -6,7 +6,7 @@ import PublicBazar from "../Projects/PublicBazar";
 const Container = styled.div`
   padding: 2rem;
   margin: 0 auto;
-  width: min(calc(100% - 4rem), 1440px);
+  width: var(--content-width);
 `;
 
 const Notification = styled.div`

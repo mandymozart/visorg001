@@ -1,10 +1,21 @@
+:root {
+  --sidebar-width: 15rem;
+  --header-height: 4rem;
+  --content-width: min(calc(100% - 4rem), 72rem);
+  --content-height: calc(100vh - var(--header-height));
+
+  --color: #ff0000;
+  --background: #ffff00;
+  --second: #0000ff;
+  --text: black;
+
+  --card-background: #d9d9d9;
+  --card-background-image: linear-gradient(315deg, #d9d9d9 0%, #f6f2f2 74%);
+}
+
 html {
   font-size: 20px;
-}
-@media (max-width: 1024px) {
-  html {
-    font-size: 20px;
-  }
+  line-height: 30px;
 }
 
 body {
@@ -14,7 +25,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #A9C9FF;
+  background-color: var(--background);
   min-height: 100vh;
 }
 
@@ -23,11 +34,6 @@ code {
     monospace;
 }
 
-:root {
-  --color: #3369ff;
-  --second: #ff8d00;
-  --text: black;
-}
 p {
   line-height: 1.5rem;
 }
@@ -37,20 +43,17 @@ form {
 }
 
 form {
-  border: 1px solid;
   padding: 1rem;
   margin-bottom: 1rem;
-  box-shadow: -0.25rem 0.25rem 0 black;
+  box-shadow: -0.25rem 0.25rem 0 #00ff00;
   border-radius: 0.5rem;
-  background: white;
+  background-color: var(--card-background);
+  background-image: var(--card-background-image);
 }
 form > h3 {
   margin: 0;
-  /* border-bottom: 1px solid; */
   padding: 1rem;
   display: block;
-  /* display: grid;
-  grid-template-columns: auto 8rem; */
   align-items: center;
 }
 form button {

@@ -24,6 +24,7 @@
       "react-router-dom": "^5.2.0",
       "react-scripts": "3.4.1",
       "react-toast-notifications": "^2.4.0",
+      "use-onclickoutside": "^0.3.2",
       "whatwg-fetch": "^3.0.0",
       "yup": "^0.31.0",
       "zustand": "^3.5.0"

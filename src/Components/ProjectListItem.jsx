@@ -5,10 +5,10 @@ import Tags from "./Tags";
 import Status from "./Status";
 
 const Container = styled(Link)`
-  border: 1px solid;
   box-shadow: -0.25rem 0.25rem 0 var(--color);
   border-radius: 0.5rem;
-  background: white;
+  background-color: var(--card-background);
+background-image: var(--card-background-image);
   padding: 1rem;
   display: block;
   &:hover {
@@ -25,7 +25,7 @@ const Container = styled(Link)`
 export const ProjectListItem = ({ project }) => {
   if (!project) return null;
   return (
-    <Container to={`/detail/${project.projectId}`}>
+    <Container to={`/project/${project.projectId}`}>
       <h3>{project.title}</h3>
       <Status>{project.status}</Status> <Tags tags={project.tags} />
     </Container>

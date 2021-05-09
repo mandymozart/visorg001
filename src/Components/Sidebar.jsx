@@ -1,10 +1,6 @@
 import React, { useRef } from "react";
 import { Navigation } from "./Navigation";
 import styled from "@emotion/styled";
-import { useAuth0 } from "@auth0/auth0-react";
-import LoginButton from "./LoginButton";
-import { Link } from "react-router-dom";
-import LogoutButton from "./LogoutButton";
 import clsx from "clsx";
 import Footer from "./Footer";
 import useOnClickOutside from "use-onclickoutside";
@@ -39,11 +35,15 @@ const Container = styled.aside`
 `;
 
 const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
-  const { user, isAuthenticated } = useAuth0();
   const ref = useRef(null);
   useOnClickOutside(ref, () => setIsCollapsed(true));
   return (
     <Container ref={ref} className={clsx({ isCollapsed: isCollapsed })}>
+      <button className="toggle" onClick={() => setIsCollapsed(!isCollapsed)}>
+          <span role="img" aria-labelledby="epics">
+            {isCollapsed ? "👋" : "👊"}
+          </span>
+        </button>
       <Navigation />
       <Footer />
     </Container>

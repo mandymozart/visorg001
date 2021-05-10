@@ -13,6 +13,7 @@
       "axios": "^0.21.0",
       "clsx": "^1.1.1",
       "formik": "^2.1.5",
+      "framer-motion": "^4.1.13",
       "prismic-javascript": "^2.1.1",
       "prismic-reactjs": "^1.1.2",
       "qs": "^6.9.1",

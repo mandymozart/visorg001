@@ -48,8 +48,34 @@ export const useAddProject = () => {
   );
 };
 
+export const useUpdateProject = () => {
+  const url = getUrl("/project-update");
+  return useMutation((data) =>
+    axios
+      .post(url, data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => res.data)
+  );
+};
+
 export const useAddTracking = () => {
   const url = getUrl("/tracking-add");
+  return useMutation((data) => {
+    axios
+      .post(url, data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => res.data);
+  });
+};
+
+export const useUpdateTracking = () => {
+  const url = getUrl("/tracking-update");
   return useMutation((data) => {
     axios
       .post(url, data, {

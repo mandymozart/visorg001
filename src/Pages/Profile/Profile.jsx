@@ -21,7 +21,7 @@ const Profile = () => {
   return (
     <Layout>
       <Container>
-        <h2>Your profile</h2>
+        <h3>Your profile</h3>
         <img src={user.picture} alt={user.name} />
         <h3>{user.name} ({user.nickname})</h3>
         <p>

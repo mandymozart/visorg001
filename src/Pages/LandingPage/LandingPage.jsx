@@ -1,3 +1,4 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import styled from "@emotion/styled";
 import React from "react";
 import Navigation from "../../Components/Navigation";
@@ -37,6 +38,8 @@ const CTA = styled.a`
   padding: 1rem;
   border: 2px solid black;
   color: black;
+  line-height: 1rem;
+  font-size: 1rem;
   border-radius: 2rem;
   &:hover {
     background: black;
@@ -64,12 +67,16 @@ const Footer = styled(BaseSection)`
 `;
 
 function LandingPage() {
+  const { isAuthenticated } = useAuth0();
   return (
     <>
-      <Notification>
-        We are an invite-only platform. Please become a member of our Patreon
-        and gain access to participate in our projects.
-      </Notification>
+      {!isAuthenticated && (
+        <Notification>
+          We are an invite-only platform. <br />
+          Please become a member of our <b>Patreon</b> and gain access to participate
+          in our projects.
+        </Notification>
+      )}
       <Navigation />
       <Container>
         <Hero>
@@ -81,8 +88,6 @@ function LandingPage() {
           <h3>
             Our mission: Symphonic events exploring digital and analog worlds.
           </h3>
-        </Hero>
-        <BaseSection>
           <div>
             <CTA href="https://soundcloud.com/viennastruggle" rel="noreferrer">
               Soundcloud
@@ -97,8 +102,8 @@ function LandingPage() {
               Need help?
             </CTA>
           </div>
-        </BaseSection>
-        <BaseSection>
+        </Hero>
+        {/* <BaseSection>
           <div>
           <h2>Projects</h2>
             <a
@@ -112,12 +117,8 @@ function LandingPage() {
               />
             </a>
           </div>
-        </BaseSection>
-        <BaseSection>
-          <div>
-            <PublicBazarSection />
-          </div>
-        </BaseSection>
+        </BaseSection> */}
+        <PublicBazarSection />
         <Footer>
           <div>
             <h2>Location</h2>

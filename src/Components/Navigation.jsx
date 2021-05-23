@@ -29,6 +29,16 @@ const Container = styled.header`
     cursor: pointer;
     font-weight: bold;
   }
+  .menu {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid;
+    border-radius: 0.25rem;
+    height: 2rem;
+    padding: 0 2rem;
+    cursor: pointer;
+    font-weight: bold;
+  }
 `;
 const Navigation = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -45,9 +55,22 @@ const Navigation = () => {
       {isLoading && "Loading ..."}
       {isAuthenticated ? (
         <>
-          <NavLink to={"/new"}>New Project</NavLink>
-          <NavLink to={"/projects"}>My Projects</NavLink>
-          <NavLink to={"/profile"}>Profile</NavLink>
+          <NavLink to={"/new"}><button className="menu">
+            New Project
+            </button>
+            </NavLink>
+          <NavLink to={"/projects"}>
+            <button className="menu">
+
+            My Projects
+            </button>
+            </NavLink>
+          <NavLink to={"/profile"}>
+            <button className="menu">
+            Profile
+
+            </button>
+            </NavLink>
           <LogoutButton />
           <NavLink to="/dashboard">{user?.name}</NavLink>
         </>

@@ -1,6 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import React from "react";
-import ProjectList from "../../Components/ProjectList";
+import Kanban from "../../Components/Kanban";
 import { useGetProjects } from "../../Hooks/Queries";
 
 const MyProjectsSection = () => {
@@ -16,7 +16,7 @@ const MyProjectsSection = () => {
       <div className="page__header">
         <h3>My Projects</h3>
       </div>
-      <ProjectList projects={data.message}/>
+      <Kanban drafts={data.message.filter(item => item.status === "draft")} opencalls={data.message.filter(item => item.status === "draft")}  done={data.message.filter(item => item.status === "done")}/>
     </section>
   );
 };

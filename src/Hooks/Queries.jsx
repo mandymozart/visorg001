@@ -1,5 +1,5 @@
-import { useMutation, useQuery } from "react-query";
 import axios from "axios";
+import { useMutation, useQuery } from "react-query";
 import { config } from "../config";
 
 const getUrl = (endpoint, query) => {
@@ -23,7 +23,7 @@ export const useGetUser = (query) => {
 
 export const useGetProjects = (query) => {
   const url = getUrl("/projects", query);
-  return useQuery(`getProjects-${query.status}${query.ownerId}`, () =>
+  return useQuery(`getProjects-${query?.status}${query?.ownerId}`, () =>
     fetch(url).then((res) => res.json())
   );
 };

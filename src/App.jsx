@@ -33,7 +33,7 @@ const Container = styled.div`
 const AppInner = () => {
   const repoNameArray = /([^/]+)\.cdn.prismic\.io\/api/.exec(apiEndpoint);
   const repoName = repoNameArray[1];
-  const { isAuthenticated, isLoading } = useAuth0();
+  const { isAuthenticated } = useAuth0();
 
   return (
     <Container>

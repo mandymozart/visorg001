@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import React from "react";
+import { FiCheck, FiFeather, FiUserPlus } from "react-icons/fi";
 import ProjectList from "./ProjectList";
 import { ProjectListNewItem } from "./ProjectListNewItem";
 
@@ -25,9 +26,9 @@ const Kanban = ({ drafts, opencalls, done, children }) => {
   return (
     <KanbanContainer>
       <Header>
-        <div>Drafts</div>
-        <div>Open Calls</div>
-        <div>Finished</div>
+        <div><FiFeather/> Drafts</div>
+        <div><FiUserPlus/> Open Calls</div>
+        <div><FiCheck/> Done</div>
       </Header>
       <Columns>
         <div>

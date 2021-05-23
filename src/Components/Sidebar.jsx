@@ -1,9 +1,8 @@
-import React, { useRef } from "react";
-import { Navigation } from "./Navigation";
 import styled from "@emotion/styled";
 import clsx from "clsx";
-import Footer from "./Footer";
+import React, { useRef } from "react";
 import useOnClickOutside from "use-onclickoutside";
+import Footer from "./Footer";
 
 const Container = styled.aside`
   transform: translateY(0);
@@ -38,13 +37,12 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
   const ref = useRef(null);
   useOnClickOutside(ref, () => setIsCollapsed(true));
   return (
-    <Container ref={ref} className={clsx({ isCollapsed: isCollapsed })}>
+    <Container ref={ref} className={clsx({ isCollapsed: isCollapsed ?? false })}>
       <button className="toggle" onClick={() => setIsCollapsed(!isCollapsed)}>
           <span role="img" aria-labelledby="epics">
             {isCollapsed ? "👋" : "👊"}
           </span>
         </button>
-      <Navigation />
       <Footer />
     </Container>
   );

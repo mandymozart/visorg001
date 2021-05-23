@@ -1,30 +1,14 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import React from "react";
-import ProjectList from "../../Components/ProjectList";
+import Layout from "../../Components/Layout";
+import OpenCallsSection from "./OpenCallsSection";
 
-import { useGetProjects } from "../../Hooks/Queries";
 
-export default () => {
-  const { user } = useAuth0();
-  const { error, isLoading, data } = useGetProjects({
-    status: "opencall",
-    notOwnerId: user.sub,
-  });
-
-  if (isLoading) return "Loading...";
-
-  if (error) return "An error has occurred: " + error.message;
-
+const OpenCalls = () => {
   return (
-    <>
-      <div className="page__header">
-        <h3>Open Calls</h3>
-        <p>
-          We are trying to find projects for you that match your profile and role definitions.
-        </p>
-      </div>
-
-      <ProjectList projects={data.message} />
-    </>
+    <Layout>
+      <OpenCallsSection/>
+    </Layout>
   );
 };
+
+export default OpenCalls;

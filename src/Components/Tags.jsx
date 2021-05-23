@@ -5,6 +5,7 @@ import Tag from "./Tag";
 const Container = styled.span``;
 
 const Tags = ({ tags }) => {
+  if(!tags) return <></>
   return (
     <Container>
       {tags.split(",").map((tag) => {

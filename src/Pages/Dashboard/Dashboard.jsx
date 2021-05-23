@@ -1,13 +1,14 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import React from "react";
-import Bazar from "../Projects/OpenCalls";
-import MyProjects from "../Projects/MyProjects";
+import Layout from "../../Components/Layout";
+import MyProjectsSection from "../Projects/MyProjectsSection";
+import OpenCallsSection from "../Projects/OpenCallsSection";
 
 export default () => {
   const {user,isAuthenticated} = useAuth0();
   if(!isAuthenticated) return null;
   return (
-    <div>
+    <Layout>
       <h2>
         Welcome, {user.name}
       </h2>
@@ -15,8 +16,8 @@ export default () => {
         You can manage your struggle participations here. Add tracking, and see your shares.
         We are building as fast as we can and hope to be online soon.
       </p>
-      <Bazar/>
-      <MyProjects/>
-    </div>
+      <OpenCallsSection/>
+      <MyProjectsSection/>
+    </Layout>
   );
 };

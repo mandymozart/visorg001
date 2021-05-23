@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "react-query";
 import axios from "axios";
-import config from "../config";
+import { config } from "../config";
 
 const getUrl = (endpoint, query) => {
   const url = new URL(config.apiURL + endpoint);
@@ -58,6 +58,13 @@ export const useUpdateProject = () => {
         },
       })
       .then((res) => res.data)
+  );
+};
+
+export const useGetTracking = (projectId) => {
+  const url = getUrl("/tracking", { projectId });
+  return useQuery(`getTracking-${projectId}`, () =>
+    fetch(url).then((res) => res.json())
   );
 };
 

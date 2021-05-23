@@ -10,40 +10,36 @@ const Schema = Yup.object().shape({
     .length(3, "Aliases are always 3 chars long")
     .matches(/^[a-z]+$/)
     .required(),
-  circleWeight: Yup.number().required(),
-  hours: Yup.number().required(),
+  organisationWeight: Yup.number().required(),
 });
 
-export default () => {
+const AddOrganisationWeight = () => {
   const { addToast } = useToasts();
 
   return (
     <div className="Add">
       <div className="page__header">
-        <h3>Ticket completed</h3>
+        <h3>Estimate by the organisation</h3>
         <p>
-          Tracking is done after completion of a ticket and after the completen
-          of a project or PAINS cycle. (every quarter year)
+          People will estimate the work of other circles.
         </p>
       </div>
       <Formik
         initialValues={{
           ticketId: "",
           alias: "",
-          circleWeight: "",
-          hours: "",
+          organisationWeight: "",
         }}
         validationSchema={Schema}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setSubmitting(true);
           axios
             .post(
-              `https://visinn001.viennastruggle.at/api/tracking-add`,
+              `https://visinn001.viennastruggle.at/api/tracking-add-organisation-weight`,
               {
                 ticket_id: values.ticketId,
                 alias: values.alias,
-                circle_weight: values.circleWeight,
-                hours: values.hours,
+                organisation_weight: values.organisationWeight,
               },
               {
                 headers: {
@@ -112,34 +108,20 @@ export default () => {
                   </div>
                 </div>
                 <div className="field">
-                  <label htmlFor="circleWeight">Estimate Circle Weight (0, .5, 1, 2, 4, 8, 16, 32)</label>
+                  <label htmlFor="organisationWeight">Organisation Weight</label>
                   <input
-                    label="circleWeight"
+                    label="organisationWeight"
                     maxLength={2}
                     type="text"
-                    name="circleWeight"
-                    value={values.circleWeight}
+                    name="organisationWeight"
+                    value={values.organisationWeight}
                     onChange={handleChange}
                   />
                   <div className="error">
-                    <ErrorMessage name="circleWeight" />
+                    <ErrorMessage name="organisationWeight" />
                   </div>
                 </div>
-                <div className="field">
-                  <label htmlFor="hours">Hours (quarter hours in decimals only 1.25h, 5.5h, 10.75 hours)</label>
-                  <input
-                    label="hours"
-                    maxLength={5}
-                    type="text"
-                    name="hours"
-                    value={values.hours}
-                    onChange={handleChange}
-                  />
-                  <div className="error">
-                    <ErrorMessage name="hours" />
-                  </div>
-                </div>
-
+               
                 <button
                   type="submit"
                   className="primary"
@@ -155,3 +137,5 @@ export default () => {
     </div>
   );
 };
+
+export default AddOrganisationWeight;

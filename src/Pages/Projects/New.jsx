@@ -1,10 +1,11 @@
+import { useAuth0 } from "@auth0/auth0-react";
+import { ErrorMessage, Form, Formik } from "formik";
 import React from "react";
-import { Formik, ErrorMessage, Form } from "formik";
+import { useHistory } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import * as Yup from "yup";
+import Layout from "../../Components/Layout";
 import { useAddProject } from "../../Hooks/Queries";
-import { useHistory } from "react-router-dom";
-import { useAuth0 } from "@auth0/auth0-react";
 
 const Schema = Yup.object().shape({
   projectId: Yup.string().min(9).length(9).required(),
@@ -21,7 +22,7 @@ export default () => {
 
   if (!isAuthenticated) return null;
   return (
-    <div className="Add">
+    <Layout>
       <div className="page__header">
         <h3>Start new project</h3>
         <p>Create a brief and invite people to join.</p>
@@ -136,6 +137,6 @@ export default () => {
           </>
         )}
       </Formik>
-    </div>
+    </Layout>
   );
 };

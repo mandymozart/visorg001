@@ -1,50 +1,61 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import styled from "@emotion/styled";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import LoginButton from "./LoginButton";
+import logo from "./logo.svg";
+import LogoutButton from "./LogoutButton";
 
-const Container = styled.div`
-  h4 {
-    margin: 0;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1rem;
-    margin-top: 1rem;
+const Container = styled.header`
+  background: var(--background);
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 3rem;
+  padding-bottom: 4rem;
+  gap: 1rem;
+  grid-area: header;
+  .divider {
+    flex: 1;
   }
-
-  ul {
-    margin: 0;
-    padding: 0;
-  }
-
-  li {
-    list-style: none;
-    border-bottom: 1px solid;
-    line-height: 2.5rem;
-  }
-  li:last-of-type {
+  button {
+    background: black;
+    color: var(--background);
     border: 0;
-  }
-
-  li:before {
-    content: "⟶ ";
+    border-radius: 0.25rem;
+    height: 2rem;
+    padding: 0 2rem;
+    cursor: pointer;
+    font-weight: bold;
   }
 `;
-
-export const Navigation = () => {
+const Navigation = () => {
+  const { user, isAuthenticated, isLoading } = useAuth0();
   return (
     <Container>
-      <h4>Legacy Tools</h4>
-      <ul>
-        <li>
-          <Link to={"/epics/create"}>Gitlab Templates</Link>
-        </li>
-        <li>
-          <Link to={"/tracking/add"}>Add Tracking</Link>
-        </li>
-        <li>
-          <Link to={"/tracking/add-organisation-weight"}>Add Weight</Link>
-        </li>
-      </ul>
+      <Link to="/">
+        <img src={logo} alt="Vienna Struggle" width="192" />
+      </Link>
+      <NavLink to={"/opencalls"}>Open Calls</NavLink>
+      <a href={"https://struggle-tv-stage.netlify.app"} rel="noreferrer">
+        Sessions
+      </a>
+      <div className="divider"></div>
+      {isLoading && "Loading ..."}
+      {isAuthenticated ? (
+        <>
+          <NavLink to={"/new"}>New Project</NavLink>
+          <NavLink to={"/projects"}>My Projects</NavLink>
+          <NavLink to={"/profile"}>Profile</NavLink>
+          <LogoutButton />
+          <NavLink to="/dashboard">{user?.name}</NavLink>
+        </>
+      ) : (
+        <LoginButton />
+      )}
     </Container>
   );
 };
+
+export default Navigation;

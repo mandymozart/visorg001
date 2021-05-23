@@ -3,7 +3,7 @@ import Prismic from "prismic-javascript";
 import { client } from "../../prismic-configuration";
 import { Epic } from "../../Components/Epic";
 
-export default (props) => {
+const CreateEpics = (props) => {
   const [epics, setEpics] = useState(null);
   const [hasError, setHasError] = useState(false);
 
@@ -83,3 +83,5 @@ For a new issue in the GitLab Community Edition project with a pre-filled title,
 
 
 */
+
+export default CreateEpics;

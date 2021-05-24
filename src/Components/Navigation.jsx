@@ -28,14 +28,12 @@ const Container = styled.header`
     padding: 0 2rem;
     cursor: pointer;
     font-weight: bold;
+    line-height: .75rem;
   }
   .menu {
     background: transparent;
     color: var(--text);
     border: 1px solid;
-    border-radius: 0.25rem;
-    height: 2rem;
-    padding: 0 2rem;
     cursor: pointer;
     font-weight: bold;
   }

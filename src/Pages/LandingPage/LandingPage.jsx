@@ -1,6 +1,8 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import styled from "@emotion/styled";
 import React from "react";
+import CTA from "../../Components/CTA";
+import Footer from "../../Components/Footer";
 import Navigation from "../../Components/Navigation";
 import PublicBazarSection from "../Projects/PublicBazarSection";
 import fist from "./../../images/fist-blood.png";
@@ -34,20 +36,6 @@ const Notification = styled.div`
   font-size: 0.75rem;
 `;
 
-const CTA = styled.a`
-  background: #00ff00;
-  padding: 1rem;
-  border: 2px solid black;
-  color: black;
-  line-height: 1rem;
-  font-size: 1rem;
-  border-radius: 2rem;
-  &:hover {
-    background: black;
-    color: #ffff00;
-  }
-`;
-
 const BaseSection = styled.section`
   padding: 2rem;
   > div {
@@ -62,7 +50,7 @@ const BaseSection = styled.section`
   }
 `;
 
-const Footer = styled(BaseSection)`
+const StudioSection = styled(BaseSection)`
   background: black;
   color: #ffff00;
 `;
@@ -73,7 +61,8 @@ function LandingPage() {
     <>
       {!isAuthenticated && (
         <Notification>
-          We are a non-profit organisation. Your donations keep us alive.<br />
+          We are a non-profit organisation. Your donations keep us alive.
+          <br />
           Please become a member of our <b>Patreon</b> and gain access to
           participate in our projects.
         </Notification>
@@ -120,7 +109,7 @@ function LandingPage() {
           </div>
         </BaseSection> */}
         <PublicBazarSection />
-        <Footer>
+        <StudioSection>
           <div>
             <h2>Location</h2>
             <h3>Portal (XR &amp; Streaming Studio)</h3>
@@ -145,7 +134,8 @@ function LandingPage() {
               </CTA>
             </p>
           </div>
-        </Footer>
+        </StudioSection>
+        <Footer/>
       </Container>
     </>
   );

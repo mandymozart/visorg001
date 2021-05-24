@@ -30,7 +30,7 @@ const Content = styled.div`
 
 const Information = styled.div`
   grid-area: information;
-  height: 100vh;
+  height: var(--content-height);
   text-align: center;
   overflow: auto;
   /* border-left: 1px solid black; */

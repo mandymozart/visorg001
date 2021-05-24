@@ -7,6 +7,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ToastProvider } from "react-toast-notifications";
 import LoginButton from "./Components/LoginButton";
 import LogoutButton from "./Components/LogoutButton";
+import { config } from "./config";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import CreateEpics from "./Pages/Epics/Create";
 import LandingPage from "./Pages/LandingPage/LandingPage";
@@ -23,11 +24,6 @@ import Team from "./Pages/Team/Team";
 import { apiEndpoint } from "./prismic-configuration";
 
 const Container = styled.div`
-  .toggle {
-    background: transparent;
-    box-shadow: none;
-    font-size: 2rem;
-  }
 `;
 
 const AppInner = () => {
@@ -84,13 +80,12 @@ const queryClient = new QueryClient();
 function App() {
   return (
     <Auth0Provider
-      domain="viennastruggle.eu.auth0.com"
-      clientId="yXFdWoH22B0WZpHjpXwjPTvnY0ihJS7d"
+      domain={config.auth0Domain}
+      clientId={config.auth0ClientId}
       redirectUri={window.location.origin}
     >
       <QueryClientProvider client={queryClient}>
         <AppInner />
-        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
       </QueryClientProvider>
     </Auth0Provider>
   );

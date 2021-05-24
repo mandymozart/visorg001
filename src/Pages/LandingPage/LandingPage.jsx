@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import React from "react";
 import Navigation from "../../Components/Navigation";
 import PublicBazarSection from "../Projects/PublicBazarSection";
-// import { Chrono } from "react-chrono";
+import fist from "./../../images/fist-blood.png";
 
 const Container = styled.div``;
 
@@ -30,6 +30,7 @@ const Hero = styled.div`
 const Notification = styled.div`
   background: white;
   padding: 1rem;
+  text-align: center;
   font-size: 0.75rem;
 `;
 
@@ -72,9 +73,9 @@ function LandingPage() {
     <>
       {!isAuthenticated && (
         <Notification>
-          We are an invite-only platform. <br />
-          Please become a member of our <b>Patreon</b> and gain access to participate
-          in our projects.
+          We are a non-profit organisation. Your donations keep us alive.<br />
+          Please become a member of our <b>Patreon</b> and gain access to
+          participate in our projects.
         </Notification>
       )}
       <Navigation />
@@ -83,7 +84,7 @@ function LandingPage() {
           <h1>
             Welcome to
             <br />
-            Vienna Struggle
+            Vienna Struggle <img src={fist} height="60px" alt="No mercy" />
           </h1>
           <h3>
             Our mission: Symphonic events exploring digital and analog worlds.

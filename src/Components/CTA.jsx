@@ -5,6 +5,7 @@ const CTA = styled.a`
   padding: 0 2rem;
   color: black;
   height: 3rem;
+  margin-bottom: .4rem;
   font-size: 1rem;
   font-weight: bold;
   border-radius: 0.5rem;

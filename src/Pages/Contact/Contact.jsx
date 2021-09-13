@@ -12,10 +12,12 @@ export default () => {
       >
         <input type="text" name="name" placeholder="Name" />
         <input type="text" name="email" placeholder="Email" />
+        <h3>Your message</h3>
+        <textarea name="message"></textarea>
 
         <h3>Attach an image (optional)</h3>
         <input type="file" name="image" />
-
+    <br />
         <button type="submit">Send</button>
       </form>
     </Layout>

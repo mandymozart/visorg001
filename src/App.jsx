@@ -8,6 +8,7 @@ import { ToastProvider } from "react-toast-notifications";
 import LoginButton from "./Components/LoginButton";
 import LogoutButton from "./Components/LogoutButton";
 import { config } from "./config";
+import Contact from "./Pages/Contact/Contact";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import CreateEpics from "./Pages/Epics/Create";
 import LandingPage from "./Pages/LandingPage/LandingPage";
@@ -52,6 +53,7 @@ const AppInner = () => {
             <Route exact path="/page/:uid" component={Page} />
             <Route exact path="/project/:projectId" component={Detail} />
             <Route exact path="/epics/create" component={CreateEpics} />
+            <Route exact path="/contact" component={Contact} />
             <Route exact path="/login" component={LoginButton} />
             <Route exact path="/logout" component={LogoutButton} />
             {isAuthenticated && (

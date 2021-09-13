@@ -10,7 +10,7 @@ export default () => {
         method="post"
         enctype="multipart/form-data"
       >
-        <input type="text" name="name" placeholder="Name" />
+        <input type="text" name="name" placeholder="Name" /><br/>
         <input type="text" name="email" placeholder="Email" />
         <h3>Your message</h3>
         <textarea name="message"></textarea>

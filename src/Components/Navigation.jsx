@@ -45,8 +45,8 @@ const Navigation = () => {
       <Link to="/">
         <img src={logo} alt="Vienna Struggle" width="192" />
       </Link>
-      <NavLink to={"/opencalls"}>Open Calls</NavLink>
-      <a href={"https://struggle-tv-stage.netlify.app"} rel="noreferrer">
+      {/* <NavLink to={"/opencalls"}>Open Calls</NavLink> */}
+      <a href={"https://struggle.tv"} rel="noreferrer">
         Sessions
       </a>
       <div className="divider"></div>

@@ -80,9 +80,10 @@ function LandingPage() {
             <CTA href="https://soundcloud.com/viennastruggle" rel="noreferrer">
               Soundcloud
             </CTA>{" "}
-            {/* <CTA href="https://patreon.com/viennastruggle" rel="noreferrer">
-              Patreon
+            <CTA href="https://www.youtube.com/channel/UC2XVvtE3CD82KMxZY_CljYQ" rel="noreferrer">
+              YouTube
             </CTA>{" "}
+            {/* 
             <CTA href="https://viennastruggle.bandcamp.com" rel="noreferrer">
               Bandcamp
             </CTA>{" "} */}

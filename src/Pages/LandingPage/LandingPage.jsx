@@ -1,6 +1,8 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import styled from "@emotion/styled";
 import React from "react";
+import { FiMap, FiPhone } from "react-icons/fi";
+import { Link } from "react-router-dom";
 import CTA from "../../Components/CTA";
 import Footer from "../../Components/Footer";
 import Navigation from "../../Components/Navigation";
@@ -8,7 +10,7 @@ import fist from "./../../images/fist-blood.png";
 
 const Container = styled.div``;
 
-const Hero = styled.div`
+export const Hero = styled.div`
   font-size: 2rem;
   padding: 3rem;
   padding-top: 0;
@@ -26,16 +28,20 @@ const Hero = styled.div`
     font-size: 1rem;
     font-weight: 400;
   }
+  p {
+    font-size: 2rem;
+    line-height: 1.1;
+  }
 `;
 
-const Notification = styled.div`
+export const Notification = styled.div`
   background: white;
   padding: 1rem;
   text-align: center;
   font-size: 0.75rem;
 `;
 
-const BaseSection = styled.section`
+export const BaseSection = styled.section`
   padding: 2rem;
   > div {
     width: var(--content-width);
@@ -49,7 +55,7 @@ const BaseSection = styled.section`
   }
 `;
 
-const StudioSection = styled(BaseSection)`
+export const StudioSection = styled(BaseSection)`
   background: black;
   color: #ffff00;
 `;
@@ -61,7 +67,6 @@ function LandingPage() {
       {!isAuthenticated && (
         <Notification>
           We are a non-profit organisation. Your donations keep us alive.
-          {/* <br /> */}
           Currently we are accepting applications for Portal Memberships only.
         </Notification>
       )}
@@ -80,7 +85,10 @@ function LandingPage() {
             <CTA href="https://soundcloud.com/viennastruggle" rel="noreferrer">
               Soundcloud
             </CTA>{" "}
-            <CTA href="https://www.youtube.com/channel/UC2XVvtE3CD82KMxZY_CljYQ" rel="noreferrer">
+            <CTA
+              href="https://www.youtube.com/channel/UC2XVvtE3CD82KMxZY_CljYQ"
+              rel="noreferrer"
+            >
               YouTube
             </CTA>{" "}
             {/* 
@@ -110,31 +118,35 @@ function LandingPage() {
         {/* <PublicBazarSection /> */}
         <StudioSection>
           <div>
-            <h2>Location</h2>
-            <h3>Portal (XR &amp; Streaming Studio)</h3>
+            <h2>Contact</h2>
+            <h3>NGO</h3>
             <p>
-              Spittelauer Laende 12/2 / Park &amp; Ride
+              Operngasse 25/12
               <br />
-              1090 Wien
+              1040 Wien
               <br />
               Austria
               <br />
               <a href="phone:+436608366059" rel="noreferrer">
-                +436608366059
+                <FiPhone/> +436608366059
               </a>
             </p>
+            <h3>Portal</h3>
+            <Link to="/portal/find-us">
+              <FiMap/> Find us
+            </Link>
             <p>
               <CTA
-                href="mailto:mandymozart@viennastruggle.com"
+                href="mailto:mandymozart@viennastruggle.com?subject=Studio visit"
                 rel="noreferrer"
                 target="_blank"
               >
-                Reserve a studio visit.
+                Reserve a personlized visit.
               </CTA>
             </p>
           </div>
         </StudioSection>
-        <Footer/>
+        <Footer />
       </Container>
     </>
   );

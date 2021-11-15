@@ -12,6 +12,7 @@ import Contact from "./Pages/Contact/Contact";
 import Success from "./Pages/Contact/Success";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import CreateEpics from "./Pages/Epics/Create";
+import FindUs from "./Pages/FindUs/FindUs";
 import LandingPage from "./Pages/LandingPage/LandingPage";
 import NotFound from "./Pages/NotFound";
 import Page from "./Pages/Page/Page";
@@ -55,6 +56,7 @@ const AppInner = () => {
             <Route exact path="/project/:projectId" component={Detail} />
             <Route exact path="/epics/create" component={CreateEpics} />
             <Route exact path="/contact" component={Contact} />
+            <Route exact path="/portal/find-us" component={FindUs} />
             <Route exact path="/success" component={Success} />
             <Route exact path="/login" component={LoginButton} />
             <Route exact path="/logout" component={LogoutButton} />

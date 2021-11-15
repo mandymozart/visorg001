@@ -1,6 +1,8 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import styled from "@emotion/styled";
 import React from "react";
+import { FiTv, FiUsers } from "react-icons/fi";
+import { GiMagicPortal } from "react-icons/gi";
 import { Link, NavLink } from "react-router-dom";
 import LoginButton from "./LoginButton";
 import logo from "./logo.svg";
@@ -28,7 +30,7 @@ const Container = styled.header`
     padding: 0 2rem;
     cursor: pointer;
     font-weight: bold;
-    line-height: .75rem;
+    line-height: 0.75rem;
   }
   .menu {
     background: transparent;
@@ -47,28 +49,28 @@ const Navigation = () => {
       </Link>
       {/* <NavLink to={"/opencalls"}>Open Calls</NavLink> */}
       <a href={"https://struggle.tv"} rel="noreferrer">
-        Sessions
+        <button className="menu">
+          <FiTv /> <FiUsers /> Sessions
+        </button>
       </a>
+      <NavLink to={"/portal/find-us"}>
+        <button className="menu">
+          <GiMagicPortal /> Portal
+        </button>
+      </NavLink>
       <div className="divider"></div>
       {isLoading && "Loading ..."}
       {isAuthenticated ? (
         <>
-          <NavLink to={"/new"}><button className="menu">
-            New Project
-            </button>
-            </NavLink>
+          <NavLink to={"/new"}>
+            <button className="menu">New Project</button>
+          </NavLink>
           <NavLink to={"/projects"}>
-            <button className="menu">
-
-            My Projects
-            </button>
-            </NavLink>
+            <button className="menu">My Projects</button>
+          </NavLink>
           <NavLink to={"/profile"}>
-            <button className="menu">
-            Profile
-
-            </button>
-            </NavLink>
+            <button className="menu">Profile</button>
+          </NavLink>
           <LogoutButton />
           <NavLink to="/dashboard">{user?.name}</NavLink>
         </>

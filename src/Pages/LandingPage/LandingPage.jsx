@@ -1,12 +1,10 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import styled from "@emotion/styled";
 import React from "react";
-import { FiMap, FiPhone } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { FiPhone } from "react-icons/fi";
 import CTA from "../../Components/CTA";
 import Footer from "../../Components/Footer";
 import Navigation from "../../Components/Navigation";
-import fist from "./../../images/fist-blood.png";
 
 const Container = styled.div``;
 
@@ -76,7 +74,7 @@ function LandingPage() {
           <h1>
             Welcome to
             <br />
-            Vienna Struggle <img src={fist} height="60px" alt="No mercy" />
+            Vienna Struggle
           </h1>
           <h3>
             Our mission: Symphonic events exploring digital and analog worlds.
@@ -128,21 +126,8 @@ function LandingPage() {
               Austria
               <br />
               <a href="phone:+436608366059" rel="noreferrer">
-                <FiPhone/> +436608366059
+                <FiPhone /> +436608366059
               </a>
-            </p>
-            <h3>Portal</h3>
-            <Link to="/portal/find-us">
-              <FiMap/> Find us
-            </Link>
-            <p>
-              <CTA
-                href="mailto:mandymozart@viennastruggle.com?subject=Studio visit"
-                rel="noreferrer"
-                target="_blank"
-              >
-                Reserve a personlized visit.
-              </CTA>
             </p>
           </div>
         </StudioSection>

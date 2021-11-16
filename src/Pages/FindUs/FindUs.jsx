@@ -20,7 +20,7 @@ function FindUs() {
     <>
       {!isAuthenticated && (
         <Notification>
-          We are a non-profit organisation. Your donations keep us alive.
+          We are a non-profit organisation. Your donations keep us alive. <br />
           Currently we are accepting applications for Portal Memberships only.
         </Notification>
       )}

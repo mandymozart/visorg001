@@ -1,9 +1,8 @@
-import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import styled from "@emotion/styled";
+import React from "react";
 
 const Button = styled.button`
-  margin-left: 1rem;
 `
 
 const LogoutButton = () => {

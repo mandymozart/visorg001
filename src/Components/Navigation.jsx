@@ -41,7 +41,6 @@ const Container = styled.div`
     padding: 1rem;
     a button {
       width: 100%;
-      
     }
     &.isOpen {
       display: flex;
@@ -63,11 +62,11 @@ const Container = styled.div`
     line-height: 0.75rem;
   }
   .menu {
-    background: transparent;
-    color: var(--text);
+    /* background: transparent; */
+    /* color: var(--text);
     border: 1px solid;
     cursor: pointer;
-    font-weight: bold;
+    font-weight: bold; */
   }
 `;
 const Navigation = () => {
@@ -80,7 +79,7 @@ const Navigation = () => {
         <Link to="/">
           <img src={logo} alt="Vienna Struggle" width="192" />
         </Link>
-        <Hamburger toggled={isOpen} toggle={setIsOpen} color={"var(--color)"}/>
+        <Hamburger toggled={isOpen} toggle={setIsOpen} color={"var(--color)"} />
       </header>
       <section className={clsx({ isOpen: isOpen })}>
         {/* <NavLink to={"/opencalls"}>Open Calls</NavLink> */}
@@ -98,6 +97,7 @@ const Navigation = () => {
         {isLoading && "Loading ..."}
         {isAuthenticated ? (
           <>
+            <NavLink to="/dashboard">{user?.name}</NavLink>
             <NavLink to={"/new"}>
               <button className="menu">New Project</button>
             </NavLink>
@@ -108,7 +108,6 @@ const Navigation = () => {
               <button className="menu">Profile</button>
             </NavLink>
             <LogoutButton />
-            <NavLink to="/dashboard">{user?.name}</NavLink>
           </>
         ) : (
           <LoginButton />

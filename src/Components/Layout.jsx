@@ -49,8 +49,9 @@ const Information = styled.div`
 
 const Layout = ({ children }) => {
   return (
-    <Container>
+    <>
       <Navigation/>
+    <Container>
       <Content>
         <div>{children}</div>
       </Content>
@@ -68,6 +69,7 @@ const Layout = ({ children }) => {
         </a>
       </Information>
     </Container>
+    </>
   );
 };
 

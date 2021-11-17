@@ -54,7 +54,6 @@ function FindUs() {
           </div>
         </Hero>
         <StudioSection>
-          <div>
             <iframe
               title="map"
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2657.527172526606!2d16.358674215333448!3d48.23497857923129!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476d071fb2895ddf%3A0xcfc072afb1d60cb1!2sVienna%20Struggle%20Portal!5e0!3m2!1sen!2sat!4v1636981125722!5m2!1sen!2sat"
@@ -63,7 +62,6 @@ function FindUs() {
               allowfullscreen=""
               loading="lazy"
             ></iframe>
-          </div>
         </StudioSection>
         <Footer />
       </Container>

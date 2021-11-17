@@ -1,11 +1,12 @@
 :root {
   --sidebar-width: 15rem;
   --header-height: 8rem;
+  --header-width: 20rem;
   --content-width: min(calc(100% - 4rem), 72rem);
   --form-width: 30rem;
   --content-height: calc(100vh - var(--header-height));
 
-  --color: #ff0000;
+  --color: #bb6bd9;
   --background: #ffff00;
   --second: #0000ff;
   --third: #00ff00;

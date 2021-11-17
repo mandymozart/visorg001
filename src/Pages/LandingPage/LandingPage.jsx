@@ -11,7 +11,7 @@ const Container = styled.div``;
 export const Hero = styled.div`
   font-size: 2rem;
   padding: 3rem;
-  padding-top: 0;
+  padding-top: 3rem;
   border-bottom: 1px solid;
   background: #ffff00;
   padding-bottom: 4rem;
@@ -29,6 +29,9 @@ export const Hero = styled.div`
   p {
     font-size: 2rem;
     line-height: 1.1;
+  }
+  @media only screen and (max-width: 800px) {
+    padding: 1rem;
   }
 `;
 
@@ -51,6 +54,9 @@ export const BaseSection = styled.section`
       width: 100%;
     }
   }
+  @media only screen and (max-width: 800px) {
+    padding: 1rem;
+  }
 `;
 
 export const StudioSection = styled(BaseSection)`
@@ -64,7 +70,6 @@ function LandingPage() {
     <>
       {!isAuthenticated && (
         <Notification>
-          We are a non-profit organisation. Your donations keep us alive.<br />
           Currently we are accepting applications for Portal Memberships only.
         </Notification>
       )}
@@ -115,21 +120,19 @@ function LandingPage() {
         </BaseSection> */}
         {/* <PublicBazarSection /> */}
         <StudioSection>
-          <div>
-            <h2>Contact</h2>
-            <h3>NGO</h3>
-            <p>
-              Operngasse 25/12
-              <br />
-              1040 Wien
-              <br />
-              Austria
-              <br />
-              <a href="phone:+436608366059" rel="noreferrer">
-                <FiPhone /> +436608366059
-              </a>
-            </p>
-          </div>
+          <h2>Contact</h2>
+          <h3>NGO</h3>
+          <p>
+            Operngasse 25/12
+            <br />
+            1040 Wien
+            <br />
+            Austria
+            <br />
+            <a href="phone:+436608366059" rel="noreferrer">
+              <FiPhone /> +436608366059
+            </a>
+          </p>
         </StudioSection>
         <Footer />
       </Container>

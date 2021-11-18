@@ -7,8 +7,8 @@ import { FiTv, FiUsers } from "react-icons/fi";
 import { GiMagicPortal } from "react-icons/gi";
 import { Link, NavLink } from "react-router-dom";
 import LoginButton from "./LoginButton";
-import logo from "./logo.svg";
 import LogoutButton from "./LogoutButton";
+import ViennaStruggleLogo from "./ViennaStruggleLogo";
 
 const Container = styled.div`
   position: sticky;
@@ -78,7 +78,7 @@ const Navigation = () => {
       <header>
         <div></div>
         <Link to="/">
-          <img src={logo} alt="Vienna Struggle" width="192" />
+          <ViennaStruggleLogo/>
         </Link>
         <Hamburger toggled={isOpen} toggle={setIsOpen} color={"var(--color)"} />
       </header>
@@ -89,7 +89,7 @@ const Navigation = () => {
             <FiTv /> <FiUsers /> Sessions
           </button>
         </a>
-        <NavLink to={"/portal/find-us"}>
+        <NavLink to={"/portal"}>
           <button className="menu">
             <GiMagicPortal /> Portal
           </button>

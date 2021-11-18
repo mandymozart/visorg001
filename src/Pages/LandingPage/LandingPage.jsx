@@ -82,7 +82,7 @@ function LandingPage() {
             Vienna Struggle
           </h1>
           <h3>
-            Our mission: Symphonic events exploring digital and analog worlds.
+            A community that questions classical forms of authorship and creative processes.
           </h3>
           <div>
             <CTA href="https://soundcloud.com/viennastruggle" rel="noreferrer">

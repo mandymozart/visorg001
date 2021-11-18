@@ -56,6 +56,7 @@ const AppInner = () => {
             <Route exact path="/project/:projectId" component={Detail} />
             <Route exact path="/epics/create" component={CreateEpics} />
             <Route exact path="/contact" component={Contact} />
+            <Route exact path="/portal" component={FindUs} />
             <Route exact path="/portal/find-us" component={FindUs} />
             <Route exact path="/success" component={Success} />
             <Route exact path="/login" component={LoginButton} />

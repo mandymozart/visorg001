@@ -16,7 +16,7 @@ const Container = styled.div`
   width: var(--header-width);
   margin: 0 auto;
   margin-top: 1rem;
-  background: #ffffff;
+  background: rgba(255,255,255,0.7);
   /* Hole */
   border: 2px solid var(--color);
   box-sizing: border-box;
@@ -24,6 +24,7 @@ const Container = styled.div`
   box-shadow: 4px 4px 0px var(--color);
   border-radius: 8px;
   z-index: 1000;
+  backdrop-filter: blur(8px);
   header {
     display: grid;
     grid-template-columns: 4rem 12rem 4rem;

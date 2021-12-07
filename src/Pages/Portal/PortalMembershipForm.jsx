@@ -31,7 +31,8 @@ function PortalMembershipForm() {
               src="https://docs.google.com/forms/d/e/1FAIpQLSfo5-nXwlYybbmqYt1rSECQ0Tw2hOq8jOYH1dHrrjEgohkwIg/viewform?embedded=true"
               width="100%"
               height="2415"
-              frameborder="0"
+              title="google-form"
+              frameorder="0"
               marginheight="0"
               marginwidth="0"
             >

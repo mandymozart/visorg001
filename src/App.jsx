@@ -16,6 +16,7 @@ import FindUs from "./Pages/FindUs/FindUs";
 import LandingPage from "./Pages/LandingPage/LandingPage";
 import NotFound from "./Pages/NotFound";
 import Page from "./Pages/Page/Page";
+import PortalMembershipForm from "./Pages/Portal/PortalMembershipForm";
 import Profile from "./Pages/Profile/Profile";
 import Detail from "./Pages/Projects/Detail";
 import MyProjects from "./Pages/Projects/MyProjects";
@@ -58,6 +59,7 @@ const AppInner = () => {
             <Route exact path="/contact" component={Contact} />
             <Route exact path="/portal" component={FindUs} />
             <Route exact path="/portal/find-us" component={FindUs} />
+            <Route exact path="/portal/register" component={PortalMembershipForm} />
             <Route exact path="/success" component={Success} />
             <Route exact path="/login" component={LoginButton} />
             <Route exact path="/logout" component={LogoutButton} />

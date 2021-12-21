@@ -19,11 +19,11 @@ const Briefing = () => {
       <Header>
         <h3>{project.title}</h3>
         {project.imageUrl && <img src={project.imageUrl} alt={project.imageUrl} />}
+        {project.videoUrl && <a class="button" href={project.videoUrl} target="_blank" rel="noopener noreferrer">Play Trailer</a>}<br />
         {user?.sub === project.ownerId && <Role>Owner</Role>} 
         {project.workspaceUrl && <a class="button" href={project.workspaceUrl} target="_blank" rel="noopener noreferrer">Workspace</a>} 
         
         <Tags tags={project.tags} />
-        {project.videoUrl && <a class="button" href={project.videoUrl} target="_blank" rel="noopener noreferrer">Play Trailer</a>} 
       </Header>
       <Description source={project.description} />
     </Container>

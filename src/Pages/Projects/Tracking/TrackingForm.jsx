@@ -73,7 +73,7 @@ const TrackingForm = () => {
             ) : (
               <Form onSubmit={handleSubmit}>
                 <div className="field">
-                  <label htmlFor="comment">Comment</label>
+                  <label htmlFor="comment">Add a comment</label>
                   <textarea
                     name="comment"
                     value={values.comment}
@@ -82,29 +82,6 @@ const TrackingForm = () => {
                   <small>Markdown is enabled</small>
                   <div className="error">
                     <ErrorMessage name="comment" />
-                  </div>
-                </div>
-                <div className="field">
-                  <label htmlFor="hours">
-                    Track hours? <small>optional</small>
-                  </label>
-                  <input
-                    label="hours"
-                    maxLength={6}
-                    type="number"
-                    name="hours"
-                    step="0.15"
-                    min="0"
-                    max="120"
-                    value={values.hours}
-                    onChange={handleChange}
-                  />
-                  <small>
-                    Quarter hours in decimals only 1.25, 5.5, 10.75; <br />
-                    maximum 120 (1 month at 30h/week)
-                  </small>
-                  <div className="error">
-                    <ErrorMessage name="hours" />
                   </div>
                 </div>
 

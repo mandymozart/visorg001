@@ -1,22 +1,11 @@
 import styled from "@emotion/styled";
 import React from "react";
+import Footer from "./Footer";
 import Navigation from "./Navigation";
 
-const Container = styled.div`
-  display: grid;
-  min-height: 100vh;
-  grid-template-rows: var(--header-height) 1fr;
-  grid-template-columns: auto var(--sidebar-width);
-  grid-template-areas:
-    "header header"
-    "content information";
-  margin: 0;
-  transition: all 1s;
-`;
+const Container = styled.div``;
 
 const Content = styled.div`
-  grid-area: content;
-  min-height: var(--content-height);
   div > h2 {
     text-align: center;
   }
@@ -29,10 +18,7 @@ const Content = styled.div`
 `;
 
 const Information = styled.div`
-  grid-area: information;
-  height: var(--content-height);
   text-align: center;
-  overflow: auto;
   /* border-left: 1px solid black; */
   small {
     display: block;
@@ -42,7 +28,7 @@ const Information = styled.div`
     display: block;
     padding: 1rem;
     img {
-      width: 100%;
+      width: 10rem;
     }
   }
 `;
@@ -50,25 +36,26 @@ const Information = styled.div`
 const Layout = ({ children }) => {
   return (
     <>
-      <Navigation/>
-    <Container>
-      <Content>
-        <div>{children}</div>
-      </Content>
-      <Information>
-        <small>Adverstiment</small>
-        <a
-          href="https://fanlink.to/snawcrosh"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          <img
-            src={"https://f4.bcbits.com/img/a3814062337_2.jpg"}
-            alt="Advertisment - Snaw Crosh"
-          />
-        </a>
-      </Information>
-    </Container>
+      <Navigation />
+      <Container>
+        <Content>
+          <div>{children}</div>
+        </Content>
+        {/* <Information>
+          <small>Adverstiment</small>
+          <a
+            href="https://fanlink.to/snawcrosh"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              src={"https://f4.bcbits.com/img/a3814062337_2.jpg"}
+              alt="Advertisment - Snaw Crosh"
+            />
+          </a>
+        </Information> */}
+        <Footer/>
+      </Container>
     </>
   );
 };

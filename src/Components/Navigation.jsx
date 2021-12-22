@@ -4,7 +4,7 @@ import clsx from "clsx";
 import Hamburger from "hamburger-react";
 import React, { useState } from "react";
 import { FiTv, FiUsers } from "react-icons/fi";
-import { GiMagicPortal } from "react-icons/gi";
+import { GiAchillesHeel, GiMagicPortal } from "react-icons/gi";
 import { Link, NavLink } from "react-router-dom";
 import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
@@ -84,16 +84,21 @@ const Navigation = () => {
       </header>
       <section className={clsx({ isOpen: isOpen })}>
         {/* <NavLink to={"/opencalls"}>Open Calls</NavLink> */}
-        <a href={"https://struggle.tv"} rel="noreferrer">
-          <button className="menu">
-            <FiTv /> <FiUsers /> Sessions
-          </button>
-        </a>
         <NavLink to={"/portal"}>
           <button className="menu">
             <GiMagicPortal /> Portal
           </button>
         </NavLink>
+        <NavLink to={"/releases"}>
+          <button className="menu">
+            <GiAchillesHeel /> Releases
+          </button>
+        </NavLink>
+        <a href={"https://struggle.tv"} rel="noreferrer">
+          <button className="menu">
+            <FiTv /> <FiUsers /> Sessions
+          </button>
+        </a>
         <div className="divider"></div>
         {isLoading && "Loading ..."}
         {isAuthenticated ? (

@@ -22,6 +22,7 @@ import Detail from "./Pages/Projects/Detail";
 import MyProjects from "./Pages/Projects/MyProjects";
 import NewProject from "./Pages/Projects/New";
 import OpenCalls from "./Pages/Projects/OpenCalls";
+import Releases from "./Pages/Projects/Releases";
 import AddOrganisationWeight from "./Pages/Projects/Tracking/AddOrganisationWeight";
 import Statutes from "./Pages/Statutes/Statutes";
 import Team from "./Pages/Team/Team";
@@ -53,6 +54,7 @@ const AppInner = () => {
             <Route exact path="/team" component={Team} />
             <Route exact path="/statutes" component={Statutes} />
             <Route exact path="/opencalls" component={OpenCalls} />
+            <Route exact path="/releases" component={Releases} />
             <Route exact path="/page/:uid" component={Page} />
             <Route exact path="/project/:projectId" component={Detail} />
             <Route exact path="/epics/create" component={CreateEpics} />

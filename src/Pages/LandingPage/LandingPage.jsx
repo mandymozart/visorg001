@@ -2,6 +2,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import styled from "@emotion/styled";
 import React from "react";
 import { FiPhone } from "react-icons/fi";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import CTA from "../../Components/CTA";
 import Footer from "../../Components/Footer";
 import Navigation from "../../Components/Navigation";
@@ -82,8 +83,19 @@ function LandingPage() {
             Vienna Struggle
           </h1>
           <h3>
-            A community that questions classical forms of authorship and creative processes.
+            A community that questions classical forms of authorship and
+            creative processes.
           </h3>
+          <Link to={"/portal"}>
+              <CTA className="menu">
+                Portal
+              </CTA>
+            </Link>{" "}
+            <Link to={"/releases"}>
+              <CTA className="menu">
+                Releases
+              </CTA>
+            </Link>{" "}
           <div>
             <CTA href="https://soundcloud.com/viennastruggle" rel="noreferrer">
               Soundcloud
@@ -103,22 +115,6 @@ function LandingPage() {
             </CTA>
           </div>
         </Hero>
-        {/* <BaseSection>
-          <div>
-          <h2>Projects</h2>
-            <a
-              href="https://fanlink.to/snawcrosh"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <img
-                src={"https://f4.bcbits.com/img/a3814062337_2.jpg"}
-                alt="Advertisment - Snaw Crosh"
-              />
-            </a>
-          </div>
-        </BaseSection> */}
-        {/* <PublicBazarSection /> */}
         <StudioSection>
           <h2>Contact</h2>
           <h3>NGO</h3>

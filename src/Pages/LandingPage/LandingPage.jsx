@@ -26,6 +26,7 @@ export const Hero = styled.div`
   h3 {
     font-size: 1rem;
     font-weight: 400;
+    line-height: 1.5;
   }
   p {
     font-size: 2rem;
@@ -84,7 +85,7 @@ function LandingPage() {
           </h1>
           <h3>
             A community that questions classical forms of authorship and
-            creative processes.
+            creative processes in classical and electronic music performance.
           </h3>
           <Link to={"/portal"}>
               <CTA className="menu">

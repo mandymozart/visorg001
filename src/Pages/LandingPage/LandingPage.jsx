@@ -5,8 +5,6 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import CTA from "../../Components/CTA";
 import Layout from "../../Components/Layout";
 
-const Container = styled.div``;
-
 export const Hero = styled.div`
   font-size: 2rem;
   background: #ffff00;
@@ -70,8 +68,11 @@ function LandingPage() {
         <Link to={"/portal"}>
           <CTA className="menu">Portal</CTA>
         </Link>{" "}
-        <Link to={"/projects/releases"}>
+        <Link to={"/projects"}>
           <CTA className="menu">Releases</CTA>
+        </Link>{" "}
+        <Link to={"/tutorials"}>
+          <CTA className="menu">Tutorials</CTA>
         </Link>{" "}
         <div>
           <CTA href="https://soundcloud.com/viennastruggle" rel="noreferrer">
@@ -92,9 +93,9 @@ function LandingPage() {
           </CTA>
         </div>
       </Hero>
-      <h2>Contact</h2>
-      <h3>NGO</h3>
       <p>
+        <b>Contact Vienna Struggle - Verein für hybride künstlerische Vorhaben</b>
+        <br />
         Operngasse 25/12
         <br />
         1040 Wien

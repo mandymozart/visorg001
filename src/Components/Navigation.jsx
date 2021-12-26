@@ -4,7 +4,7 @@ import clsx from "clsx";
 import Hamburger from "hamburger-react";
 import React, { useState } from "react";
 import { FiTv, FiUsers } from "react-icons/fi";
-import { GiAchillesHeel, GiMagicPortal } from "react-icons/gi";
+import { Gi3DGlasses, GiAchillesHeel, GiMagicPortal } from "react-icons/gi";
 import { Link, NavLink } from "react-router-dom";
 import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
@@ -75,9 +75,14 @@ const Navigation = () => {
         <Hamburger toggled={isOpen} toggle={setIsOpen} color={"var(--color)"} />
       </header>
       <section className={clsx({ isOpen: isOpen })}>
-        <NavLink to={"/projects/releases"}>
+        <NavLink to={"/projects"}>
           <button className="menu">
-            <GiAchillesHeel /> Releases
+            <GiAchillesHeel /> Projects
+          </button>
+        </NavLink>
+        <NavLink to={"/tutorials"}>
+          <button className="menu">
+            <Gi3DGlasses /> Tutorials
           </button>
         </NavLink>
         <NavLink to={"/portal"}>

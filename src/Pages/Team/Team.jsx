@@ -32,7 +32,7 @@ const Team = () => {
           <TeamMember>
             <h3>Franziska Seifner</h3>
             <p>
-              Stream Director/Producer
+              Camera Person
               <br />
               frs@viennastruggle.com
             </p>
@@ -48,7 +48,7 @@ const Team = () => {
           <TeamMember>
             <h3>Gerald Herlbauer</h3>
             <p>
-              DJ/Stream Engineer/VJ
+              Stream Engineer/VJ
               <br />
               geh@viennastruggle.com
             </p>
@@ -56,17 +56,9 @@ const Team = () => {
           <TeamMember>
             <h3>Mandy Mozart</h3>
             <p>
-              Artistic Director
+              Finances
               <br />
               mam@viennastruggle.com
-            </p>
-          </TeamMember>
-          <TeamMember>
-            <h3>Nemanja Stojanovic</h3>
-            <p>
-              Producer/Graphic Designer
-              <br />
-              nes@viennastruggle.com
             </p>
           </TeamMember>
         </div>

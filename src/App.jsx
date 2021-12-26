@@ -23,6 +23,8 @@ import Project from "./Pages/Projects/Project";
 import Projects from "./Pages/Projects/Projects";
 import Statutes from "./Pages/Statutes/Statutes";
 import Team from "./Pages/Team/Team";
+import Tutorial from "./Pages/Tutorials/Tutorial";
+import Tutorials from "./Pages/Tutorials/Tutorials";
 
 const Container = styled.div``;
 
@@ -51,8 +53,10 @@ const App = () => {
             <Route exact path="/" component={LandingPage} />
             <Route exact path="/team" component={Team} />
             <Route exact path="/statutes" component={Statutes} />
-            <Route exact path="/projects/:status" component={Projects} />
+            <Route exact path="/projects" component={Projects} />
             <Route exact path="/project/:uid" component={Project} />
+            <Route exact path="/tutorials" component={Tutorials} />
+            <Route exact path="/tutorial/:uid" component={Tutorial} />
             <Route exact path="/page/:uid" component={Page} />
             <Route exact path="/epics/create" component={CreateEpics} />
             <Route exact path="/contact" component={Contact} />

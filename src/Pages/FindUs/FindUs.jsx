@@ -20,8 +20,8 @@ function FindUs() {
         <Hero>
           <h1>Find us</h1>
           <div>
-            <h2>Portal</h2>
             <p>
+              <b>Portal</b><br />
               Park &amp; Ride <br />
               Spittelauer Laende 12 / 1 Floor / Parkdeck 3
               <br />

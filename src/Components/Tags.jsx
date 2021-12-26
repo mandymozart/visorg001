@@ -8,7 +8,7 @@ const Tags = ({ tags }) => {
   if(!tags) return <></>
   return (
     <Container>
-      {tags.split(",").map((tag) => {
+      {tags.split(',').map((tag) => {
         tag = tag.trim();
         return <span key={tag}><Tag >{tag}</Tag>{" "}</span>;
       })}

@@ -1,4 +1,3 @@
-import { useAuth0 } from '@auth0/auth0-react'
 import styled from '@emotion/styled'
 import React from 'react'
 import { Link } from 'react-router-dom'
@@ -12,14 +11,13 @@ justify-content: center;
 height: 100vh;
 `
 
-const NotFound = () => {
-  const { isLoading } = useAuth0();
-  if(isLoading) return <></>
+const NotFound = ({error}) => {
   return (
     <Container>
       <h1>404</h1>
       <h2>Document not found</h2>
       <img src={icon} alt="Not found"/>
+      <p>{JSON.stringify(error)}</p>
       <p><Link to="/">Return to homepage</Link></p>
     </Container>
   )

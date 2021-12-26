@@ -1,11 +1,12 @@
 import React from "react";
 import Layout from "../../Components/Layout";
-import MyProjectsSection from "./MyProjectsSection";
 
-export default () => {
+const MyProjects = () => {
   return (
     <Layout>
-      <MyProjectsSection/>
+      You have to ask an administrator to join a project.
     </Layout>
   );
 };
+
+export default MyProjects;

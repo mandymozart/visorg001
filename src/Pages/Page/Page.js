@@ -1,47 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { RichText } from "prismic-reactjs";
-import { client, linkResolver } from "../../prismic-configuration";
 import NotFound from "../NotFound";
 import Layout from "../../Components/Layout";
+import { usePrismicDocumentByUID } from "@prismicio/react";
+import Loader from "../../Components/Loader";
 
 const Page = ({ match }) => {
-  const [doc, setDocData] = useState(null);
-  const [notFound, toggleNotFound] = useState(false);
-
   const uid = match.params.uid;
+  const [document, { state, error }] = usePrismicDocumentByUID("page", uid);
 
-  // Get the page document from Prismic
   useEffect(() => {
-    const fetchData = async () => {
-      // We are using the function to get a document by its UID
-      const result = await client.getByUID("page", uid);
+    console.log(state);
+  }, [state]);
 
-      if (result) {
-        // We use the State hook to save the document
-        return setDocData(result);
-      } else {
-        // Otherwise show an error message
-        console.warn(
-          "Page document not found. Make sure it exists in your Prismic repository"
-        );
-        toggleNotFound(true);
-      }
-    };
-    fetchData();
-  }, [uid]); // Skip the Effect hook if the UID hasn't changed
-
-  if (doc) {
+  if (state === "failed") return <NotFound error={error} />
+  else if (state === "loaded") 
     return (
       <Layout>
-        <h1>{RichText.asText(doc.data.title)}</h1>
-        <RichText render={doc.data.description} linkResolver={linkResolver} />
-        {/* <img src={doc.data.image.url} alt={doc.data.image.alt} /> */}
+        <h1>{RichText.asText(document.data.title)}</h1>
+        <RichText render={document.data.description} />
       </Layout>
     );
-  } else if (notFound) {
-    return <NotFound />;
-  }
-  return null;
-};
+    return <Loader/>
+}
 
 export default Page;

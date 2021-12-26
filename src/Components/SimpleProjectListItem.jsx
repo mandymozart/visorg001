@@ -38,6 +38,7 @@ export const variants = {
 
 export const SimpleProjectListItem = ({ project }) => {
   if (!project) return null;
+  console.log(project)
   return (
     <motion.div
       variants={variants}
@@ -49,9 +50,9 @@ export const SimpleProjectListItem = ({ project }) => {
         opacity: { duration: 0.2 },
       }}
     >
-      <Container to={`/project/${project.projectId}`}>
-        <h3>{project.title}</h3>
-        <Status>{project.status}</Status> <Tags tags={project.tags} />
+      <Container to={`/project/${project.uid}`}>
+        <h3>{project.data.title}</h3>
+        <Status>{project.data.status}</Status> <Tags tags={project.data.tags} />
       </Container>
     </motion.div>
   );

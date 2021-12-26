@@ -13,7 +13,9 @@ const SimpleProjectList = ({ projects }) => {
   return (
     <Container>
       {projects.map((project) => (
-        <SimpleProjectListItem key={project.projectId} project={project} />
+        <div key={project.uid}>
+          <SimpleProjectListItem project={project} />
+        </div>
       ))}
     </Container>
   );

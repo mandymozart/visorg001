@@ -15,7 +15,6 @@ const Container = styled.div`
   top: 2rem;
   width: var(--header-width);
   margin: 0 auto;
-  margin-top: 1rem;
   background: rgba(255,255,255,0.7);
   /* Hole */
   border: 2px solid var(--color);
@@ -62,13 +61,6 @@ const Container = styled.div`
     font-weight: bold;
     line-height: 0.75rem;
   }
-  .menu {
-    /* background: transparent; */
-    /* color: var(--text);
-    border: 1px solid;
-    cursor: pointer;
-    font-weight: bold; */
-  }
 `;
 const Navigation = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -83,15 +75,14 @@ const Navigation = () => {
         <Hamburger toggled={isOpen} toggle={setIsOpen} color={"var(--color)"} />
       </header>
       <section className={clsx({ isOpen: isOpen })}>
-        {/* <NavLink to={"/opencalls"}>Open Calls</NavLink> */}
+        <NavLink to={"/projects/releases"}>
+          <button className="menu">
+            <GiAchillesHeel /> Releases
+          </button>
+        </NavLink>
         <NavLink to={"/portal"}>
           <button className="menu">
             <GiMagicPortal /> Portal
-          </button>
-        </NavLink>
-        <NavLink to={"/releases"}>
-          <button className="menu">
-            <GiAchillesHeel /> Releases
           </button>
         </NavLink>
         <a href={"https://struggle.tv"} rel="noreferrer">
@@ -107,7 +98,7 @@ const Navigation = () => {
             <NavLink to={"/new"}>
               <button className="menu">New Project</button>
             </NavLink>
-            <NavLink to={"/projects"}>
+            <NavLink to={"/my-projects"}>
               <button className="menu">My Projects</button>
             </NavLink>
             <NavLink to={"/profile"}>

@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import React from "react";
 import { SimpleProjectList } from "../../Components/SimpleProjectList";
-import { useGetProjects } from "../../Hooks/Queries";
 
 const Container = styled.section`
   color: var(--background);
@@ -13,13 +12,8 @@ const Container = styled.section`
     }
   }
 `;
-const ReleasesSection = () => {
-  const { error, isLoading, data } = useGetProjects({ status: "done" });
-
-  if (isLoading) return "Loading...";
-
-  if (error) return "An error has occurred: " + error.message;
-
+const ProjectsSection = ({projects}) => {
+  console.log(projects)
   return (
     <Container>
       <div className="page__header">
@@ -39,9 +33,9 @@ const ReleasesSection = () => {
         </p>
       </div>
 
-      <SimpleProjectList projects={data.message} />
+      <SimpleProjectList projects={projects} />
     </Container>
   );
 };
 
-export default ReleasesSection;
+export default ProjectsSection;

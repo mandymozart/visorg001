@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --sidebar-width: 15rem;
   --header-height: 8rem;
@@ -12,7 +16,7 @@
   --second: #0000ff;
   --third: #00ff00;
   --text: black;
-
+  
   --card-background: #d9d9d9;
   --card-background-image: linear-gradient(315deg, #d9d9d9 0%, #f6f2f2 74%);
 }
@@ -140,7 +144,7 @@ a {
   display: inline-block;
   transform: translateX(0) translateY(0);
 }
-a:hover {
+/* a:hover {
   color: var(--text);
   transform: translateY(-0.15rem) translateX(0.15rem);
-}
+} */

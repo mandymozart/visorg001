@@ -82,7 +82,7 @@ function LandingPage() {
             href="https://www.youtube.com/channel/UC2XVvtE3CD82KMxZY_CljYQ"
             rel="noreferrer"
           >
-            YouTube
+            YouTube Yo
           </CTA>{" "}
           {/* 
             <CTA href="https://viennastruggle.bandcamp.com" rel="noreferrer">

@@ -12,6 +12,7 @@ import Success from "./Pages/Contact/Success";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import CreateEpics from "./Pages/Epics/Create";
 import FindUs from "./Pages/FindUs/FindUs";
+import Inventory from "./Pages/Inventory/Inventory";
 import LandingPage from "./Pages/LandingPage/LandingPage";
 import NotFound from "./Pages/NotFound";
 import Page from "./Pages/Page/Page";
@@ -53,6 +54,7 @@ const App = () => {
             <Route exact path="/" component={LandingPage} />
             <Route exact path="/team" component={Team} />
             <Route exact path="/statutes" component={Statutes} />
+            <Route exact path="/inventory" component={Inventory} />
             <Route exact path="/projects" component={Projects} />
             <Route exact path="/project/:uid" component={Project} />
             <Route exact path="/tutorials" component={Tutorials} />

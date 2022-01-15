@@ -191,30 +191,39 @@ const Inventory = () => {
       <Form>
         <fieldset>
           <legend></legend>
-          <label>
-            Alias
-            <input type="text" name="alias" maxLength={3} />
-          </label>
+          <div className="field">
+            <label>
+              Alias
+              <input type="text" name="alias" maxLength={3} />
+            </label>
+          </div>
 
-          <label>
-            On premise
-            <input type="checkbox" name="onPremise" />
-          </label>
+          <div className="fieldGroup">
+            <div className="field">
+              <label>
+                From
+                <input type="date" name="checkin" />
+              </label>
+            </div>
 
-          <label>
-            Checkout
-            <input type="date" name="checkout" />
-          </label>
-
-          <label>
-            Checkin
-            <input type="date" name="checkin" />
-          </label>
+            <div className="field">
+              <label>
+                To
+                <input type="date" name="checkout" />
+              </label>
+            </div>
+          </div>
+          
+          <button type="button">Checkout {cart.length} items</button>
         </fieldset>
         <fieldset>
           <h3>Itineary</h3>
           <label>
-            <Select options={options} placeholder={"Select item ..."} onChange={handleChange} />
+            <Select
+              options={options}
+              placeholder={"Select item ..."}
+              onChange={handleChange}
+            />
           </label>
           {/* {selected && (
             <div className="item" key={selected.id}>
@@ -242,16 +251,17 @@ const Inventory = () => {
                 <div className="meta">
                   <div className="name">{item.product.name}</div>
                   <div className="owner">
-                    <span><FaUserAstronaut/></span> {" "}
+                    <span>
+                      <FaUserAstronaut />
+                    </span>{" "}
                     {item.product.owner}
                   </div>
                 </div>
                 <div className="stock">
                   <div className="price">
-                  {item.product.listPriceCurrency === "EUR" && <CgEuro/>}{" "}
-                  {item.product.listPriceConverted}{" "}
-                    <br />
-                    <GiToken/> {" "}{item.product.memberPrice}
+                    {item.product.listPriceCurrency === "EUR" && <CgEuro />}{" "}
+                    {item.product.listPriceConverted} <br />
+                    <GiToken /> {item.product.memberPrice}
                   </div>
                   <div className="actions">
                     <button

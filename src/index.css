@@ -101,9 +101,14 @@ button.primary,
 button:hover {
   transform: translateY(-0.1rem);
 }
+.fieldGroup {
+  display: flex;
+  gap: 1rem;
+}
 .field {
   display: block;
   line-height: 2rem;
+  flex: 1;
 }
 .field input,
 .field textarea {

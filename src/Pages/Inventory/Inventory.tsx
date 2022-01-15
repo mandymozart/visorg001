@@ -10,6 +10,7 @@ import {
   useResolvedPath
 } from "react-router-dom";
 import Layout from "../../Components/Layout";
+import CartLogic from "./CartLogic";
 import InventoryReservationForm from "./InventoryReservationForm";
 import InventoryReservations from "./InventoryReservations";
 
@@ -43,6 +44,7 @@ const Body = styled.div`
 
 const InventoryNavigation = styled.nav`
   text-align: center;
+  margin-bottom: 1rem;
 `;
 
 function CustomLink({ children, to, ...props }: LinkProps) {
@@ -72,6 +74,7 @@ const Inventory = () => {
         <CustomLink to="reservations">All Reservations</CustomLink>{" "}
         <CustomLink to="reservation">New Reservations</CustomLink>
       </InventoryNavigation>
+      <CartLogic/>
       <Body>
         <Routes>
           <Route path="reservations" element={<InventoryReservations />} />

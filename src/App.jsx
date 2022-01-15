@@ -57,7 +57,7 @@ const App = () => {
             Currently we are accepting applications for Portal Memberships only.
           </Notification>
         )}
-        <Toaster position="bottom-right" toastOptions={{ duration: 23000 }}>
+        <Toaster position="bottom-right" toastOptions={{ duration: 5000 }}>
           {(t) => (
             <ToastBar toast={t}>
               {({ icon, message }) => (

@@ -3,61 +3,60 @@ import styled from "@emotion/styled";
 import { enableMapSet } from "immer";
 import React from "react";
 import { FaUserAstronaut } from "react-icons/fa";
-import { FiTrash } from "react-icons/fi";
-import { GiClockwork, GiStockpiles } from "react-icons/gi";
-import { useGetInventoryEvents } from "../../Hooks/Queries";
+import { GiCalendar, GiStockpiles } from "react-icons/gi";
+import { useCartStore } from "../../Stores/CartStore";
 
 enableMapSet();
 
-const Container = styled.div``;
+const Container = styled.div`
+  &&& .stock {
+    flex: auto;
+  }
+`;
 
 const InventoryReservations = () => {
-  const { isAuthenticated } = useAuth0();
+  const events = useCartStore((store) => store.events);
+  const { user } = useAuth0();
 
-  const {
-    data: events,
-    isLoading: isLoadingEvents,
-    isSuccess: isSuccessEvents,
-  } = useGetInventoryEvents();
-
-  if (!isAuthenticated) return null;
-  return (
-    <Container>
-      {events?.length === 0 && <>Your cart is empty.</>}
-      <div className="results">
-        {events?.map((item) => {
-          return (
-            <div className="item" key={item.eventId}>
-              <div className="meta">
-                <div className="name">{item.productId}</div>
-                <div className="owner">
-                  <span>
-                    <FaUserAstronaut />
-                  </span>{" "}
-                  {item.renter}
+  if (!user) return <></>
+    return (
+      <Container>
+        {events?.length === 0 && <>Your cart is empty.</>}
+        <div className="results">
+          {events?.map((item) => {
+            if (item.renter === user.nickname)
+              return (
+                <div className="item" key={item.eventId}>
+                  <div className="meta">
+                    <div className="name">{item.productId}</div>
+                    <div className="owner">
+                      <span>
+                        <FaUserAstronaut />
+                      </span>{" "}
+                      {item.renter}
+                    </div>
+                  </div>
+                  <span className="quantity">
+                    <GiStockpiles /> {item.quantity}
+                  </span>
+                  <div className="dates">
+                    <GiCalendar /> {item.fromDate} -{item.toDate} <br />
+                  </div>
+                  {/* <div className="actions">
+                <button
+                  type="button"
+                  className="cancelReservation"
+                  // onClick={() => removeItem(item.product.id)}
+                >
+                  <FiTrash />
+                </button>
+              </div> */}
                 </div>
-              </div>
-              <div className="stock">
-                <div className="price">
-                  {item.fromDate} <GiClockwork /> -{item.toDate} <br />
-                  <GiStockpiles /> {item.quantity}
-                </div>
-                <div className="actions">
-                  <button
-                    type="button"
-                    className="cancelReservation"
-                    // onClick={() => removeItem(item.product.id)}
-                  >
-                    <FiTrash />
-                  </button>
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </Container>
-  );
+              );
+          })}
+        </div>
+      </Container>
+    );
 };
 
 export default InventoryReservations;

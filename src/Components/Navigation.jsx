@@ -4,7 +4,12 @@ import clsx from "clsx";
 import Hamburger from "hamburger-react";
 import React, { useState } from "react";
 import { FiTv, FiUsers } from "react-icons/fi";
-import { Gi3DGlasses, GiAchillesHeel, GiMagicPortal } from "react-icons/gi";
+import {
+  Gi3DGlasses,
+  GiAchillesHeel,
+  GiBackpack,
+  GiMagicPortal
+} from "react-icons/gi";
 import { Link, NavLink } from "react-router-dom";
 import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
@@ -15,7 +20,7 @@ const Container = styled.div`
   top: 2rem;
   width: var(--header-width);
   margin: 0 auto;
-  background: rgba(255,255,255,0.7);
+  background: rgba(255, 255, 255, 0.7);
   /* Hole */
   border: 2px solid var(--color);
   box-sizing: border-box;
@@ -70,7 +75,7 @@ const Navigation = () => {
       <header>
         <div></div>
         <Link to="/">
-          <ViennaStruggleLogo/>
+          <ViennaStruggleLogo />
         </Link>
         <Hamburger toggled={isOpen} toggle={setIsOpen} color={"var(--color)"} />
       </header>
@@ -100,8 +105,13 @@ const Navigation = () => {
         {isAuthenticated ? (
           <>
             <NavLink to="/dashboard">{user?.name}</NavLink>
-            <NavLink to={"/new"}>
+            {/* <NavLink to={"/new"}>
               <button className="menu">New Project</button>
+            </NavLink> */}
+            <NavLink to={"/inventory"}>
+              <button className="menu">
+                <GiBackpack /> Inventory
+              </button>
             </NavLink>
             <NavLink to={"/my-projects"}>
               <button className="menu">My Projects</button>

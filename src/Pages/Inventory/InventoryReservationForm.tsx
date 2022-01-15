@@ -1,9 +1,9 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
-import produce, { enableMapSet } from "immer";
+import { enableMapSet } from "immer";
 import { nanoid } from "nanoid";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { CgEuro } from "react-icons/cg";
 import { FaUserAstronaut } from "react-icons/fa";
@@ -11,9 +11,9 @@ import { FiMinus, FiPlus } from "react-icons/fi";
 import { GiToken } from "react-icons/gi";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
-import { useAddInventoryEvent, useGetProducts } from "../../Hooks/Queries";
+import { useAddInventoryEvent } from "../../Hooks/Queries";
+import { useCartStore } from "../../Stores/CartStore";
 import { errorHandler } from "../../Utilities/ErrorHandlers";
-import { CartItem } from "./CartItem";
 import { Product } from "./Product";
 
 enableMapSet();
@@ -50,16 +50,22 @@ const productsToOptions = (products: Product[] | undefined) => {
   return options;
 };
 
-
 const InventoryReservationForm = () => {
-  const { isAuthenticated } = useAuth0();
+  const { user } = useAuth0();
+
+  const products = useCartStore((store) => store.products);
+  const cart = useCartStore((store) => store.items);
+  const isLoading = useCartStore((store) => store.isLoading);
+  const addItem = useCartStore((store) => store.addItem);
+  const clearItems = useCartStore((store) => store.clearItems);
+  const reduceQuantity = useCartStore((store) => store.reduceQuantity);
+  const increaseQuantity = useCartStore((store) => store.increaseQuantity);
+
   const navigate = useNavigate();
-  const [cart, setCart] = useState<CartItem[]>([]);
+
   const [options, setOptions] = useState<any[]>([]);
-  const [alias, setAlias] = useState<string>("");
-  const [fromDate, setFromDate] = useState<string>("");
-  const [toDate, setToDate] = useState<string>("");
-  const { data: products, isLoading } = useGetProducts();
+  const [fromDate, setFromDate] = useState<string>(dayjs().format("YYYY-MM-DD"));
+  const [toDate, setToDate] = useState<string>(dayjs().add(1, "day").format("YYYY-MM-DD"));
   const [isSubmitting, setIsSubmitting] = useState(false);
   const mutation = useAddInventoryEvent();
 
@@ -68,104 +74,42 @@ const InventoryReservationForm = () => {
     setOptions(options);
   }, [products]);
 
-  const addItem = ({ value }: any) => {
-    const id: unknown = value;
-    // set selected
-    if (products) {
-      const selectedProduct = products.find((item) => item.id === value);
-      if (selectedProduct) {
-        // update cart
-        setCart(
-          produce((draft) => {
-            const item = draft.find(
-              (item) =>
-                item.product.id === id &&
-                item.quantity < selectedProduct.amountInStock
-            );
-            if (item) {
-              item.quantity++;
-            } else {
-              draft.push({ quantity: 1, product: selectedProduct });
-            }
-          })
-        );
-      }
-    }
-  };
-
-  const increaseQunatity = useCallback((id) => {
-    setCart(
-      produce((draft) => {
-        const item = draft.find((item) => item.product.id === id);
-        if (item && item.quantity < item.product.amountInStock) item.quantity++;
-      })
-    );
-  }, []);
-
-  const reduceQuantity = useCallback((id) => {
-    setCart(
-      produce((draft) => {
-        const item = draft.find((item) => item.product.id === id);
-        const index = draft.findIndex((item) => item.product.id === id);
-        if (item) {
-          if (item.quantity > 1) {
-            item.quantity--;
-          } else {
-            draft.splice(index, 1);
-          }
-        }
-      })
-    );
-  }, []);
-
   const checkout = () => {
-    if (fromDate !== "" && toDate !== "" && alias !== "") {
-      setIsSubmitting(true);
-      cart.forEach((item) => {
-        // throttle requests
-        setTimeout(()=>{
-          mutation.mutate(
-            {
-              eventId: nanoid(8),
-              renter: alias,
-              type: "reservation",
-              productId: item.product.productId,
-              fromDate: fromDate,
-              toDate: toDate,
-              quantity: item.quantity,
-            },
-            {
-              onSuccess: () => {
-                toast.success(`Done!`, { icon: "✨" });
-                setIsSubmitting(false);
-                navigate('/inventory/reservations')
+    if (user)
+      if (fromDate !== "" && toDate !== "" && user.nickname) {
+        setIsSubmitting(true);
+        cart.forEach((item) => {
+          // throttle requests
+          setTimeout(() => {
+            mutation.mutate(
+              {
+                eventId: nanoid(8),
+                renter: user.nickname,
+                type: "reservation",
+                productId: item.product.productId,
+                fromDate: fromDate,
+                toDate: toDate,
+                quantity: item.quantity,
               },
-              onError: errorHandler,
-            }
-          );
-        },1000)
-      });
-    } else toast.error("All fields required!", { icon: "💣" });
+              {
+                onSuccess: () => {
+                  toast.success(`Done!`, { icon: "✨" });
+                  setIsSubmitting(false);
+                  clearItems();
+                  navigate("/inventory/reservations");
+                },
+                onError: errorHandler,
+              }
+            );
+          }, 1000);
+        });
+      } else toast.error("All fields required!", { icon: "💣" });
   };
 
-  if (!isAuthenticated) return null;
+  if (!user) return <></>;
   return (
     <Form>
       <fieldset>
-        <legend></legend>
-        <div className="field">
-          <label>
-            Alias
-            <input
-              type="text"
-              value={alias}
-              onChange={(event) => setAlias(event.target.value)}
-              name="alias"
-              maxLength={3}
-            />
-          </label>
-        </div>
-
         <div className="fieldGroup">
           <div className="field">
             <label>
@@ -212,9 +156,7 @@ const InventoryReservationForm = () => {
       </fieldset>
       {cart.length === 0 && <>Your cart is empty.</>}
       {isSubmitting ? (
-        <>
-          We are submitting your reservations! Please wait!
-        </>
+        <>We are submitting your reservations! Please wait!</>
       ) : (
         <div className="results">
           {cart?.map((item) => {
@@ -249,7 +191,7 @@ const InventoryReservationForm = () => {
                     <button
                       type="button"
                       className="increaseQuantity"
-                      onClick={() => increaseQunatity(item.product.id)}
+                      onClick={() => increaseQuantity(item.product.id)}
                     >
                       <FiPlus />
                     </button>

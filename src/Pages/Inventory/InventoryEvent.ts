@@ -7,7 +7,7 @@ export type InventoryEvent = {
   type: string;
   productId: string;
   quantity: number;
-  renter: string;
+  renter: string | undefined;
   fromDate: string;
   toDate: string;
 };

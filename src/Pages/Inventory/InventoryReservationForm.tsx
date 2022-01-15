@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 import { useAddInventoryEvent, useGetProducts } from "../../Hooks/Queries";
 import { errorHandler } from "../../Utilities/ErrorHandlers";
+import { CartItem } from "./CartItem";
 import { Product } from "./Product";
 
 enableMapSet();
@@ -49,10 +50,6 @@ const productsToOptions = (products: Product[] | undefined) => {
   return options;
 };
 
-type CartItem = {
-  quantity: number;
-  product: Product;
-};
 
 const InventoryReservationForm = () => {
   const { isAuthenticated } = useAuth0();
@@ -71,7 +68,7 @@ const InventoryReservationForm = () => {
     setOptions(options);
   }, [products]);
 
-  const handleChange = ({ value }: any) => {
+  const addItem = ({ value }: any) => {
     const id: unknown = value;
     // set selected
     if (products) {
@@ -210,7 +207,7 @@ const InventoryReservationForm = () => {
           options={options}
           placeholder={"Select item ..."}
           isLoading={isLoading}
-          onChange={handleChange}
+          onChange={addItem}
         />
       </fieldset>
       {cart.length === 0 && <>Your cart is empty.</>}

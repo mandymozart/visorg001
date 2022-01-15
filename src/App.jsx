@@ -1,8 +1,9 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import styled from "@emotion/styled";
 import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { ToastProvider } from "react-toast-notifications";
+import toast, { ToastBar, Toaster } from "react-hot-toast";
+import { CgClose } from "react-icons/cg";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Footer from "./Components/Footer";
 import LoginButton from "./Components/LoginButton";
 import LogoutButton from "./Components/LogoutButton";
@@ -36,6 +37,15 @@ const Notification = styled.div`
   font-size: 0.75rem;
 `;
 
+const Toast = styled.div`
+  display: inline-block;
+  padding: 0;
+  div {
+    display: inline-block;
+  }
+`  
+
+
 const App = () => {
   const { isAuthenticated } = useAuth0();
 
@@ -47,43 +57,54 @@ const App = () => {
             Currently we are accepting applications for Portal Memberships only.
           </Notification>
         )}
+        <Toaster position="bottom-right" toastOptions={{ duration: 23000 }}>
+          {(t) => (
+            <ToastBar toast={t}>
+              {({ icon, message }) => (
+                <Toast onClick={() => toast.dismiss(t.id)}>
+                  {icon}
+                  {message}
+                  {t.type !== "loading" && <CgClose name="close" />}
+                </Toast>
+              )}
+            </ToastBar>
+          )}
+        </Toaster>
         <Navigation />
-        <ToastProvider>
-          <Switch>
-            {/* <Redirect exact from="/" to="/" /> */}
-            <Route exact path="/" component={LandingPage} />
-            <Route exact path="/team" component={Team} />
-            <Route exact path="/statutes" component={Statutes} />
-            <Route exact path="/inventory" component={Inventory} />
-            <Route exact path="/projects" component={Projects} />
-            <Route exact path="/project/:uid" component={Project} />
-            <Route exact path="/tutorials" component={Tutorials} />
-            <Route exact path="/tutorial/:uid" component={Tutorial} />
-            <Route exact path="/page/:uid" component={Page} />
-            <Route exact path="/epics/create" component={CreateEpics} />
-            <Route exact path="/contact" component={Contact} />
-            <Route exact path="/portal" component={FindUs} />
-            <Route exact path="/portal/find-us" component={FindUs} />
-            <Route
-              exact
-              path="/portal/register"
-              component={PortalMembershipForm}
-            />
-            <Route exact path="/success" component={Success} />
-            <Route exact path="/login" component={LoginButton} />
-            <Route exact path="/logout" component={LogoutButton} />
-            {isAuthenticated && (
-              <>
-                <Route exact path="/my-projects" component={MyProjects} />
-                <Route exact path="/new" component={NewProject} />
-                <Route exact path="/dashboard" component={Dashboard} />
-                <Route exact path="/profile" component={Profile} />
-              </>
-            )}
-            <Route component={NotFound} />
-          </Switch>
-          <Footer />
-        </ToastProvider>
+        <Routes>
+          {/* <Redirect exact from="/" to="/" /> */}
+          <Route exact path="/" element={<LandingPage />} />
+          <Route exact path="/team" element={<Team />} />
+          <Route exact path="/statutes" element={<Statutes />} />
+          <Route exact path="/inventory/*" element={<Inventory />} />
+          <Route exact path="/projects" element={<Projects />} />
+          <Route exact path="/project/:uid" element={<Project />} />
+          <Route exact path="/tutorials" element={<Tutorials />} />
+          <Route exact path="/tutorial/:uid" element={<Tutorial />} />
+          <Route exact path="/page/:uid" element={<Page />} />
+          <Route exact path="/epics/create" element={<CreateEpics />} />
+          <Route exact path="/contact" element={<Contact />} />
+          <Route exact path="/portal" element={<FindUs />} />
+          <Route exact path="/portal/find-us" element={<FindUs />} />
+          <Route
+            exact
+            path="/portal/register"
+            element={<PortalMembershipForm />}
+          />
+          <Route exact path="/success" element={<Success />} />
+          <Route exact path="/login" element={<LoginButton />} />
+          <Route exact path="/logout" element={<LogoutButton />} />
+          {isAuthenticated && (
+            <>
+              <Route exact path="/my-projects" element={<MyProjects />} />
+              <Route exact path="/new" element={<NewProject />} />
+              <Route exact path="/dashboard" element={<Dashboard />} />
+              <Route exact path="/profile" element={<Profile />} />
+            </>
+          )}
+          <Route element={<NotFound />} />
+        </Routes>
+        <Footer />
       </BrowserRouter>
     </Container>
   );

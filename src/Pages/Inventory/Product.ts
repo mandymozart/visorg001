@@ -1,5 +1,6 @@
 export type Product = {
     id: string;
+    productId: string;
     name: string;
     status: string;
     partNumber: string;

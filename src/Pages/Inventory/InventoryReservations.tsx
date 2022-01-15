@@ -15,6 +15,9 @@ const Container = styled.div`
   .name {
     font-weight: bold;
   }
+  .item {
+    padding-bottom: 1rem;
+  }
 `;
 
 const InventoryReservations = () => {

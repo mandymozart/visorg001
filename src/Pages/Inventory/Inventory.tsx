@@ -1,13 +1,22 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import styled from "@emotion/styled";
+import dayjs from "dayjs";
 import produce, { enableMapSet } from "immer";
+import { nanoid } from "nanoid";
 import React, { useCallback, useEffect, useState } from "react";
 import { CgEuro } from "react-icons/cg";
 import { FaUserAstronaut } from "react-icons/fa";
 import { FiMinus, FiPlus } from "react-icons/fi";
 import { GiToken } from "react-icons/gi";
 import Select from "react-select";
+import { useToasts } from "react-toast-notifications";
 import Layout from "../../Components/Layout";
+import {
+  useAddInventoryEvent,
+  useGetInventoryEvents,
+  useGetProducts
+} from "../../Hooks/Queries";
+import { Product } from "./Product";
 
 enableMapSet();
 
@@ -20,6 +29,14 @@ const Form = styled.form`
     border: 0;
     padding: 0;
     margin-bottom: 2rem;
+  }
+  .options {
+    position: sticky;
+    top: 6rem;
+    z-index: 10;
+    margin: 0;
+    padding: 1rem 0;
+    background: yellow;
   }
   .item {
     display: flex;
@@ -44,57 +61,18 @@ const Form = styled.form`
   }
 `;
 
-const productsToOptions = (products: Product[]) => {
+const productsToOptions = (products: Product[] | undefined) => {
   let options: any = [];
-  products.forEach((product) => {
-    if (
-      product.status === "Available" &&
-      product.categoryName === "AV Rental"
-    ) {
-      options.push({ value: product.id, label: product.name });
-    }
-  });
+  if (products)
+    products.forEach((product) => {
+      if (
+        product.status === "Available" &&
+        product.categoryName === "AV Rental"
+      ) {
+        options.push({ value: product.id, label: product.name });
+      }
+    });
   return options;
-};
-
-type Product = {
-  id: string;
-  name: string;
-  status: string;
-  partNumber: string;
-  url: string;
-  description: string;
-  pricingType: string;
-  pricingFactor: string;
-  costPrice: string;
-  listPrice: string;
-  unitPrice: string;
-  createdAt: string;
-  modifiedAt: string;
-  weight: string;
-  isTaxFree: string;
-  owner: string;
-  amount: number;
-  amountInStock: number;
-  isRental: string;
-  isOnPremiseUseOnly: string;
-  memberPrice: string;
-  costPriceCurrency: string;
-  listPriceCurrency: string;
-  unitPriceCurrency: string;
-  brandId: string;
-  brandName: string;
-  categoryId: string;
-  categoryName: string;
-  costPriceConverted: string;
-  listPriceConverted: string;
-  unitPriceConverted: string;
-  createdById: string;
-  createdByName: string;
-  modifiedById: string;
-  modifiedByName: string;
-  contactId: string;
-  contactName: string;
 };
 
 type CartItem = {
@@ -104,48 +82,50 @@ type CartItem = {
 
 const Inventory = () => {
   const { isAuthenticated } = useAuth0();
-  const [products, setProducts] = useState<Product[]>([]);
+  const { addToast } = useToasts();
   const [cart, setCart] = useState<CartItem[]>([]);
   const [selected, setSelected] = useState<Product>();
   const [options, setOptions] = useState<any[]>([]);
+  const [alias, setAlias] = useState<string>("");
+  const [fromDate, setFromDate] = useState<string>("");
+  const [toDate, setToDate] = useState<string>("");
+  const { data: products, isLoading, isSuccess } = useGetProducts();
+  const {
+    data: events,
+    isLoading: isLoadingEvents,
+    isSuccess: isSuccessEvents,
+  } = useGetInventoryEvents();
+  const mutation = useAddInventoryEvent();
 
   useEffect(() => {
-    const getProducts = () => {
-      let url =
-        "https://api.sheety.co/6f92f2531f272b85130005f9d671fb6e/inventory/products";
-      fetch(url)
-        .then((response) => response.json())
-        .then((json) => {
-          const options = productsToOptions(json.products);
-          setOptions(options);
-          setProducts(json.products);
-        });
-    };
-    getProducts();
-  }, []);
+    const options = productsToOptions(products);
+    setOptions(options);
+  }, [products]);
 
   const handleChange = ({ value }: any) => {
     const id: unknown = value;
     // set selected
-    const selectedProduct = products.find((item) => item.id === value);
-    setSelected(selectedProduct);
+    if (products) {
+      const selectedProduct = products.find((item) => item.id === value);
+      setSelected(selectedProduct);
 
-    if (selectedProduct) {
-      // update cart
-      setCart(
-        produce((draft) => {
-          const item = draft.find(
-            (item) =>
-              item.product.id === id &&
-              item.quantity < selectedProduct.amountInStock
-          );
-          if (item) {
-            item.quantity++;
-          } else {
-            draft.push({ quantity: 1, product: selectedProduct });
-          }
-        })
-      );
+      if (selectedProduct) {
+        // update cart
+        setCart(
+          produce((draft) => {
+            const item = draft.find(
+              (item) =>
+                item.product.id === id &&
+                item.quantity < selectedProduct.amountInStock
+            );
+            if (item) {
+              item.quantity++;
+            } else {
+              draft.push({ quantity: 1, product: selectedProduct });
+            }
+          })
+        );
+      }
     }
   };
 
@@ -183,8 +163,22 @@ const Inventory = () => {
     );
   }, []);
 
+  const checkout = () => {
+    const body = {
+      event: {
+        eventId: nanoid(8),
+        renter: alias,
+        type: "reservation",
+        productId: "testID",
+        fromDate: fromDate,
+        toDate: toDate,
+        quantity: 2,
+      },
+    };
+    // mutation.mutate(body)
+  };
+
   if (!isAuthenticated) return null;
-  if (!products) return null;
   return (
     <Layout>
       <h2>Rent items from portal</h2>
@@ -194,7 +188,13 @@ const Inventory = () => {
           <div className="field">
             <label>
               Alias
-              <input type="text" name="alias" maxLength={3} />
+              <input
+                type="text"
+                value={alias}
+                onChange={(event) => setAlias(event.target.value)}
+                name="alias"
+                maxLength={3}
+              />
             </label>
           </div>
 
@@ -202,29 +202,47 @@ const Inventory = () => {
             <div className="field">
               <label>
                 From
-                <input type="date" name="checkin" />
+                <input
+                  type="date"
+                  value={fromDate}
+                  min={dayjs().format("YYYY-MM-DD")}
+                  max={dayjs().add(6, "month").format("YYYY-MM-DD")}
+                  onChange={(event) => setFromDate(event.target.value)}
+                  name="checkin"
+                />
               </label>
             </div>
 
             <div className="field">
               <label>
                 To
-                <input type="date" name="checkout" />
+                <input
+                  type="date"
+                  value={toDate}
+                  min={dayjs(fromDate).add(1, "day").format("YYYY-MM-DD")}
+                  max={dayjs()
+                    .add(6, "month")
+                    .add(1, "day")
+                    .format("YYYY-MM-DD")}
+                  onChange={(event) => setToDate(event.target.value)}
+                  name="checkout"
+                />
               </label>
             </div>
           </div>
-          
-          <button type="button">Checkout {cart.length} items</button>
+
+          <button type="button" onClick={checkout}>
+            Checkout {cart.length} items
+          </button>
         </fieldset>
-        <fieldset>
-          <h3>Itineary</h3>
-          <label>
-            <Select
-              options={options}
-              placeholder={"Select item ..."}
-              onChange={handleChange}
-            />
-          </label>
+        <fieldset className="options">
+          {/* <h3>Cart</h3> */}
+          <Select
+            options={options}
+            placeholder={"Select item ..."}
+            isLoading={isLoading}
+            onChange={handleChange}
+          />
           {/* {selected && (
             <div className="item" key={selected.id}>
               <div className="actions">
@@ -243,7 +261,7 @@ const Inventory = () => {
             </div>
           )} */}
         </fieldset>
-        <hr />
+        {cart.length === 0 && <>Your cart is empty.</>}
         <div className="results">
           {cart?.map((item) => {
             return (

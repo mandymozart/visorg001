@@ -1,7 +1,8 @@
 export const config = {
   repoURL: "https://gitlab.com/viennastruggle/visorg/-",
   // apiURL: "http://localhost:8000/api", // local-dev
-  apiURL: "https://visinn001.viennastruggle.at/api",
+  sheetyApiURL:
+    "https://api.sheety.co/6f92f2531f272b85130005f9d671fb6e/inventory/",
   auth0Domain: "viennastruggle.eu.auth0.com",
   auth0ClientId: "yXFdWoH22B0WZpHjpXwjPTvnY0ihJS7d",
   prismicRepositoryName: "visorg001",

@@ -110,6 +110,9 @@ button:hover {
   line-height: 2rem;
   flex: 1;
 }
+fieldset {
+  margin: 0;
+}
 .field input,
 .field textarea {
   font-size: 0.75rem;

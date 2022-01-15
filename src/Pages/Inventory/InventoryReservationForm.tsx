@@ -64,8 +64,6 @@ const InventoryReservationForm = () => {
   const [toDate, setToDate] = useState<string>("");
   const { data: products, isLoading } = useGetProducts();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [queueCount, setQueueCount] = useState(0);
-
   const mutation = useAddInventoryEvent();
 
   useEffect(() => {
@@ -125,7 +123,6 @@ const InventoryReservationForm = () => {
 
   const checkout = () => {
     if (fromDate !== "" && toDate !== "" && alias !== "") {
-      setQueueCount(cart.length + 1);
       setIsSubmitting(true);
       cart.forEach((item) => {
         // throttle requests
@@ -220,7 +217,6 @@ const InventoryReservationForm = () => {
       {isSubmitting ? (
         <>
           We are submitting your reservations! Please wait!
-          {queueCount} left
         </>
       ) : (
         <div className="results">

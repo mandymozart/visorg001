@@ -54,6 +54,8 @@ export const useCartStore = create<State>((set, get) => ({
       })
     ),
   selectedProduct: undefined,
+  getProduct: (productId: string) =>
+    get().products.find((item) => item.productId === productId),
   events: [],
   replaceEvents: (events) =>
     set(
@@ -68,7 +70,6 @@ export const useCartStore = create<State>((set, get) => ({
         state.selectedProduct = undefined;
       })
     ),
-
   increaseQuantity: (id) => {
     set(
       produce((state) => {
@@ -106,11 +107,12 @@ type State = {
   clearItems: () => void;
   isLoading: boolean;
   setIsLoading: (value: boolean) => void;
+  getProduct: (productId: string) => Product | undefined;
   products: Product[];
   replaceProducts: (products: Product[]) => void;
+  selectedProduct: Product | undefined; // detail page makes this redundant
   events: InventoryEvent[];
   replaceEvents: (products: InventoryEvent[]) => void;
-  selectedProduct: Product | undefined; // detail page makes this redundant
   reset: () => void;
   increaseQuantity: (id: string) => void;
   reduceQuantity: (id: string) => void;

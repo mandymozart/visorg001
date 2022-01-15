@@ -34,6 +34,9 @@ const Form = styled.form`
     padding: 1rem 0;
     background: yellow;
   }
+  .results {
+    text-align: center;
+  }
 `;
 
 const productsToOptions = (products: Product[] | undefined) => {
@@ -96,7 +99,7 @@ const InventoryReservationForm = () => {
                   toast.success(`Done!`, { icon: "✨" });
                   setIsSubmitting(false);
                   clearItems();
-                  navigate("/inventory/reservations");
+                  // navigate("/inventory/reservations");
                 },
                 onError: errorHandler,
               }

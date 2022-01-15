@@ -69,12 +69,12 @@ const Inventory = () => {
   if (!isAuthenticated) return null;
   return (
     <Layout>
+      <CartLogic/>
       <h2>Rent items from portal</h2>
       <InventoryNavigation>
         <CustomLink to="reservations">All Reservations</CustomLink>{" "}
         <CustomLink to="reservation">New Reservations</CustomLink>
       </InventoryNavigation>
-      <CartLogic/>
       <Body>
         <Routes>
           <Route path="reservations" element={<InventoryReservations />} />

@@ -10,7 +10,6 @@ import {
   useResolvedPath
 } from "react-router-dom";
 import Layout from "../../Components/Layout";
-import CartLogic from "./CartLogic";
 import InventoryReservationForm from "./InventoryReservationForm";
 import InventoryReservations from "./InventoryReservations";
 
@@ -72,7 +71,6 @@ const Inventory = () => {
   if (!isAuthenticated) return null;
   return (
     <Layout>
-      <CartLogic/>
       <h2>Rent items from portal</h2>
       <InventoryNavigation>
         <CustomLink to="reservations">All Reservations</CustomLink>{" "}

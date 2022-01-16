@@ -8,7 +8,8 @@ import {
   Gi3DGlasses,
   GiAchillesHeel,
   GiBackpack,
-  GiMagicPortal
+  GiMagicPortal,
+  GiToken
 } from "react-icons/gi";
 import { Link, NavLink } from "react-router-dom";
 import { useCartStore } from "../Stores/CartStore";
@@ -124,6 +125,11 @@ const Navigation = () => {
             <NavLink to={"/inventory"}>
               <button className="menu">
                 <GiBackpack /> Inventory
+              </button>
+            </NavLink>
+            <NavLink to={"/wallet"}>
+              <button className="menu">
+                <GiToken /> Wallet
               </button>
             </NavLink>
             <NavLink to={"/my-projects"}>

@@ -18,6 +18,7 @@ import LandingPage from "./Pages/LandingPage/LandingPage";
 import NotFound from "./Pages/NotFound";
 import Page from "./Pages/Page/Page";
 import PortalMembershipForm from "./Pages/Portal/PortalMembershipForm";
+import CartLogic from "./Pages/Products/CartLogic";
 import Inventory from "./Pages/Products/Inventory";
 import Profile from "./Pages/Profile/Profile";
 import MyProjects from "./Pages/Projects/MyProjects";
@@ -28,8 +29,11 @@ import Statutes from "./Pages/Statutes/Statutes";
 import Team from "./Pages/Team/Team";
 import Tutorial from "./Pages/Tutorials/Tutorial";
 import Tutorials from "./Pages/Tutorials/Tutorials";
+import WalletLogic from "./Pages/Wallet/WalletLogic";
+import WalletPage from "./Pages/Wallet/WalletPage";
 
-const Container = styled.div``;
+const Container = styled.div`
+`;
 
 const Notification = styled.div`
   background: white;
@@ -72,6 +76,8 @@ const App = () => {
           )}
         </Toaster>
         <Navigation />
+        <WalletLogic/>
+        <CartLogic/>
         <Routes>
           {/* <Redirect exact from="/" to="/" /> */}
           <Route exact path="/" element={<LandingPage />} />
@@ -79,6 +85,7 @@ const App = () => {
           <Route exact path="/statutes" element={<Statutes />} />
           <Route exact path="/cart" element={<CartPage />} />
           <Route exact path="/inventory/*" element={<Inventory />} />
+          <Route exact path="/wallet" element={<WalletPage />} />
           <Route exact path="/projects" element={<Projects />} />
           <Route exact path="/project/:uid" element={<Project />} />
           <Route exact path="/tutorials" element={<Tutorials />} />

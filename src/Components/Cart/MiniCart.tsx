@@ -9,6 +9,7 @@ import { useCartStore } from "../../Stores/CartStore";
 const Container = styled.div`
   max-width: var(--content-width);
   margin: 0 auto;
+  text-align: center;
   .items {
     text-align: center;
     .item {

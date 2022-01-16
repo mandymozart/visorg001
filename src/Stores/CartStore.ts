@@ -19,9 +19,7 @@ export const useCartStore = create<State>((set, get) => ({
           );
           if (selectedProduct) {
             // only add when not existing
-            if (state.items.findIndex(
-              (item) => item.product.id === id
-            ) === -1)
+            if (state.items.findIndex((item) => item.product.id === id) === -1)
               state.items.push({ quantity: 1, product: selectedProduct });
             else toast("Item exists! Consider increasing its quantity.");
           }
@@ -95,6 +93,28 @@ export const useCartStore = create<State>((set, get) => ({
       })
     );
   },
+  getTokenPriceSum: () => {
+    let sum = 0;
+    get().items.forEach((item) => {
+      sum = sum + parseInt(item.product.memberPrice) * item.quantity;
+    });
+    return sum;
+  },
+  getItemPrice: (id) => {
+    const item = get().items.find((item: CartItem) => item.product.id === id);
+    if (item) return parseInt(item.product.listPrice) * item.quantity;
+  },
+  getItemTokenPrice: (id) => {
+    const item = get().items.find((item: CartItem) => item.product.id === id);
+    if (item) return parseInt(item.product.memberPrice) * item.quantity;
+  },
+  getPriceSum: () => {
+    let sum = 0;
+    get().items.forEach((item) => {
+      sum = sum + parseInt(item.product.listPrice) * item.quantity;
+    });
+    return sum;
+  },
 }));
 
 type State = {
@@ -112,6 +132,10 @@ type State = {
   reset: () => void;
   increaseQuantity: (id: string) => void;
   reduceQuantity: (id: string) => void;
+  getTokenPriceSum: () => number;
+  getItemPrice: (id: string) => number | undefined;
+  getItemTokenPrice: (id: string) => number | undefined;
+  getPriceSum: () => number;
 };
 
 type Items = CartItem[];

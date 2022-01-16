@@ -8,16 +8,17 @@ import Footer from "./Components/Footer";
 import LoginButton from "./Components/LoginButton";
 import LogoutButton from "./Components/LogoutButton";
 import Navigation from "./Components/Navigation";
+import CartPage from "./Pages/Cart/Cart";
 import Contact from "./Pages/Contact/Contact";
 import Success from "./Pages/Contact/Success";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import CreateEpics from "./Pages/Epics/Create";
 import FindUs from "./Pages/FindUs/FindUs";
-import Inventory from "./Pages/Inventory/Inventory";
 import LandingPage from "./Pages/LandingPage/LandingPage";
 import NotFound from "./Pages/NotFound";
 import Page from "./Pages/Page/Page";
 import PortalMembershipForm from "./Pages/Portal/PortalMembershipForm";
+import Inventory from "./Pages/Products/Inventory";
 import Profile from "./Pages/Profile/Profile";
 import MyProjects from "./Pages/Projects/MyProjects";
 import NewProject from "./Pages/Projects/NewProject";
@@ -76,6 +77,7 @@ const App = () => {
           <Route exact path="/" element={<LandingPage />} />
           <Route exact path="/team" element={<Team />} />
           <Route exact path="/statutes" element={<Statutes />} />
+          <Route exact path="/cart" element={<CartPage />} />
           <Route exact path="/inventory/*" element={<Inventory />} />
           <Route exact path="/projects" element={<Projects />} />
           <Route exact path="/project/:uid" element={<Project />} />

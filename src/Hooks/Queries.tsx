@@ -3,8 +3,8 @@ import { useMutation, useQuery } from "react-query";
 import { config } from "../config";
 import {
   InventoryEvent
-} from "../Pages/Inventory/InventoryEvent";
-import { Product } from "../Pages/Inventory/Product";
+} from "../Pages/Products/InventoryEvent";
+import { Product } from "../Pages/Products/Product";
 
 const getUrl = (endpoint: string) => {
   return new URL(config.sheetyApiURL + endpoint);

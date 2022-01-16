@@ -24,6 +24,9 @@ const Body = styled.div`
     justify-content: space-between;
     border-bottom: var(--color) 1px solid;
     margin-bottom: 1rem;
+    .owner {
+      text-align: left;
+    }
     .stock {
       flex: 0 0 8rem;
       .price {

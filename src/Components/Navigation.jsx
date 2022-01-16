@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import clsx from "clsx";
 import Hamburger from "hamburger-react";
 import React, { useState } from "react";
-import { FiTv, FiUsers } from "react-icons/fi";
+import { FiShoppingCart, FiTv, FiUsers } from "react-icons/fi";
 import {
   Gi3DGlasses,
   GiAchillesHeel,
@@ -11,6 +11,7 @@ import {
   GiMagicPortal
 } from "react-icons/gi";
 import { Link, NavLink } from "react-router-dom";
+import { useCartStore } from "../Stores/CartStore";
 import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
 import ViennaStruggleLogo from "./ViennaStruggleLogo";
@@ -67,13 +68,25 @@ const Container = styled.div`
     line-height: 0.75rem;
   }
 `;
+
+const CartLink = styled(Link)`
+position: relative;
+span {
+  padding-left: 0.5rem;
+}
+`
+
 const Navigation = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
+  const cartItems = useCartStore((store) => store.items);
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <Container>
+    <Container >
       <header>
-        <div></div>
+        <CartLink to="/cart"><FiShoppingCart/>{" "}{cartItems.length > 0 && (
+          <span>{cartItems.length}</span>
+        )}
+        </CartLink>
         <Link to="/">
           <ViennaStruggleLogo />
         </Link>

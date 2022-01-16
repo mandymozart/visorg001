@@ -1,6 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import styled from "@emotion/styled";
-import React from "react";
+import React, { useEffect } from "react";
 import Layout from "../../Components/Layout";
 
 const Container = styled.div`
@@ -12,6 +12,9 @@ const Container = styled.div`
 const Profile = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
 
+  useEffect(() => {
+    console.log(user)
+  }, [user])
   if (isLoading) {
     return <div>Loading ...</div>;
   }

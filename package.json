@@ -22,6 +22,7 @@
       "html-to-react": "^1.4.7",
       "immer": "^9.0.12",
       "nanoid": "^3.1.32",
+      "persist": "^0.2.7",
       "postcss": "^8.4.5",
       "prismic-javascript": "^2.1.1",
       "prismic-reactjs": "^1.1.2",

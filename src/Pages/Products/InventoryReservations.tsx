@@ -9,6 +9,8 @@ import { useCartStore } from "../../Stores/CartStore";
 enableMapSet();
 
 const Container = styled.div`
+  max-width: var(--content-width);
+  margin: 0 auto;
   &&& .stock {
     flex: auto;
   }

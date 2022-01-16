@@ -1,9 +1,10 @@
 import produce from "immer";
+import toast from "react-hot-toast";
 import { mountStoreDevtool } from "simple-zustand-devtools";
 import create from "zustand";
-import { CartItem } from "../Pages/Inventory/CartItem";
-import { InventoryEvent } from "../Pages/Inventory/InventoryEvent";
-import { Product } from "../Pages/Inventory/Product";
+import { CartItem } from "../Pages/Products/CartItem";
+import { InventoryEvent } from "../Pages/Products/InventoryEvent";
+import { Product } from "../Pages/Products/Product";
 
 export const useCartStore = create<State>((set, get) => ({
   items: [],
@@ -17,17 +18,12 @@ export const useCartStore = create<State>((set, get) => ({
             (item: Product) => item.id === value
           );
           if (selectedProduct) {
-            // update cart
-            const item = state.items.find(
-              (item) =>
-                item.product.id === id &&
-                item.quantity < selectedProduct.amountInStock
-            );
-            if (item) {
-              item.quantity++;
-            } else {
+            // only add when not existing
+            if (state.items.findIndex(
+              (item) => item.product.id === id
+            ) === -1)
               state.items.push({ quantity: 1, product: selectedProduct });
-            }
+            else toast("Item exists! Consider increasing its quantity.");
           }
         }
       })

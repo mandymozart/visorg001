@@ -68,7 +68,7 @@ const MiniCartActions = () => {
           {
             onSuccess: () => {
               setIsSubmitting(false);
-              createReport();
+              createReport({user: user,items:items,fromDate: fromDate, toDate:toDate});
               toast.success(
                 `Done!\nLast transaction: ${grandTotal}\nNew balance: ${tokens} `,
                 { icon: "✨" }
@@ -82,7 +82,7 @@ const MiniCartActions = () => {
     });
   };
 
-  const createReport = () => {
+  const createReport = (report: any) => {
     // TODO: Information required after completed transactions:
     /**
      * each benefector receives an email, about their sale
@@ -91,6 +91,8 @@ const MiniCartActions = () => {
      * * emergency contact information from owners
      * * an updated wallet balance
      **/
+    console.log(JSON.stringify({user: user,items:items,fromDate: fromDate, toDate:toDate}))
+
 
     clearItems();
   };

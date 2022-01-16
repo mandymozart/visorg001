@@ -1,12 +1,13 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import styled from "@emotion/styled";
-import { enableMapSet } from "immer";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 import React from "react";
 import { FaUserAstronaut } from "react-icons/fa";
 import { GiCalendar } from "react-icons/gi";
 import { useCartStore } from "../../Stores/CartStore";
 
-enableMapSet();
+dayjs.extend(relativeTime);
 
 const Container = styled.div`
   max-width: var(--content-width);
@@ -45,11 +46,14 @@ const InventoryReservations = () => {
                     <span>
                       <FaUserAstronaut />
                     </span>{" "}
-                    {getProduct(item.productId)?.owner}
+                    {getProduct(item.productId)?.owner} {" "}
+                    {dayjs(item.toDate).fromNow()}
                   </div>
                 </div>
                 <div className="dates">
-                  <GiCalendar /> {item.fromDate} -{item.toDate} <br />
+                  <small>
+                    <GiCalendar /> {item.fromDate} - {item.toDate} <br />
+                  </small>
                 </div>
                 {/* <div className="actions">
                 <button

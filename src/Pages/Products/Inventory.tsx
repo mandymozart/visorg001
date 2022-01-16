@@ -78,11 +78,29 @@ const Inventory = () => {
       </InventoryNavigation>
       <Body>
         <Routes>
+          <Route path="/" element={<InventoryWelcome />} />
           <Route path="reservations" element={<InventoryReservations />} />
           <Route path="reservation" element={<InventoryReservationForm />} />
         </Routes>
       </Body>
     </Layout>
+  );
+};
+
+const InventoryWelcome = () => {
+  return (
+    <>
+    <h4>How it works</h4>
+      <p>
+        We like to share our infrastructure. In order to maintain the quality we
+        also share the responsibility. Making sure that we pay for the rentals
+        guarantees long term sustainability of the portal.
+      </p>
+      <p>
+        Make a new reservation to rent equipment. The app will let you know when
+        an item is not available or where it is.
+      </p>
+    </>
   );
 };
 

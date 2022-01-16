@@ -10,6 +10,14 @@ const Container = styled.div`
     border: 0;
     height: 600px;
   }
+  .stereoview {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    img {
+      width: 100%;
+    }
+  }
 `;
 
 function FindUs() {
@@ -42,6 +50,10 @@ function FindUs() {
                 Reserve a studio visit.
               </CTA>
             </p>
+            <div className="stereoview">
+            <img src="https://res.cloudinary.com/ddqo2y6zh/image/upload/ar_1:1,b_rgb:ffff00,bo_0px_solid_rgb:ffff00,c_fill,g_auto,o_100,r_max,w_1000/v1640687631/visorg001-viennastruggle-com/portal-cyclorma-outview.jpg" alt=""/>
+            <img src="https://res.cloudinary.com/ddqo2y6zh/image/upload/ar_1:1,b_rgb:ffff00,bo_1px_solid_rgb:ffff00,c_fill,g_auto,r_max,w_1000/v1640687696/visorg001-viennastruggle-com/portal-ambisonic-hexagon.jpg" alt=""/>
+            </div>
           </div>
         </Hero>
       </Layout>

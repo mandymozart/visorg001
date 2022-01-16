@@ -2,14 +2,10 @@ import { useAuth0 } from "@auth0/auth0-react";
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import { enableMapSet } from "immer";
-import { nanoid } from "nanoid";
 import React, { useEffect, useState } from "react";
-import toast from "react-hot-toast";
 import Select from "react-select";
 import MiniCart from "../../Components/Cart/MiniCart";
-import { useAddInventoryEvent } from "../../Hooks/Queries";
 import { useCartStore } from "../../Stores/CartStore";
-import { errorHandler } from "../../Utilities/ErrorHandlers";
 import { Product } from "./Product";
 
 enableMapSet();
@@ -56,57 +52,21 @@ const InventoryReservationForm = () => {
   const { user } = useAuth0();
 
   const products = useCartStore((store) => store.products);
-  const cart = useCartStore((store) => store.items);
   const isLoading = useCartStore((store) => store.isLoading);
+  const isSubmitting = useCartStore((store) => store.isSubmitting);
   const addItem = useCartStore((store) => store.addItem);
-  const clearItems = useCartStore((store) => store.clearItems);
+  const fromDate = useCartStore((store) => store.fromDate);
+  const toDate = useCartStore((store) => store.toDate);
+  const setFromDate = useCartStore((store) => store.setFromDate);
+  const setToDate = useCartStore((store) => store.setToDate);
 
   const [options, setOptions] = useState<any[]>([]);
-  const [fromDate, setFromDate] = useState<string>(
-    dayjs().format("YYYY-MM-DD")
-  );
-  const [toDate, setToDate] = useState<string>(
-    dayjs().add(1, "day").format("YYYY-MM-DD")
-  );
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const mutation = useAddInventoryEvent();
+  
 
   useEffect(() => {
     const options = productsToOptions(products);
     setOptions(options);
   }, [products]);
-
-  const checkout = () => {
-    if (user)
-      if (fromDate !== "" && toDate !== "" && user.nickname) {
-        setIsSubmitting(true);
-        cart.forEach((item) => {
-          // throttle requests
-          setTimeout(() => {
-            mutation.mutate(
-              {
-                eventId: nanoid(8),
-                renter: user.nickname,
-                type: "reservation",
-                productId: item.product.productId,
-                fromDate: fromDate,
-                toDate: toDate,
-                quantity: item.quantity,
-              },
-              {
-                onSuccess: () => {
-                  toast.success(`Done!`, { icon: "✨" });
-                  setIsSubmitting(false);
-                  clearItems();
-                  // navigate("/inventory/reservations");
-                },
-                onError: errorHandler,
-              }
-            );
-          }, 1000);
-        });
-      } else toast.error("All fields required!", { icon: "💣" });
-  };
 
   if (!user) return <></>;
   return (
@@ -145,12 +105,6 @@ const InventoryReservationForm = () => {
               </label>
             </div>
           </div>
-
-          {cart.length > 0 && (
-            <button type="button" onClick={checkout}>
-              Checkout {cart.length} items
-            </button>
-          )}
         </fieldset>
         <fieldset className="options">
           <Select

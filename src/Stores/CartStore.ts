@@ -1,10 +1,15 @@
+import dayjs from "dayjs";
 import produce from "immer";
 import toast from "react-hot-toast";
 import { mountStoreDevtool } from "simple-zustand-devtools";
 import create from "zustand";
 import { CartItem } from "../Pages/Products/CartItem";
+import { Currency } from "../Pages/Products/Currency";
 import { InventoryEvent } from "../Pages/Products/InventoryEvent";
 import { Product } from "../Pages/Products/Product";
+import { round } from "../utils";
+
+type Items = CartItem[];
 
 export const useCartStore = create<State>((set, get) => ({
   items: [],
@@ -33,11 +38,32 @@ export const useCartStore = create<State>((set, get) => ({
         state.items = [];
       })
     ),
+  fromDate: dayjs().format("YYYY-MM-DD"),
+  setFromDate: (fromDate) =>
+    set(
+      produce((state: State) => {
+        state.fromDate = fromDate;
+      })
+    ),
+  toDate: dayjs().add(1, "day").format("YYYY-MM-DD"),
+  setToDate: (toDate) =>
+    set(
+      produce((state: State) => {
+        state.toDate = toDate;
+      })
+    ),
   isLoading: false,
   setIsLoading: (value) =>
     set(
       produce((state: State) => {
         state.isLoading = value;
+      })
+    ),
+  isSubmitting: false,
+  setIsSubmitting: (value) =>
+    set(
+      produce((state: State) => {
+        state.isSubmitting = value;
       })
     ),
   products: [],
@@ -93,27 +119,43 @@ export const useCartStore = create<State>((set, get) => ({
       })
     );
   },
-  getTokenPriceSum: () => {
+  getTotal: (currency = Currency.TOKEN) => {
     let sum = 0;
     get().items.forEach((item) => {
-      sum = sum + parseInt(item.product.memberPrice) * item.quantity;
+      let itemSum = 0;
+      switch (currency) {
+        case Currency.EUR:
+          itemSum = parseFloat(item.product.listPrice);
+          break;
+        case Currency.TOKEN:
+        default:
+          itemSum = parseFloat(item.product.memberPrice);
+          break;
+      }
+      sum = sum + itemSum * item.quantity;
     });
     return sum;
   },
-  getItemPrice: (id) => {
+  getItemSum: (id, currency = Currency.TOKEN) => {
     const item = get().items.find((item: CartItem) => item.product.id === id);
-    if (item) return parseInt(item.product.listPrice) * item.quantity;
+    let price = 0;
+    if (item) {
+      switch (currency) {
+        case Currency.EUR:
+          price = parseFloat(item.product.listPrice);
+          break;
+        case Currency.TOKEN:
+        default:
+          price = parseFloat(item.product.memberPrice);
+          break;
+      }
+      return price * item.quantity;
+    }
   },
-  getItemTokenPrice: (id) => {
-    const item = get().items.find((item: CartItem) => item.product.id === id);
-    if (item) return parseInt(item.product.memberPrice) * item.quantity;
-  },
-  getPriceSum: () => {
-    let sum = 0;
-    get().items.forEach((item) => {
-      sum = sum + parseInt(item.product.listPrice) * item.quantity;
-    });
-    return sum;
+  getFees: (currency = Currency.TOKEN) => {
+    // Needs to extend depending on membership
+    let sum = get().getTotal(currency);
+    return round((sum / 100) * 30, 4);
   },
 }));
 
@@ -123,7 +165,13 @@ type State = {
   clearItems: () => void;
   isLoading: boolean;
   setIsLoading: (value: boolean) => void;
+  isSubmitting: boolean;
+  setIsSubmitting: (value: boolean) => void;
   getProduct: (productId: string) => Product | undefined;
+  fromDate: string;
+  setFromDate: (fromDate: string) => void;
+  toDate: string;
+  setToDate: (toDate: string) => void;
   products: Product[];
   replaceProducts: (products: Product[]) => void;
   selectedProduct: Product | undefined; // detail page makes this redundant
@@ -132,13 +180,10 @@ type State = {
   reset: () => void;
   increaseQuantity: (id: string) => void;
   reduceQuantity: (id: string) => void;
-  getTokenPriceSum: () => number;
-  getItemPrice: (id: string) => number | undefined;
-  getItemTokenPrice: (id: string) => number | undefined;
-  getPriceSum: () => number;
+  getTotal: (currency?: Currency) => number;
+  getItemSum: (id: string, currency?: Currency) => number | undefined;
+  getFees: (currency?: Currency) => number;
 };
-
-type Items = CartItem[];
 
 if (process.env.REACT_APP_STAGE === undefined) {
   let root = document.createElement("div");

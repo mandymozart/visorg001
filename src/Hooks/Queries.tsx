@@ -6,12 +6,12 @@ import { Product } from "../Pages/Products/Product";
 import { Wallet } from "../Pages/Wallet/Wallet";
 
 const getUrl = (endpoint: string) => {
-  return new URL(config.sheetyApiURL + endpoint);
+  return new URL(config.sheetyApiURL + endpoint).toString();
 };
 
 function fetchEvents(): Promise<InventoryEvent[] | undefined> {
   return axios
-    .get(getUrl("/events").toString())
+    .get(getUrl("/events"))
     .then((response) => response.data.events);
 }
 
@@ -19,33 +19,23 @@ export const useGetInventoryEvents = () => {
   return useQuery("getInventoryEvents", () => fetchEvents());
 };
 
-function fetchWallet(sub: string): Promise<Wallet | undefined> {
-  return axios
-    .get(getUrl("/wallets").toString())
-    .then((response) =>
-      response.data.wallets.find((wallet: Wallet) => wallet.owner === sub)
-    );
-}
 function fetchWallets(): Promise<Wallet[] | undefined> {
   return axios
-    .get(getUrl("/wallets").toString())
+    .get(getUrl("/wallets"))
     .then((response) => response.data.wallets);
 }
 
-export const useGetWallet = (sub: string) => {
-  return useQuery("getWallet" + sub, () => fetchWallet(sub));
-};
 export const useGetWallets = () => {
   return useQuery("getWallets", () => fetchWallets());
 };
 
-export const useUpdateWallet = () => {
-  const url = getUrl("/wallets").toString();
-  return useMutation(async (data: Wallet) => {
+export const useUpdateWallets = () => {
+  return useMutation(async (wallet: Wallet) => {
+    const url = getUrl(`/wallets/${wallet.id}`);
     await axios
-      .post(
+      .put(
         url,
-        { wallet: data },
+        { wallet: wallet },
         {
           headers: {
             "Content-Type": "application/json",
@@ -57,7 +47,7 @@ export const useUpdateWallet = () => {
 };
 
 export const useAddInventoryEvent = () => {
-  const url = getUrl("/events").toString();
+  const url = getUrl("/events");
   return useMutation(async (data: InventoryEvent) => {
     await axios
       .post(
@@ -75,7 +65,7 @@ export const useAddInventoryEvent = () => {
 
 function fetchProducts(): Promise<Product[] | undefined> {
   return axios
-    .get(getUrl("/products").toString())
+    .get(getUrl("/products"))
     .then((response) => response.data.products);
 }
 

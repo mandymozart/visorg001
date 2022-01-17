@@ -4,6 +4,7 @@ import create from "zustand";
 import { Wallet, WalletStatus } from "../Pages/Wallet/Wallet";
 
 export const useWalletStore = create<State>((set, get) => ({
+  id: -1,
   address: "",
   setAddress: (address) =>
     set(
@@ -36,6 +37,7 @@ export const useWalletStore = create<State>((set, get) => ({
   hydrate: (wallet) =>
     set(
       produce((state) => {
+        state.id = wallet.id;
         state.address = wallet.address;
         state.owner = wallet.owner;
         state.status = wallet.status;
@@ -44,6 +46,15 @@ export const useWalletStore = create<State>((set, get) => ({
         state.lastUpdate = wallet.lastUpdate;
       })
     ),
+  bake: () => ({
+    id: get().id,
+    address: get().address,
+    owner: get().owner,
+    status: get().status,
+    tokens: get().tokens,
+    alias: get().alias,
+    lastUpdate: get().lastUpdate,
+  }),
   addTokens: (tokens) =>
     set(
       produce((state) => {
@@ -71,6 +82,7 @@ type State = Wallet & {
   setStatus: (status: WalletStatus) => void;
   setAlias: (alias: string) => void;
   hydrate: (wallet: Wallet) => void;
+  bake: () => Wallet;
   addTokens: (tokens: number) => void;
   deductTokens: (tokens: number) => void;
   setLastUpdate: (lastUpdate: string) => void;

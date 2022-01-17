@@ -1,7 +1,8 @@
-// modern JS style - encouraged
-export async function handler(event, context) {
-    return {
+const mailgun = require('mailgun-js');
+exports.handler = function(event, context, callback) 
+{
+  callback(null, {
       statusCode: 200,
-      body: JSON.stringify({ message: `Hello world ${Math.floor(Math.random() * 10)}` })
-    };
-  }
+      body: "Mail sent"
+  });
+}

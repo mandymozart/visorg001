@@ -4,7 +4,8 @@ import { enableMapSet } from "immer";
 import { nanoid } from "nanoid";
 import React from "react";
 import toast from "react-hot-toast";
-import { useAddInventoryEvent } from "../../Hooks/Queries";
+import { useSendMail } from "../../Hooks/FunctionQueries";
+import { useAddInventoryEvent, useUpdateWallets } from "../../Hooks/Queries";
 import { useCartStore } from "../../Stores/CartStore";
 import { useWalletStore } from "../../Stores/WalletStore";
 import { errorHandler } from "../../Utilities/ErrorHandlers";
@@ -15,6 +16,11 @@ enableMapSet();
 const Container = styled.div`
   text-align: right;
 `;
+
+enum MailTypes {
+  ORDER_CONFIRMATION = "order-confirmation",
+  LENTER_INFO = "lenter-info",
+}
 
 const MiniCartActions = () => {
   const { user } = useAuth0();
@@ -30,8 +36,11 @@ const MiniCartActions = () => {
   const toDate = useCartStore((store) => store.toDate);
   const tokens = useWalletStore((store) => store.tokens);
   const deductTokens = useWalletStore((store) => store.deductTokens);
+  const bake = useWalletStore((store) => store.bake);
 
-  const mutation = useAddInventoryEvent();
+  const addInventoryEvent = useAddInventoryEvent();
+  const sendMail = useSendMail();
+  const updateWallets = useUpdateWallets();
 
   const checkout = () => {
     const grandTotal = getTotal() + getFees();
@@ -50,12 +59,21 @@ const MiniCartActions = () => {
     }
     setIsSubmitting(true);
 
+    // update store
     deductTokens(grandTotal);
+    // update remote wallet
+    let newWallet = bake();
+    updateWallets.mutate(newWallet, {
+      onSuccess: () => {
+        console.info("Wallet updated!")
+      },
+      onError: errorHandler,
+    });
 
     items.forEach((item) => {
       // throttle requests
       setTimeout(() => {
-        mutation.mutate(
+        addInventoryEvent.mutate(
           {
             eventId: nanoid(8),
             renter: user.nickname,
@@ -68,12 +86,16 @@ const MiniCartActions = () => {
           {
             onSuccess: () => {
               setIsSubmitting(false);
-              createReport({user: user,items:items,fromDate: fromDate, toDate:toDate});
+              createReport({
+                user: user,
+                items: items,
+                fromDate: fromDate,
+                toDate: toDate,
+              });
               toast.success(
-                `Done!\nLast transaction: ${grandTotal}\nNew balance: ${tokens} `,
+                `Your wallet has been charged!\nLast transaction: ${grandTotal}\nNew balance: ${newWallet.tokens}`,
                 { icon: "✨" }
               );
-              // navigate("/inventory/reservations");
             },
             onError: errorHandler,
           }
@@ -91,8 +113,37 @@ const MiniCartActions = () => {
      * * emergency contact information from owners
      * * an updated wallet balance
      **/
-    console.log(JSON.stringify({user: user,items:items,fromDate: fromDate, toDate:toDate}))
-
+    sendMail.mutate(
+      {
+        type: MailTypes.ORDER_CONFIRMATION,
+        user: user,
+        items: items,
+        fromDate: fromDate,
+        toDate: toDate,
+      },
+      {
+        onSuccess: () => {
+          setIsSubmitting(false);
+          createReport({
+            user: user,
+            items: items,
+            fromDate: fromDate,
+            toDate: toDate,
+          });
+          toast.success(`Confirmation mail sent.`, { icon: "✨" });
+          // navigate("/inventory/reservations");
+        },
+        onError: errorHandler,
+      }
+    );
+    console.log(
+      JSON.stringify({
+        user: user,
+        items: items,
+        fromDate: fromDate,
+        toDate: toDate,
+      })
+    );
 
     clearItems();
   };

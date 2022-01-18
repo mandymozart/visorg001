@@ -28,11 +28,7 @@ export const Hero = styled.div`
 `;
 
 export const BaseSection = styled.section`
-  > div {
-    width: var(--content-width);
-    padding: 1rem;
-    margin: 0 auto;
-  }
+  padding: 1rem;
   img {
     max-width: 100%;
     &.full {

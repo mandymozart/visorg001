@@ -19,6 +19,7 @@ const environment = process.env.REACT_APP_STAGE
 export const config = {
   // Add common config values here
   dateFormat,
+  tokenExchangeRate: 2,
   repoURL: "https://gitlab.com/viennastruggle/visngo/-",
   sheetyApiURL:
     "https://api.sheety.co/6f92f2531f272b85130005f9d671fb6e/inventory",

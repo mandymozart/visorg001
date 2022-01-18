@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import React from "react";
 import { FiPlus } from "react-icons/fi";
 import { useWalletStore } from "../../Stores/WalletStore";
+import { Button, PrimaryButton } from "../Button";
 import WalletCard from "./WalletCard";
 
 const Container = styled.div`
@@ -18,12 +19,12 @@ const Container = styled.div`
 `;
 
 const Wallet = () => {
-  const { user, isAuthenticated } = useAuth0();
+  const { isAuthenticated } = useAuth0();
   const tokens = useWalletStore((store) => store.tokens);
   const address = useWalletStore((store) => store.address);
   const status = useWalletStore((store) => store.status);
   const lastUpdate = useWalletStore((store) => store.lastUpdate);
-  if (!isAuthenticated) return <></>;
+
   return (
     <Container>
       <h2>My Wallet</h2>
@@ -42,10 +43,13 @@ const Wallet = () => {
       </p>
       <p>Using tokens saves your 50% compared to our EUR prices.</p>
       <div className="actions">
-        <button type="button">
+        <Button>
           <FiPlus />
           Add funds
-        </button>
+        </Button>{" "}
+        <PrimaryButton>
+          {!isAuthenticated ? "Compare plans" : "Upgrade plan"}
+        </PrimaryButton>
       </div>
       <h5>Disclaimer</h5>
       <p>Tokens are currently not refundable. There are no payouts.</p>

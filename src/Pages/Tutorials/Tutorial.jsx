@@ -1,31 +1,53 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import styled from "@emotion/styled";
 import { useAllPrismicDocumentsByUIDs } from "@prismicio/react";
 import { RichText } from "prismic-reactjs";
 import React from "react";
+import { useParams } from "react-router-dom";
 import Layout from "../../Components/Layout";
 import Loader from "../../Components/Loader";
 import Tags from "../../Components/Tags";
 import NotFound from "../NotFound";
 
+const Container = styled.div`
+
+`;
 const Header = styled.header`
   text-align: center;
 `;
 const Meta = styled.div`
   text-align: center;
+  padding: 1rem;
 `;
 const TeaserImage = styled.img`
   width: 25rem;
 `;
+const Video = styled.div`
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding-top: 56.25%;
+  max-width: var(--content-width);
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+  }
+`;
+
 const Description = styled.section`
   max-width: var(--content-width-narrow);
   font-size: 1.2rem;
   margin: 0 auto;
+  padding: 1rem;
 `;
 
-const Tutorial = ({ match }) => {
-  const uid = match.params.uid;
-  const { user } = useAuth0();
+const Tutorial = () => {
+  const { uid } = useParams();
+
   const [document, { state, error }] = useAllPrismicDocumentsByUIDs(
     "tutorial",
     [uid]
@@ -36,16 +58,15 @@ const Tutorial = ({ match }) => {
     console.log(document[0]);
     return (
       <Layout>
-        <>
+        <Container>
           <Header>
-            <h3>{document[0].data.title}</h3>
-            {document[0].data?.image.url && (
+            {!document[0].data.video.html && document[0].data?.image.url && (
               <TeaserImage
                 src={document[0].data.image.url}
                 alt={document[0].data.image.alt}
               />
             )}
-            <div
+            <Video
               dangerouslySetInnerHTML={{
                 __html: document[0].data.video.html,
               }}
@@ -55,9 +76,10 @@ const Tutorial = ({ match }) => {
             <Tags tags={document[0].data.tags} />
           </Meta>
           <Description>
+            <h3>{document[0].data.title}</h3>
             <RichText render={document[0].data.content} />
           </Description>
-        </>
+        </Container>
       </Layout>
     );
   }

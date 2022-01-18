@@ -4,9 +4,13 @@ import NotFound from "../NotFound";
 import Layout from "../../Components/Layout";
 import { usePrismicDocumentByUID } from "@prismicio/react";
 import Loader from "../../Components/Loader";
+import { useParams } from "react-router-dom";
+import styled from "@emotion/styled";
+
+const Container = styled.div`padding: 1rem;`
 
 const Page = ({ match }) => {
-  const uid = match.params.uid;
+  const { uid } = useParams();
   const [document, { state, error }] = usePrismicDocumentByUID("page", uid);
 
   useEffect(() => {
@@ -17,8 +21,10 @@ const Page = ({ match }) => {
   else if (state === "loaded") 
     return (
       <Layout>
-        <h1>{RichText.asText(document.data.title)}</h1>
-        <RichText render={document.data.description} />
+        <Container>
+          <h1>{RichText.asText(document.data.title)}</h1>
+          <RichText render={document.data.description} />
+        </Container>
       </Layout>
     );
     return <Loader/>

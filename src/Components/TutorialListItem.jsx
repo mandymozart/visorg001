@@ -2,14 +2,16 @@ import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 import React from "react";
 import { Link } from "react-router-dom";
-import Status from "./Status";
 import Tags from "./Tags";
 
 const Container = styled(Link)`
-  display: block;
+  display: flex;
   line-height: 1.2;
   padding: 1rem 0;
   border-bottom: 1px solid var(--color);
+  img {
+    max-width: 13rem;
+  }
   h3 {
     margin: 0;
     display: block;
@@ -36,7 +38,7 @@ export const variants = {
   },
 };
 
-export const TutorialListItem = ({ project: tutorial }) => {
+export const TutorialListItem = ({ tutorial }) => {
   if (!tutorial) return null;
   console.log(tutorial)
   return (
@@ -51,8 +53,11 @@ export const TutorialListItem = ({ project: tutorial }) => {
       }}
     >
       <Container to={`/tutorial/${tutorial.uid}`}>
-        <h3>{tutorial.data.title}</h3>
-        <Status>{tutorial.data.status}</Status> <Tags tags={tutorial.data.tags} />
+        <img src={tutorial.data.image.url} alt={tutorial.data.image.alt}/>
+        <div>
+          <h3>{tutorial.data.title}</h3>
+          <Tags tags={tutorial.tags} />
+          </div>
       </Container>
     </motion.div>
   );

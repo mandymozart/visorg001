@@ -10,6 +10,7 @@ const Container = styled.div`
   max-width: var(--form-width);
   margin: 0 auto;
   margin-top: 4rem;
+  padding: 1rem;
   h2 {
     text-align: center;
   }

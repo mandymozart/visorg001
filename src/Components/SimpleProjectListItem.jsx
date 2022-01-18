@@ -52,7 +52,7 @@ export const SimpleProjectListItem = ({ project }) => {
     >
       <Container to={`/project/${project.uid}`}>
         <h3>{project.data.title}</h3>
-        <Status>{project.data.status}</Status> <Tags tags={project.data.tags} />
+        <Status>{project.data.status}</Status> <Tags tags={project.tags} />
       </Container>
     </motion.div>
   );

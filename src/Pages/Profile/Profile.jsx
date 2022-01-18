@@ -5,6 +5,7 @@ import Layout from "../../Components/Layout";
 import MiniWallet from "../../Components/Wallet/MiniWallet";
 
 const Container = styled.div`
+padding: 1rem;
   img {
     border-radius: 5rem;
   }

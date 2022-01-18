@@ -1,13 +1,6 @@
-import styled from "@emotion/styled";
 import React from "react";
 import Layout from "../../Components/Layout";
-
-const BaseSection = styled.section`
-  padding: 2rem;
-  img {
-    max-width: 100%;
-  }
-`;
+import { BaseSection } from "../LandingPage/LandingPage";
 
 const Statutes = () => {
   return (
@@ -33,7 +26,7 @@ const Statutes = () => {
         </p>
         <details>
           <summary>
-            <h1>§ 1 Name, Sitz und Tätigkeitsbereich</h1>
+            <h3>§ 1 Name, Sitz und Tätigkeitsbereich</h3>
           </summary>
           <p class="c2">
             <span class="c1">
@@ -50,7 +43,7 @@ const Statutes = () => {
         </details>
         <details>
           <summary>
-            <h1>§ 2 Zweck</h1>
+            <h3>§ 2 Zweck</h3>
           </summary>
 
           <p class="c2">
@@ -120,9 +113,9 @@ const Statutes = () => {
         </details>
         <details>
           <summary>
-            <h1>
+            <h3>
               § 3 Tätigkeiten und Mittel zur Verwirklichung des Vereinszwecks
-            </h1>
+            </h3>
           </summary>
           <p class="c2">
             <span class="c1">
@@ -197,11 +190,11 @@ const Statutes = () => {
               kann.
             </span>
           </p>
-          <h1 class="c8" id="h.2ff8blny0tag">
+          <h3 class="c8" id="h.2ff8blny0tag">
             <span class="c7">
               2. Die erforderlichen materiellen Mittel werden aufgebracht durch:
             </span>
-          </h1>
+          </h3>
           <ul class="c3 lst-kix_33k406elc3c1-0 start">
             <li class="c2 c4 li-bullet-0">
               <span class="c1">Beitrittsgebühren</span>
@@ -268,9 +261,9 @@ const Statutes = () => {
         </details>
         <details>
           <summary>
-            <h1 class="c8" id="h.go1qj1b74re6">
+            <h3 class="c8" id="h.go1qj1b74re6">
               <span class="c7">§ 4 Arten der Mitgliedschaft</span>
-            </h1>
+            </h3>
           </summary>
           <ol class="c3 lst-kix_93mk1qgp2dub-0 start" start="1">
             <li class="c2 c4 li-bullet-0">
@@ -288,9 +281,9 @@ const Statutes = () => {
               </span>
             </li>
           </ol>
-          <h1 class="c8" id="h.5lurt8t46m0j">
+          <h3 class="c8" id="h.5lurt8t46m0j">
             <span class="c7">§ 5 Erwerb der Mitgliedschaft</span>
-          </h1>
+          </h3>
           <ol class="c3 lst-kix_eue5u9krlngy-0 start" start="1">
             <li class="c2 c4 li-bullet-0">
               <span class="c1">
@@ -321,9 +314,9 @@ const Statutes = () => {
         </details>
         <details>
           <summary>
-            <h1 class="c8" id="h.b91sey1ahus2">
+            <h3 class="c8" id="h.b91sey1ahus2">
               <span class="c7">§ 6 Beendigung der Mitgliedschaft</span>
-            </h1>
+            </h3>
           </summary>
           <ol class="c3 lst-kix_1qa25oo7ywyj-0 start" start="1">
             <li class="c2 c4 li-bullet-0">
@@ -370,9 +363,9 @@ const Statutes = () => {
         </details>
         <details>
           <summary>
-            <h1 class="c8" id="h.3oha32ri6c93">
+            <h3 class="c8" id="h.3oha32ri6c93">
               <span class="c7">§ 7 Rechte und Pflichten der Mitglieder</span>
-            </h1>
+            </h3>
           </summary>
           <p class="c2">
             <span class="c1">
@@ -397,9 +390,9 @@ const Statutes = () => {
         </details>
         <details>
           <summary>
-            <h1 class="c8" id="h.x8p8pucf3mlw">
+            <h3 class="c8" id="h.x8p8pucf3mlw">
               <span class="c7">§ 8 Vereinsorgane</span>
-            </h1>
+            </h3>
           </summary>
           <p class="c2">
             <span class="c1">Organe des Vereines sind</span>
@@ -423,9 +416,9 @@ const Statutes = () => {
         </details>
         <details>
           <summary>
-            <h1 class="c8" id="h.fn2dx8lhjhaj">
+            <h3 class="c8" id="h.fn2dx8lhjhaj">
               <span class="c7">§ 9 Die Mitgliederversammlung</span>
-            </h1>
+            </h3>
           </summary>
           <p class="c2">
             <span class="c1">
@@ -496,11 +489,11 @@ const Statutes = () => {
         </details>
         <details>
           <summary>
-            <h1 class="c8" id="h.6k1sotroq8bd">
+            <h3 class="c8" id="h.6k1sotroq8bd">
               <span class="c7">
                 § 10 Aufgabenkreis der Mitgliederversammlung
               </span>
-            </h1>
+            </h3>
           </summary>
           <p class="c2">
             <span class="c1">
@@ -549,9 +542,9 @@ const Statutes = () => {
         </details>
         <details>
           <summary>
-            <h1 class="c8" id="h.c6ham8sxv3ac">
+            <h3 class="c8" id="h.c6ham8sxv3ac">
               <span class="c7">§ 11 Leitungsorgan</span>
-            </h1>
+            </h3>
           </summary>
           <p class="c2">
             <span class="c1">
@@ -643,9 +636,9 @@ const Statutes = () => {
         </details>
         <details>
           <summary>
-            <h1 class="c8" id="h.kgwfxvaox5bd">
+            <h3 class="c8" id="h.kgwfxvaox5bd">
               <span class="c7">§ 12 Aufgaben des Leitungsorgans</span>
-            </h1>
+            </h3>
           </summary>
           <p class="c2">
             <span class="c1">
@@ -692,9 +685,9 @@ const Statutes = () => {
         </details>
         <details>
           <summary>
-            <h1 class="c8" id="h.mogw619thf9h">
+            <h3 class="c8" id="h.mogw619thf9h">
               <span class="c7">§ 13 Vertretung des Vereins nach außen</span>
-            </h1>
+            </h3>
           </summary>
           <p class="c2">
             <span class="c1">
@@ -731,9 +724,9 @@ const Statutes = () => {
         </details>
         <details>
           <summary>
-            <h1 class="c8" id="h.w1niefjn8mu1">
+            <h3 class="c8" id="h.w1niefjn8mu1">
               <span class="c7">§ 14 Die Rechnungsprüfung</span>
-            </h1>
+            </h3>
           </summary>
           <p class="c2">
             <span class="c1">
@@ -762,9 +755,9 @@ const Statutes = () => {
         </details>
         <details>
           <summary>
-            <h1 class="c8" id="h.ulyqnqx9vsgp">
+            <h3 class="c8" id="h.ulyqnqx9vsgp">
               <span class="c7">§ 15 Das Schiedsgericht</span>
-            </h1>
+            </h3>
           </summary>
           <p class="c2">
             <span class="c1">
@@ -801,9 +794,9 @@ const Statutes = () => {
         </details>
         <details>
           <summary>
-            <h1 class="c8" id="h.gutpe7xzbi8q">
+            <h3 class="c8" id="h.gutpe7xzbi8q">
               <span class="c7">§ 16 Freiwillige Auflösung des Vereins</span>
-            </h1>
+            </h3>
           </summary>
           <p class="c2">
             <span class="c1">
@@ -831,13 +824,13 @@ const Statutes = () => {
         </details>
         <details>
           <summary>
-            <h1 class="c8" id="h.psb9k0dfmwzj">
+            <h3 class="c8" id="h.psb9k0dfmwzj">
               <span class="c7">
                 § 17 Verwendung des Vereinsvermögens bei Ausscheiden von
                 Mitgliedern, bei Auflösung des Vereins oder bei Wegfall des
                 begünstigten Zwecks
               </span>
-            </h1>
+            </h3>
           </summary>
           <p class="c2">
             <span class="c1">

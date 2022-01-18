@@ -25,15 +25,12 @@ export const Hero = styled.div`
     font-size: 2rem;
     line-height: 1.1;
   }
-  @media only screen and (max-width: 800px) {
-    padding: 1rem;
-  }
 `;
 
 export const BaseSection = styled.section`
-  padding: 2rem;
   > div {
     width: var(--content-width);
+    padding: 1rem;
     margin: 0 auto;
   }
   img {
@@ -42,14 +39,6 @@ export const BaseSection = styled.section`
       width: 100%;
     }
   }
-  @media only screen and (max-width: 800px) {
-    padding: 1rem;
-  }
-`;
-
-export const StudioSection = styled(BaseSection)`
-  background: black;
-  color: #ffff00;
 `;
 
 function LandingPage() {

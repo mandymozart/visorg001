@@ -13,6 +13,10 @@ import Layout from "../../Components/Layout";
 import InventoryReservationForm from "./InventoryReservationForm";
 import InventoryReservations from "./InventoryReservations";
 
+const Container = styled.div`
+  padding: 1rem;
+`;
+
 const Body = styled.div`
   padding: 0;
   line-height: 1.3;
@@ -23,6 +27,9 @@ const Body = styled.div`
     justify-content: space-between;
     border-bottom: var(--color) 1px solid;
     margin-bottom: 1rem;
+    @media only screen and (max-width: 800px) {
+      display: block;
+    }
     .owner {
       text-align: left;
     }
@@ -71,18 +78,20 @@ const Inventory = () => {
   if (!isAuthenticated) return null;
   return (
     <Layout>
-      <h2>Rent items from portal</h2>
-      <InventoryNavigation>
-        <CustomLink to="reservations">All Reservations</CustomLink>{" "}
-        <CustomLink to="reservation">New Reservations</CustomLink>
-      </InventoryNavigation>
-      <Body>
-        <Routes>
-          <Route path="/" element={<InventoryWelcome />} />
-          <Route path="reservations" element={<InventoryReservations />} />
-          <Route path="reservation" element={<InventoryReservationForm />} />
-        </Routes>
-      </Body>
+      <Container>
+        <h2>Rent items from portal</h2>
+        <InventoryNavigation>
+          <CustomLink to="reservations">All Reservations</CustomLink>{" "}
+          <CustomLink to="reservation">New Reservations</CustomLink>
+        </InventoryNavigation>
+        <Body>
+          <Routes>
+            <Route path="/" element={<InventoryWelcome />} />
+            <Route path="reservations" element={<InventoryReservations />} />
+            <Route path="reservation" element={<InventoryReservationForm />} />
+          </Routes>
+        </Body>
+      </Container>
     </Layout>
   );
 };
@@ -90,7 +99,7 @@ const Inventory = () => {
 const InventoryWelcome = () => {
   return (
     <>
-    <h4>How it works</h4>
+      <h4>How it works</h4>
       <p>
         We like to share our infrastructure. In order to maintain the quality we
         also share the responsibility. Making sure that we pay for the rentals

@@ -13,6 +13,8 @@ const accessToken = config.prismicAccessToken;
 // Manages the url links to internal Prismic documents
 export const linkResolver = (doc) => {
   if (doc.type === "page") return `/page/${doc.uid}`;
+  if (doc.type === "tutorial") return `/tutorial/${doc.uid}`;
+  if (doc.type === "project") return `/project/${doc.uid}`;
   return "/";
 };
 

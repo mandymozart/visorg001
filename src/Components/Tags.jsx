@@ -5,13 +5,14 @@ import Tag from "./Tag";
 const Container = styled.span``;
 
 const Tags = ({ tags }) => {
-  if(!tags) return <></>
+  if (!tags) return <></>;
   return (
     <Container>
-      {tags.split(',').map((tag) => {
-        tag = tag.trim();
-        return <span key={tag}><Tag >{tag}</Tag>{" "}</span>;
-      })}
+      {tags.map((tag) => (
+        <span key={tag}>
+          <Tag>{tag}</Tag>{" "}
+        </span>
+      ))}
     </Container>
   );
 };

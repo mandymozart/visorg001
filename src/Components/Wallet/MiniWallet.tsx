@@ -14,7 +14,7 @@ const MiniWallet = () => {
       Current balance:
       <br />
       <GiToken /> {tokens} <br />
-      <small>1 Token / {config.tokenExchangeRate} EUR</small><br />
+      Exchange: <small>1 Token / {config.tokenExchangeRate} EUR</small><br />
       <PrimaryButton>Top up</PrimaryButton>
     </Container>
   );

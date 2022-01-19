@@ -8,7 +8,6 @@ import Footer from "./Components/Footer";
 import LoginButton from "./Components/LoginButton";
 import LogoutButton from "./Components/LogoutButton";
 import Navigation from "./Components/Navigation";
-import WalletConnectButton from "./Components/Wallet/WalletConnectButton";
 import CartPage from "./Pages/Cart/Cart";
 import Contact from "./Pages/Contact/Contact";
 import Success from "./Pages/Contact/Success";
@@ -77,7 +76,6 @@ const App = () => {
         <Navigation />
         <WalletLogic />
         <CartLogic />
-        <WalletConnectButton />
         <Routes>
           {/* <Redirect exact from="/" to="/" /> */}
           <Route exact path="/" element={<LandingPage />} />

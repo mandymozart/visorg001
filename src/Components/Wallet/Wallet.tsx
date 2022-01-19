@@ -5,6 +5,7 @@ import { FiPlus } from "react-icons/fi";
 import { useWalletStore } from "../../Stores/WalletStore";
 import { Button, PrimaryButton } from "../Button";
 import WalletCard from "./WalletCard";
+import WalletConnectButton from "./WalletConnectButton";
 
 const Container = styled.div`
   max-width: var(--form-width);
@@ -49,6 +50,7 @@ const Wallet = () => {
           <FiPlus />
           Add funds
         </Button>{" "}
+        <WalletConnectButton />{" "}
         <PrimaryButton>
           {!isAuthenticated ? "Compare plans" : "Upgrade plan"}
         </PrimaryButton>

@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import React from "react";
 import { GiToken } from "react-icons/gi";
 import { config } from "../../config";
+import Rates from "../../Pages/Products/Rates";
 import { useWalletStore } from "../../Stores/WalletStore";
 import { PrimaryButton } from "../Button";
 
@@ -15,6 +16,7 @@ const MiniWallet = () => {
       <br />
       <GiToken /> {tokens} <br />
       Exchange: <small>1 Token / {config.tokenExchangeRate} EUR</small><br />
+      <Rates amountInEUR={1} />
       <PrimaryButton>Top up</PrimaryButton>
     </Container>
   );

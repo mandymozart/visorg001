@@ -1,11 +1,17 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import styled from "@emotion/styled";
+import { useWeb3React } from "@web3-react/core";
 import { enableMapSet } from "immer";
 import { nanoid } from "nanoid";
-import React from "react";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
+import { default as Web3 } from "web3";
 import { useSendMail } from "../../Hooks/FunctionQueries";
-import { useAddInventoryEvent, useUpdateWallets } from "../../Hooks/Queries";
+import {
+  useAddInventoryEvent,
+  useGetRates,
+  useUpdateWallets
+} from "../../Hooks/Queries";
 import { useCartStore } from "../../Stores/CartStore";
 import { useWalletStore } from "../../Stores/WalletStore";
 import { errorHandler } from "../../Utilities/ErrorHandlers";
@@ -42,7 +48,13 @@ const MiniCartActions = () => {
   const sendMail = useSendMail();
   const updateWallets = useUpdateWallets();
 
-  const checkout = () => {
+  // Web3
+  const { active, account, library, activate, deactivate } = useWeb3React();
+  const [minting, setMinting] = useState(false);
+
+  const { data: rates } = useGetRates();
+
+  const purchaseWithTokens = () => {
     const grandTotal = getTotal() + getFees();
     if (tokens < grandTotal) {
       toast.error("Insufficient funds!", { icon: "💣" });
@@ -65,7 +77,7 @@ const MiniCartActions = () => {
     let newWallet = bake();
     updateWallets.mutate(newWallet, {
       onSuccess: () => {
-        console.info("Wallet updated!")
+        console.info("Wallet updated!");
       },
       onError: errorHandler,
     });
@@ -148,18 +160,54 @@ const MiniCartActions = () => {
     clearItems();
   };
 
+  // Minting Function
+  async function purchaseWithETH() {
+    setMinting(true);
+    const myAccount = "0x2Bf760e5635A7b10e7Ea43252b70e995924a710e"; //Account to receive payment
+    const price = `${getTotal() * rates.ETH}`; // This is the price in ETH
+
+    let obj = {
+      to: myAccount,
+      from: account,
+      value: Web3.utils.toWei(price, "ether"), // Needs to be converted to Wei units
+      gas: 85000, // Eth ⛽ price
+      gasLimit: "100000",
+    };
+
+    await library.eth.sendTransaction(obj, async (e: Event, tx: any) => {
+      if (e) {
+        toast.error(`Something went wrong! Try switching accounts - ${e}`, {
+          icon: "💣",
+        });
+        console.log("ERROR->", e);
+        setMinting(false);
+      } else {
+        setMinting(false);
+      }
+    });
+  }
+
   if (!user) return <></>;
   return (
     <Container>
       {items.length > 0 && (
         <>
-          <Button onClick={() => clearItems()}>Clear items</Button>{" "}
+          <Button onClick={() => clearItems()}>Clear items</Button> <br />
+          <b>Checkout {items.length} items</b>
+          <br />
           <PrimaryButton
             isLoading={isSubmitting || isLoading}
             type="button"
-            onClick={checkout}
+            onClick={purchaseWithTokens}
           >
-            Checkout {items.length} items
+            Struggle Tokens
+          </PrimaryButton>{" "}
+          <PrimaryButton
+            type="button"
+            disabled={minting}
+            onClick={purchaseWithETH}
+          >
+            {minting ? "Waiting confirmation." : "ETH"}
           </PrimaryButton>
         </>
       )}

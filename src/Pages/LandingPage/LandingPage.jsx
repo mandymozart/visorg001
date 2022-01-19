@@ -1,8 +1,6 @@
 import styled from "@emotion/styled";
 import React from "react";
 import { FiPhone } from "react-icons/fi";
-import { Link } from "react-router-dom";
-import CTA from "../../Components/CTA";
 import Layout from "../../Components/Layout";
 
 export const Hero = styled.div`
@@ -45,33 +43,7 @@ function LandingPage() {
         <h3>
           We tell your story.
         </h3>
-        <Link to={"/portal"}>
-          <CTA className="menu">Portal</CTA>
-        </Link>{" "}
-        <Link to={"/projects"}>
-          <CTA className="menu">Releases</CTA>
-        </Link>{" "}
-        <Link to={"/tutorials"}>
-          <CTA className="menu">Tutorials</CTA>
-        </Link>{" "}
-        <div>
-          <CTA href="https://soundcloud.com/viennastruggle" rel="noreferrer">
-            Soundcloud
-          </CTA>{" "}
-          <CTA
-            href="https://www.youtube.com/channel/UC2XVvtE3CD82KMxZY_CljYQ"
-            rel="noreferrer"
-          >
-            YouTube
-          </CTA>{" "}
-          {/* 
-            <CTA href="https://viennastruggle.bandcamp.com" rel="noreferrer">
-              Bandcamp
-            </CTA>{" "} */}
-          <CTA href="mailto:support@viennastruggle.com" rel="noreferrer">
-            Need help?
-          </CTA>
-        </div>
+        
         <p>
           <b>
             Contact Vienna Struggle - Verein für hybride künstlerische Vorhaben

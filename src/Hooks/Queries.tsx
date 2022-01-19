@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useMutation, useQuery } from "react-query";
 import { config } from "../config";
+import { Currency } from "../Pages/Products/Currency";
 import { InventoryEvent } from "../Pages/Products/InventoryEvent";
 import { Product } from "../Pages/Products/Product";
 import { Wallet } from "../Pages/Wallet/Wallet";
@@ -10,9 +11,7 @@ const getUrl = (endpoint: string) => {
 };
 
 function fetchEvents(): Promise<InventoryEvent[] | undefined> {
-  return axios
-    .get(getUrl("/events"))
-    .then((response) => response.data.events);
+  return axios.get(getUrl("/events")).then((response) => response.data.events);
 }
 
 export const useGetInventoryEvents = () => {
@@ -71,4 +70,13 @@ function fetchProducts(): Promise<Product[] | undefined> {
 
 export const useGetProducts = () => {
   return useQuery("getProducts", () => fetchProducts());
+};
+
+function fetchRates(currency:Currency): Promise<any | undefined> {
+  return axios
+    .get("https://api.coinbase.com/v2/exchange-rates?currency="+currency)
+    .then((response) => response.data.data.rates);
+}
+export const useGetRates = (currency: Currency = Currency.EUR) => {
+  return useQuery("getExchangeRates", () => fetchRates(currency));
 };

@@ -25,6 +25,7 @@ const Wallet = () => {
   const address = useWalletStore((store) => store.address);
   const status = useWalletStore((store) => store.status);
   const lastUpdate = useWalletStore((store) => store.lastUpdate);
+  
 
   return (
     <Container>

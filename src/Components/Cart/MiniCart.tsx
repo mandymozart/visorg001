@@ -5,6 +5,7 @@ import { FaUserAstronaut } from "react-icons/fa";
 import { FiMinus, FiPlus } from "react-icons/fi";
 import { GiToken } from "react-icons/gi";
 import { Currency } from "../../Pages/Products/Currency";
+import Rates from "../../Pages/Products/Rates";
 import { useCartStore } from "../../Stores/CartStore";
 import MiniCartActions from "./MiniCartActions";
 
@@ -122,6 +123,8 @@ const MiniCart = () => {
             </small>
             <br />
             Total: <GiToken /> {getTotal() + getFees()}
+            <br />
+            <Rates amountInEUR={getTotal(Currency.EUR)}/>
           </div>
           <MiniCartActions/>
         </>

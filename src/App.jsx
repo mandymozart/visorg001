@@ -8,6 +8,7 @@ import Footer from "./Components/Footer";
 import LoginButton from "./Components/LoginButton";
 import LogoutButton from "./Components/LogoutButton";
 import Navigation from "./Components/Navigation";
+import WalletConnectButton from "./Components/Wallet/WalletConnectButton";
 import CartPage from "./Pages/Cart/Cart";
 import Contact from "./Pages/Contact/Contact";
 import Success from "./Pages/Contact/Success";
@@ -22,7 +23,7 @@ import CartLogic from "./Pages/Products/CartLogic";
 import Inventory from "./Pages/Products/Inventory";
 import Profile from "./Pages/Profile/Profile";
 import MyProjects from "./Pages/Projects/MyProjects";
-import NewProject from "./Pages/Projects/NewProject";
+import NewStory from "./Pages/Projects/NewStory";
 import Project from "./Pages/Projects/Project";
 import Projects from "./Pages/Projects/Projects";
 import Statutes from "./Pages/Statutes/Statutes";
@@ -32,8 +33,7 @@ import Tutorials from "./Pages/Tutorials/Tutorials";
 import WalletLogic from "./Pages/Wallet/WalletLogic";
 import WalletPage from "./Pages/Wallet/WalletPage";
 
-const Container = styled.div`
-`;
+const Container = styled.div``;
 
 const Notification = styled.div`
   background: white;
@@ -48,8 +48,7 @@ const Toast = styled.div`
   div {
     display: inline-block;
   }
-`  
-
+`;
 
 const App = () => {
   const { isAuthenticated } = useAuth0();
@@ -76,8 +75,9 @@ const App = () => {
           )}
         </Toaster>
         <Navigation />
-        <WalletLogic/>
-        <CartLogic/>
+        <WalletLogic />
+        <CartLogic />
+        <WalletConnectButton />
         <Routes>
           {/* <Redirect exact from="/" to="/" /> */}
           <Route exact path="/" element={<LandingPage />} />
@@ -86,6 +86,7 @@ const App = () => {
           <Route exact path="/cart" element={<CartPage />} />
           <Route exact path="/inventory/*" element={<Inventory />} />
           <Route exact path="/wallet" element={<WalletPage />} />
+          <Route exact path="/new-story" element={<NewStory />} />
           <Route exact path="/projects" element={<Projects />} />
           <Route exact path="/project/:uid" element={<Project />} />
           <Route exact path="/tutorials" element={<Tutorials />} />
@@ -106,7 +107,7 @@ const App = () => {
           {isAuthenticated && (
             <>
               <Route exact path="/my-projects" element={<MyProjects />} />
-              <Route exact path="/new" element={<NewProject />} />
+              <Route exact path="/new" element={<NewStory />} />
               <Route exact path="/dashboard" element={<Dashboard />} />
               <Route exact path="/profile" element={<Profile />} />
             </>

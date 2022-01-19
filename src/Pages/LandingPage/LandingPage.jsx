@@ -6,12 +6,12 @@ import CTA from "../../Components/CTA";
 import Layout from "../../Components/Layout";
 
 export const Hero = styled.div`
-  font-size: 2rem;
   background: #ffff00;
+  padding: 1rem;
   padding-bottom: 4rem;
-  svg {
+  /* svg {
     margin-bottom: 1.5rem;
-  }
+  } */
   h1 {
     margin-top: 0;
     margin-bottom: 1rem;
@@ -20,10 +20,6 @@ export const Hero = styled.div`
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
-  }
-  p {
-    font-size: 2rem;
-    line-height: 1.1;
   }
 `;
 
@@ -47,8 +43,7 @@ function LandingPage() {
           Vienna Struggle
         </h1>
         <h3>
-          A community that questions classical forms of authorship and creative
-          processes in classical and electronic music performance.
+          We tell your story.
         </h3>
         <Link to={"/portal"}>
           <CTA className="menu">Portal</CTA>
@@ -67,7 +62,7 @@ function LandingPage() {
             href="https://www.youtube.com/channel/UC2XVvtE3CD82KMxZY_CljYQ"
             rel="noreferrer"
           >
-            YouTube Yo
+            YouTube
           </CTA>{" "}
           {/* 
             <CTA href="https://viennastruggle.bandcamp.com" rel="noreferrer">
@@ -77,20 +72,22 @@ function LandingPage() {
             Need help?
           </CTA>
         </div>
+        <p>
+          <b>
+            Contact Vienna Struggle - Verein für hybride künstlerische Vorhaben
+          </b>
+          <br />
+          Operngasse 25/12
+          <br />
+          1040 Wien
+          <br />
+          Austria
+          <br />
+          <a href="phone:+436608366059" rel="noreferrer">
+            <FiPhone /> +436608366059
+          </a>
+        </p>
       </Hero>
-      <p>
-        <b>Contact Vienna Struggle - Verein für hybride künstlerische Vorhaben</b>
-        <br />
-        Operngasse 25/12
-        <br />
-        1040 Wien
-        <br />
-        Austria
-        <br />
-        <a href="phone:+436608366059" rel="noreferrer">
-          <FiPhone /> +436608366059
-        </a>
-      </p>
     </Layout>
   );
 }

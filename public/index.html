@@ -34,8 +34,8 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <style>
       :root {
-        --widgetbot-height: calc(100vh - 2rem);
-        --widgetbot-width: calc(var(--content-width)-2rem);
+        --widgetbot-height: calc(100vh - 7rem);
+        --widgetbot-width: calc(var(--content-width) - 2rem);
       }
       .widgetbot {
         position: fixed;
@@ -45,27 +45,27 @@
         transform: translateY(var(--widgetbot-height));
         opacity: 0;
         transition: all 1s ease-in-out;
-        z-index: 1;
+        z-index: 100;
         max-width: var(--widgetbot-width) !important;
         max-height: var(--widgetbot-height);
         margin: 0 auto;
         pointer-events: none;
       }
-      .widgetbot.open {
+      .widget-open .widgetbot {
         transform: translateY(0);
         opacity: 1;
         pointer-events: visible;
       }
       #chatToggle {
         color: var(--background);
-        background: var(--color);
+        background: transparent;
         z-index: 100000;
         font-family: "Scope-Medium", "Courir", -apple-system, BlinkMacSystemFont,
           "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
           "Droid Sans", "Helvetica Neue", sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        font-size: 1.5rem;
+        font-size: 3rem;
         /* border: 2px solid; */
         border: 0;
         border-radius: 1rem;
@@ -73,19 +73,26 @@
         bottom: 2rem;
         right: 2rem;
         height: 3rem;
-        padding: 0 2rem;
+        padding: 0;
         display: flex;
         align-items: center;
         justify-content: center;
+        transition: all 0.3s linear;
+      }
+      #chatToggle::before {
+        content: "💬";
       }
       #chatToggle:hover {
-        color: var(--second);
+        transform: scale(1.2);
         cursor: pointer;
+      }
+      .widget-open #chatToggle::before {
+        content: "🤏";
       }
     </style>
     <script>
       const openChat = () => {
-        document.querySelector("#chat").classList.toggle("open");
+        document.querySelector("body").classList.toggle("widget-open");
       };
     </script>
     <div id="root"></div>
@@ -98,9 +105,7 @@
       height="var(--widgetbot-height)"
     ></widgetbot>
     <script src="https://cdn.jsdelivr.net/npm/@widgetbot/html-embed"></script>
-    <button id="chatToggle" onclick="openChat()">
-      Chat
-    </button>
+    <button id="chatToggle" onclick="openChat()"></button>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

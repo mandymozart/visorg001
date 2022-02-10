@@ -15,6 +15,9 @@ export const convertToPlainText = (prismicText) => {
   return result;
 };
 
+export const parseFloatNonNAN = (value) =>
+  parseFloat(value === "" || typeof value === "undefined" ? 0 : value);
+
 export const round = (value, decimals) => {
   return Number(Math.round(value + "e" + decimals) + "e-" + decimals);
 };

@@ -15,6 +15,7 @@ import Dashboard from "./Pages/Dashboard/Dashboard";
 import CreateEpics from "./Pages/Epics/Create";
 import FindUs from "./Pages/FindUs/FindUs";
 import LandingPage from "./Pages/LandingPage/LandingPage";
+import NewsletterPage from "./Pages/Newsletter/Newsletter";
 import NotFound from "./Pages/NotFound";
 import Page from "./Pages/Page/Page";
 import PortalMembershipForm from "./Pages/Portal/PortalMembershipForm";
@@ -60,7 +61,7 @@ const App = () => {
             Currently we are accepting applications for Portal Memberships only.
           </Notification>
         )}
-        <Toaster position="bottom-right" toastOptions={{ duration: 5000 }}>
+        <Toaster position="bottom-left" toastOptions={{ duration: 5000 }}>
           {(t) => (
             <ToastBar toast={t}>
               {({ icon, message }) => (
@@ -80,6 +81,7 @@ const App = () => {
           {/* <Redirect exact from="/" to="/" /> */}
           <Route exact path="/" element={<LandingPage />} />
           <Route exact path="/team" element={<Team />} />
+          <Route exact path="/newsletter" element={<NewsletterPage />} />
           <Route exact path="/statutes" element={<Statutes />} />
           <Route exact path="/cart" element={<CartPage />} />
           <Route exact path="/inventory/*" element={<Inventory />} />

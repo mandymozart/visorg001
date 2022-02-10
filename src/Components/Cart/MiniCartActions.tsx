@@ -192,23 +192,22 @@ const MiniCartActions = () => {
     <Container>
       {items.length > 0 && (
         <>
-          <Button onClick={() => clearItems()}>Clear items</Button> <br />
-          <b>Checkout {items.length} items</b>
-          <br />
           <PrimaryButton
             isLoading={isSubmitting || isLoading}
             type="button"
             onClick={purchaseWithTokens}
-          >
-            Struggle Tokens
+            >
+            <b>Checkout {items.length} items</b>
           </PrimaryButton>{" "}
-          <PrimaryButton
+          {/* <PrimaryButton
             type="button"
             disabled={minting}
             onClick={purchaseWithETH}
-          >
+            >
             {minting ? "Waiting confirmation." : "ETH"}
-          </PrimaryButton>
+          </PrimaryButton> */}
+          
+          <Button onClick={() => clearItems()}>Clear items</Button> <br />
         </>
       )}
     </Container>

@@ -26,12 +26,17 @@ export const useCartStore = create<State>(
                 (item: Product) => item.id === value
               );
               if (selectedProduct) {
-                // only add when not existing
-                if (
-                  state.items.findIndex((item) => item.product.id === id) === -1
-                )
-                  state.items.push({ quantity: 1, product: selectedProduct });
-                else toast("Item exists! Consider increasing its quantity.");
+                if (isNaN(parseFloat(selectedProduct.memberPrice))) {
+                  toast("Item has no member price set.");
+                } else {
+                  // only add when not existing
+                  if (
+                    state.items.findIndex((item) => item.product.id === id) ===
+                    -1
+                  )
+                    state.items.push({ quantity: 1, product: selectedProduct });
+                  else toast("Item exists! Consider increasing its quantity.");
+                }
               }
             }
           })

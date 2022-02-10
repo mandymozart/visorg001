@@ -5,7 +5,7 @@ import { GiMusicalNotes } from "react-icons/gi";
 import { RiQuillPenFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import TextLoop from "react-text-loop";
-import { PrimaryButton } from "../../Components/Button";
+import { PrimaryButton } from "../../Components/FormElements/Button";
 import { SimpleProjectList } from "../../Components/SimpleProjectList";
 
 const Container = styled.section`

@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { useWeb3React } from "@web3-react/core";
 import React from "react";
-import { PrimaryButton } from "../Button";
+import { PrimaryButton } from "../FormElements/Button";
 import { injected } from "./../../wallet/Connect";
 const Container = styled(PrimaryButton)``;
 

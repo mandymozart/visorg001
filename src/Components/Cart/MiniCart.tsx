@@ -7,6 +7,7 @@ import { GiToken } from "react-icons/gi";
 import { Currency } from "../../Pages/Products/Currency";
 import Rates from "../../Pages/Products/Rates";
 import { useCartStore } from "../../Stores/CartStore";
+import { SquareButton } from "../FormElements/Button";
 import MiniCartActions from "./MiniCartActions";
 
 const Container = styled.div`
@@ -40,9 +41,6 @@ const Container = styled.div`
           align-items: center;
           justify-content: space-between;
           width: 100%;
-          button {
-            padding: 0 0.5rem;
-          }
         }
       }
     }
@@ -79,34 +77,40 @@ const MiniCart = () => {
                         <FaUserAstronaut />
                       </span>{" "}
                       {item.product.owner}
+                      {" "}|{" "}
+                    <span className="rrp">
+                    <small>
+                        RRP
+                        </small>
+                      {item.product.listPriceCurrency === Currency.EUR && (
+                        <CgEuro />
+                      )}{" "}
+                      {getItemSum(item.product.id, Currency.EUR)?.toFixed(2)} 
+                    </span>
                     </div>
                   </div>
                   <div className="stock">
                     <div className="price">
-                      {item.product.listPriceCurrency === Currency.EUR && (
-                        <CgEuro />
-                      )}{" "}
-                      {getItemSum(item.product.id, Currency.EUR)} <br />
                       <GiToken /> {getItemSum(item.product.id)}
                     </div>
                     <div className="actions">
-                      <button
+                      <SquareButton
                         type="button"
                         className="reduceQuantity"
                         onClick={() => reduceQuantity(item.product.id)}
                       >
                         <FiMinus />
-                      </button>
+                      </SquareButton>
                       <span className="quantity">
                         {item.quantity} of {item.product.amountInStock}
                       </span>
-                      <button
+                      <SquareButton
                         type="button"
                         className="increaseQuantity"
                         onClick={() => increaseQuantity(item.product.id)}
                       >
                         <FiPlus />
-                      </button>
+                      </SquareButton>
                     </div>
                   </div>
                 </div>
@@ -124,7 +128,7 @@ const MiniCart = () => {
             <br />
             Total: <GiToken /> {getTotal() + getFees()}
             <br />
-            <Rates amountInEUR={getTotal(Currency.EUR)}/>
+            <Rates amountInTokens={getTotal(Currency.TOKEN)}/>
           </div>
           <MiniCartActions/>
         </>

@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import React from "react";
 import Layout from "../../Components/Layout";
-import { BaseSection } from "../LandingPage/LandingPage";
+import { BaseSection } from "../LandingPage/BaseSection";
 
 const TeamMember = styled.div`
   display: inline-block;

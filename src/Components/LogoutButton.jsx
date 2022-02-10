@@ -1,9 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import styled from "@emotion/styled";
 import React from "react";
-
-const Button = styled.button`
-`
+import { Button } from "./FormElements/Button";
 
 const LogoutButton = () => {
   const { logout } = useAuth0();

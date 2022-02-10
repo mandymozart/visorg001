@@ -4,7 +4,7 @@ import React from "react";
 const Container = styled.div`
   min-height: calc(100vh - 16rem);
   display: block;
-  margin-top: 3rem;
+  margin-top: 7rem;
   div > h2 {
     text-align: center;
   }

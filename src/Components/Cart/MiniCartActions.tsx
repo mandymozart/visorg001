@@ -15,7 +15,7 @@ import {
 import { useCartStore } from "../../Stores/CartStore";
 import { useWalletStore } from "../../Stores/WalletStore";
 import { errorHandler } from "../../Utilities/ErrorHandlers";
-import { Button, PrimaryButton } from "../Button";
+import { Button, PrimaryButton } from "../FormElements/Button";
 
 enableMapSet();
 

@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import React from "react";
 import { FiPlus } from "react-icons/fi";
 import { useWalletStore } from "../../Stores/WalletStore";
-import { Button, PrimaryButton } from "../Button";
+import { Button, PrimaryButton } from "../FormElements/Button";
 import WalletCard from "./WalletCard";
 import WalletConnectButton from "./WalletConnectButton";
 

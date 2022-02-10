@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import React from "react";
 import { RiQuillPenFill } from "react-icons/ri";
-import { PrimaryButton } from "../../Components/Button";
+import { PrimaryButton } from "../../Components/FormElements/Button";
 import Layout from "../../Components/Layout";
 const Container = styled.div`
   padding: 1rem;

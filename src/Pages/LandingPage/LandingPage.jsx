@@ -1,35 +1,9 @@
-import styled from "@emotion/styled";
 import React from "react";
 import { FiPhone } from "react-icons/fi";
 import Layout from "../../Components/Layout";
-
-export const Hero = styled.div`
-  background: #ffff00;
-  padding: 1rem;
-  padding-bottom: 4rem;
-  /* svg {
-    margin-bottom: 1.5rem;
-  } */
-  h1 {
-    margin-top: 0;
-    margin-bottom: 1rem;
-  }
-  h3 {
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-  }
-`;
-
-export const BaseSection = styled.section`
-  padding: 1rem;
-  img {
-    max-width: 100%;
-    &.full {
-      width: 100%;
-    }
-  }
-`;
+import { NewsletterForm } from "../Newsletter/Newsletter";
+import { BaseSection } from "./BaseSection";
+import { Hero } from "./Hero";
 
 function LandingPage() {
   return (
@@ -40,10 +14,8 @@ function LandingPage() {
           <br />
           Vienna Struggle
         </h1>
-        <h3>
-          We tell your story.
-        </h3>
-        
+        <h3>We tell your story.</h3>
+
         <p>
           <b>
             Contact Vienna Struggle - Verein für hybride künstlerische Vorhaben
@@ -60,6 +32,9 @@ function LandingPage() {
           </a>
         </p>
       </Hero>
+      <BaseSection>
+        <NewsletterForm />
+      </BaseSection>
     </Layout>
   );
 }

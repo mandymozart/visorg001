@@ -3,7 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Container = styled.footer`
-  background: var(--text);
+  background: var(--background-invert);
   padding: 3rem;
   line-height: 1.5rem;
   color: var(--background);
@@ -30,13 +30,18 @@ const Footer = () => {
       <ul>
         <li>Struggle</li>
         <li>
-          <Link to={"/projects"}>Stories</Link>{" "}
+          <Link to={"/projects"}>Projects</Link>{" "}
         </li>
         <li>
           <Link to={"/portal"}>Portal</Link>{" "}
         </li>
         <li>
           <Link to={"/tutorials"}>Tutorials</Link>{" "}
+        </li>
+        <li>
+          <a href={"https://struggle.tv"} rel="noreferrer">
+            Sessions
+          </a>
         </li>
       </ul>
       <ul>

@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import clsx from "clsx";
 import Hamburger from "hamburger-react";
 import React, { useState } from "react";
-import { FiShoppingCart, FiTv, FiUsers } from "react-icons/fi";
+import { FiShoppingCart } from "react-icons/fi";
 import {
   Gi3DGlasses,
   GiAchillesHeel,
@@ -11,139 +11,183 @@ import {
   GiMagicPortal,
   GiToken
 } from "react-icons/gi";
-import { Link, NavLink } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCartStore } from "../Stores/CartStore";
 import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
 import ViennaStruggleLogo from "./ViennaStruggleLogo";
 
 const Container = styled.div`
-  position: sticky;
+  position: fixed;
   top: 2rem;
-  width: var(--header-width);
-  margin: 0 auto;
-  background: rgba(255, 255, 255, 0.7);
-  /* Hole */
-  border: 2px solid var(--color);
-  box-sizing: border-box;
-  /* Up 1 */
-  box-shadow: 4px 4px 0px var(--color);
-  border-radius: 8px;
+  width: 100vw;
   z-index: 1000;
-  backdrop-filter: blur(8px);
-  header {
-    display: grid;
-    grid-template-columns: 4rem 12rem 4rem;
-    a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+  pointer-events: none;
+  header,
+  > nav {
+    max-width: 100%;
+    margin: 0 auto;
+    pointer-events: visible;
   }
-  section {
-    pointer-events: none;
-    display: none;
-    flex-direction: column;
-    gap: 0.5rem;
-    padding: 1rem;
-    a button {
-      width: 100%;
-    }
-    &.isOpen {
+  > header {
+    grid-template-columns: 4rem 12rem 4rem;
+    display: grid;
+    width: var(--header-width);
+    margin: 0 auto;
+    /* background: rgba(255, 255, 255, 0.7); */
+    /* Hole */
+    border: 2px solid var(--color);
+    box-sizing: border-box;
+    /* Up 1 */
+    box-shadow: 4px 4px 0px var(--color);
+    border-radius: 8px;
+
+    > a {
       display: flex;
-      pointer-events: visible;
+      justify-content: center;
+      align-items: center;
+      margin-left: 1rem;
+      cursor: pointer;
     }
   }
   .divider {
-    flex: 1;
+    height: 2px;
+    width: 100%;
+    background-color: var(--color);
   }
-  button {
-    background: black;
-    color: var(--background);
-    border: 0;
-    border-radius: 0.25rem;
-    height: 2rem;
-    padding: 0 2rem;
-    cursor: pointer;
-    font-weight: bold;
-    line-height: 0.75rem;
+  > nav {
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    flex-direction: column;
+    width: var(--header-width);
+    margin-top: 2rem;
+    box-sizing: border-box;
+    gap: 0.5rem;
+    padding: 1rem;
+    /* Hole */
+    border: 2px solid var(--color);
+    box-sizing: border-box;
+    /* Up 1 */
+    box-shadow: 4px 4px 0px var(--color);
+    border-radius: 8px;
+    transition: transform 0.5s cubic-bezier(1, 0, 0, 1), opacity 0.5s ease-out;
+    opacity: 0;
+    z-index: 1000;
+    transform: translateY(100vh);
+
+    ul {
+      padding: 0;
+      margin: 0;
+      width: 100%;
+      list-style-type: none;
+      li {
+        padding: 0;
+        margin: 0;
+        a {
+          cursor: pointer;
+          text-align: left;
+          line-height: 3rem;
+          font-size: 1.5rem;
+          cursor: pointer;
+        }
+      }
+    }
+    &.isOpen {
+      opacity: 1;
+      pointer-events: visible;
+      transform: translateY(0);
+    }
   }
 `;
 
 const CartLink = styled(Link)`
-position: relative;
-span {
-  padding-left: 0.5rem;
-}
-`
+  position: relative;
+  span {
+    padding-left: 0.5rem;
+  }
+`;
 
 const Navigation = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
   const cartItems = useCartStore((store) => store.items);
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const toggleOpen = (value) => {
+    setIsOpen(value);
+  };
+
+  const goToLink = (link) => {
+    setIsOpen(false);
+    if (link === "/" && isAuthenticated) link = "/dashboard";
+    navigate(link);
+  };
   return (
-    <Container >
-      <header>
-        <CartLink to="/cart"><FiShoppingCart/>{" "}{cartItems.length > 0 && (
-          <span>{cartItems.length}</span>
-        )}
-        </CartLink>
-        <Link to="/">
-          <ViennaStruggleLogo />
-        </Link>
+    <Container>
+      <header className="glassomorphism">
         <Hamburger toggled={isOpen} toggle={setIsOpen} color={"var(--color)"} />
-      </header>
-      <section className={clsx({ isOpen: isOpen })}>
-        <NavLink to={"/projects"}>
-          <button className="menu">
-            <GiAchillesHeel /> Projects
-          </button>
-        </NavLink>
-        <NavLink to={"/tutorials"}>
-          <button className="menu">
-            <Gi3DGlasses /> Tutorials
-          </button>
-        </NavLink>
-        <NavLink to={"/portal"}>
-          <button className="menu">
-            <GiMagicPortal /> Portal
-          </button>
-        </NavLink>
-        <a href={"https://struggle.tv"} rel="noreferrer">
-          <button className="menu">
-            <FiTv /> <FiUsers /> Sessions
-          </button>
+        <a onClick={() => goToLink("/")}>
+          <ViennaStruggleLogo />
         </a>
+        <CartLink to="/cart">
+          <FiShoppingCart />{" "}
+          <small>
+            {cartItems.length > 0 && <span>{cartItems.length}</span>}
+          </small>
+        </CartLink>
+      </header>
+      <nav className={clsx({ isOpen: isOpen }, "glassomorphism")}>
+        <ul>
+          <li>
+            <a onClick={() => goToLink("/projects")}>
+              <GiAchillesHeel /> Projects
+            </a>
+          </li>
+          <li>
+            <a onClick={() => goToLink("/tutorials")}>
+              <Gi3DGlasses /> Tutorials
+            </a>
+          </li>
+          <li>
+            <a onClick={() => goToLink("/portal")}>
+              <GiMagicPortal /> Portal
+            </a>
+          </li>
+        </ul>
         <div className="divider"></div>
         {isLoading && "Loading ..."}
         {isAuthenticated ? (
-          <>
-            <NavLink to="/dashboard">{user?.name}</NavLink>
-            {/* <NavLink to={"/new"}>
-              <button className="menu">New Project</button>
-            </NavLink> */}
-            <NavLink to={"/inventory"}>
-              <button className="menu">
+          <ul>
+            <li>
+              <a onClick={() => goToLink("/dashboard")}>{user?.name}</a>
+            </li>
+            <li>
+              <a onClick={() => goToLink("/inventory")}>
                 <GiBackpack /> Inventory
-              </button>
-            </NavLink>
-            <NavLink to={"/wallet"}>
-              <button className="menu">
+              </a>
+            </li>
+            <li>
+              <a onClick={() => goToLink("/wallet")}>
                 <GiToken /> Wallet
-              </button>
-            </NavLink>
-            <NavLink to={"/my-projects"}>
-              <button className="menu">My Projects</button>
-            </NavLink>
-            <NavLink to={"/profile"}>
-              <button className="menu">Profile</button>
-            </NavLink>
-            <LogoutButton />
-          </>
+              </a>
+            </li>
+            <li>
+              <a onClick={() => goToLink("/my-projects")}>My Projects</a>
+            </li>
+            <li>
+              <a onClick={() => goToLink("/profile")}>Profile</a>
+            </li>
+            <li>
+              <LogoutButton />
+            </li>
+          </ul>
         ) : (
           <LoginButton />
         )}
-      </section>
+      </nav>
     </Container>
   );
 };

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import React from "react";
-import { Hero } from "../LandingPage/LandingPage";
+import { Hero } from "../LandingPage/Hero";
 
 const Container = styled.div`
   iframe {

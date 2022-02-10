@@ -27,7 +27,6 @@ const Form = styled.form`
     z-index: 10;
     margin: 0;
     padding: 1rem 0;
-    background: yellow;
   }
   .results {
     text-align: center;

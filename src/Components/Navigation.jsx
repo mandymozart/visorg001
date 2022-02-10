@@ -3,12 +3,11 @@ import styled from "@emotion/styled";
 import clsx from "clsx";
 import Hamburger from "hamburger-react";
 import React, { useState } from "react";
-import { FiShoppingCart } from "react-icons/fi";
+import { FiShoppingCart, FiUser } from "react-icons/fi";
 import {
   Gi3DGlasses,
   GiAchillesHeel,
-  GiBackpack,
-  GiMagicPortal,
+  GiBackpack, GiMagicPortal,
   GiToken
 } from "react-icons/gi";
 import { Link, useNavigate } from "react-router-dom";
@@ -162,7 +161,7 @@ const Navigation = () => {
         {isAuthenticated ? (
           <ul>
             <li>
-              <a onClick={() => goToLink("/dashboard")}>{user?.name}</a>
+              <FiUser/> <a onClick={() => goToLink("/profile")}>{user?.name}</a>
             </li>
             <li>
               <a onClick={() => goToLink("/inventory")}>
@@ -173,12 +172,6 @@ const Navigation = () => {
               <a onClick={() => goToLink("/wallet")}>
                 <GiToken /> Wallet
               </a>
-            </li>
-            <li>
-              <a onClick={() => goToLink("/my-projects")}>My Projects</a>
-            </li>
-            <li>
-              <a onClick={() => goToLink("/profile")}>Profile</a>
             </li>
             <li>
               <LogoutButton />

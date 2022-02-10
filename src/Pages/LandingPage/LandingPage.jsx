@@ -1,5 +1,6 @@
 import React from "react";
 import { FiPhone } from "react-icons/fi";
+import FadeIn from "../../Animations/FadeIn";
 import Layout from "../../Components/Layout";
 import { NewsletterForm } from "../Newsletter/Newsletter";
 import { BaseSection } from "./BaseSection";
@@ -33,7 +34,9 @@ function LandingPage() {
         </p>
       </Hero>
       <BaseSection>
-        <NewsletterForm />
+        <FadeIn>
+          <NewsletterForm />
+        </FadeIn>
       </BaseSection>
     </Layout>
   );

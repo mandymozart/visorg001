@@ -19,8 +19,6 @@ const Rates = ({ amountInTokens }: Props) => {
   return (
     <Container>
       <small>
-        {/* <strong>VIS: {amountInTokens}</strong>
-        <br /> */}
         EUR: {round(amountInTokens * rates.EUR, 2).toFixed(2)}
         <br />
         USD: {round(amountInTokens * rates.USD, 2).toFixed(2)}

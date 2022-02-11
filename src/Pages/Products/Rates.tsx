@@ -1,14 +1,13 @@
 import styled from "@emotion/styled";
 import React from "react";
-import { useGetRates } from "../../Hooks/Queries";
+import { useGetRates } from "../../Hooks/CoinbaseQueries";
 import { round } from "../../utils";
 
 type Props = {
   amountInTokens: number;
 };
 
-const Container = styled.div`
-`
+const Container = styled.div``
 
 const Rates = ({ amountInTokens }: Props) => {
   const { data: rates } = useGetRates();

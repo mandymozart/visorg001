@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useGetInventoryEvents, useGetProducts } from "../../Hooks/Queries";
+import { useGetInventoryEvents, useGetProducts } from "../../Hooks/InventoryQueries";
 import { useCartStore } from "../../Stores/CartStore";
 
 const CartLogic = () => {

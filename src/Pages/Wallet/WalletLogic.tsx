@@ -1,7 +1,7 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import React, { useEffect } from "react";
 import toast from "react-hot-toast";
-import { useGetWallets } from "../../Hooks/Queries";
+import { useGetWallets } from "../../Hooks/InventoryQueries";
 import { useWalletStore } from "../../Stores/WalletStore";
 
 const WalletLogic = () => {

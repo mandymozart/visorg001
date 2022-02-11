@@ -7,14 +7,14 @@ import { nanoid } from "nanoid";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { default as Web3 } from "web3";
+import { useGetRates } from "../../Hooks/CoinbaseQueries";
 import { useSendMail } from "../../Hooks/FunctionQueries";
 import {
   useAddInventoryEvent,
   useAddTransaction,
-  useGetRates,
   useGetWallets,
   useUpdateWallets
-} from "../../Hooks/Queries";
+} from "../../Hooks/InventoryQueries";
 import { Wallet } from "../../Pages/Wallet/Wallet";
 import { useCartStore } from "../../Stores/CartStore";
 import { useWalletStore } from "../../Stores/WalletStore";

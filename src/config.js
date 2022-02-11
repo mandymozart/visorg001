@@ -19,12 +19,15 @@ const environment = process.env.REACT_APP_STAGE
 export const config = {
   // Add common config values here
   dateFormat,
-  mailchimpSubscribeUrl: "https://viennastruggle.us14.list-manage.com/subscribe/post?u=1babc648dbf7faf505f6cd64f&amp;id=d0274af64c",
+  mailchimpSubscribeUrl:
+    "https://viennastruggle.us14.list-manage.com/subscribe/post?u=1babc648dbf7faf505f6cd64f&amp;id=d0274af64c",
   ethereumWalletAddress: "0x2Bf760e5635A7b10e7Ea43252b70e995924a710e",
   tokenExchangeRate: 2,
   repoURL: "https://gitlab.com/viennastruggle/visngo/-",
-  sheetyApiURL:
+  inventoryApiEndpoint:
     "https://api.sheety.co/6f92f2531f272b85130005f9d671fb6e/inventory",
+  communityStoriesApiEndpoint:
+    "https://api.sheety.co/6f92f2531f272b85130005f9d671fb6e/communityStories",
   auth0Domain: "viennastruggle.eu.auth0.com",
   auth0ClientId: "yXFdWoH22B0WZpHjpXwjPTvnY0ihJS7d",
   prismicRepositoryName: "visorg001",

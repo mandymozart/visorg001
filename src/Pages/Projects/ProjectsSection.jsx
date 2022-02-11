@@ -3,7 +3,9 @@ import React from "react";
 import { CgArrowLongRightC } from "react-icons/cg";
 import { GiMusicalNotes } from "react-icons/gi";
 import { RiQuillPenFill } from "react-icons/ri";
+import { Link } from "react-router-dom";
 import TextLoop from "react-text-loop";
+import { PrimaryButton } from "../../Components/FormElements/Button";
 
 const Container = styled.section`
   color: var(--background);
@@ -38,7 +40,7 @@ const ProjectsSection = () => {
       <h1>
         <RiQuillPenFill /> <CgArrowLongRightC /> <GiMusicalNotes />
       </h1>
-{/*       
+
       <h3>
         You share your story with us!
         <br /> We share it with the beings on this planet and beyond!
@@ -52,24 +54,39 @@ const ProjectsSection = () => {
       <h3>How does it work?</h3>
       <ul>
         <li>
-          First, you to go the{" "}
-          <Link to="/stories-bazar">
-            <PrimaryButton>Story Bazar</PrimaryButton>
+          First, read some of our{" "}
+          <Link to="/stories">
+            <PrimaryButton>community stories</PrimaryButton>
           </Link>{" "}
-          and dive into the stories submitted by strugglers from around the
-          world. Upvote the ones you liked{" "}
+          and dive into struggles from around the world. Upvote the ones you
+          liked!{" "}
         </li>
         <li>
-          Second, you send us your personal story!{" "}
-          <Link to="/stories-bazar">
-            <PrimaryButton>Submit Story</PrimaryButton>
-          </Link>
+          Second, you with{" "}
+          <Link to="/stories/submit">
+            <PrimaryButton>share your story</PrimaryButton>
+          </Link>{" "}
+          us!
         </li>
         <li>
           Third, when ever we have time to start our next song, we take stories
           from the most upvoted on the page and turn it into a project.
         </li>
-        <li>Finally, we release the song and your story becomes legend.</li>
+        <li>
+          Fourth, selected project receive project funding from us and creatives
+          can apply via
+          <Link to="/opencalls">
+            <PrimaryButton>open calls</PrimaryButton>
+          </Link>{" "}
+          .
+        </li>
+        <li>
+          Finally, we release the{" "}
+          <Link to="/opencalls">
+            <PrimaryButton>music videos</PrimaryButton>
+          </Link>{" "}
+          and your story becomes legend.
+        </li>
       </ul>
       <h3>Why share your stories with us?</h3>
       <p>
@@ -77,7 +94,7 @@ const ProjectsSection = () => {
         together with people that care about stuff that matters, like really
         really care, gives us strength and heals our wunds. And because we are
         sick of manufactured feel good managers!
-      </p> */}
+      </p>
     </Container>
   );
 };

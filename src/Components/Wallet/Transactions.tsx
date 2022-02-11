@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import React, { useEffect } from "react";
-import { useGetTransactions } from "../../Hooks/Queries";
+import { useGetTransactions } from "../../Hooks/InventoryQueries";
 import { useWalletStore } from "../../Stores/WalletStore";
 import TransactionItem from "./TransactionItem";
 

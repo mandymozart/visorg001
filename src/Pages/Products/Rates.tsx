@@ -16,13 +16,13 @@ const Rates = ({ amountInTokens }: Props) => {
   return (
     <Container>
       <small>
-        EUR: {round(amountInTokens * rates.EUR, 2).toFixed(2)}
+        EUR: {round(amountInTokens * 2 * rates.EUR , 2).toFixed(2)}
         <br />
-        USD: {round(amountInTokens * rates.USD, 2).toFixed(2)}
+        USD: {round(amountInTokens * 2 * rates.USD, 2).toFixed(2)}
         <br />
-        ETH: {round(amountInTokens * rates.ETH, 6)}
+        ETH: {round(amountInTokens * 2 * rates.ETH, 6)}
         <br />
-        BTC: {round(amountInTokens * rates.BTC, 6)}
+        BTC: {round(amountInTokens * 2 * rates.BTC, 6)}
       </small>
     </Container>
   );

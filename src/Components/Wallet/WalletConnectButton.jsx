@@ -6,7 +6,7 @@ import { injected } from "./../../wallet/Connect";
 const Container = styled(PrimaryButton)``;
 
 const WalletConnectButton = () => {
-  const { active, account, library, activate, deactivate } = useWeb3React();
+  const { active, activate, deactivate } = useWeb3React();
   // Add minting toggle listener
   async function connect() {
     try {

@@ -9,7 +9,7 @@ import { Currency } from "../../Pages/Products/Currency";
 import Rates from "../../Pages/Products/Rates";
 import { useCartStore } from "../../Stores/CartStore";
 import { SquareButton } from "../FormElements/Button";
-import MiniCartActions from "./MiniCartActions";
+import CartActions from "./CartActions";
 
 const Container = styled.div`
   max-width: var(--content-width);
@@ -52,7 +52,7 @@ const Container = styled.div`
   }
 `;
 
-const MiniCart = () => {
+const Cart = () => {
   const items = useCartStore((store) => store.items);
   const reduceQuantity = useCartStore((store) => store.reduceQuantity);
   const increaseQuantity = useCartStore((store) => store.increaseQuantity);
@@ -63,7 +63,7 @@ const MiniCart = () => {
   return (
     <Container>
       <FadeIn>
-      <h2>My Cart</h2>
+        <h2>My Cart</h2>
       </FadeIn>
       {items.length < 1 ? (
         <>Your cart is empty.</>
@@ -73,53 +73,50 @@ const MiniCart = () => {
             {items?.map((item) => {
               return (
                 <FadeIn>
-
-                
-                <div className="item" key={item.product.id}>
-                  <div className="meta">
-                    <div className="name">{item.product.name}</div>
-                    <div className="owner">
-                      <span>
-                        <FaUserAstronaut />
-                      </span>{" "}
-                      {item.product.owner}
-                      {" "}|{" "}
-                    <span className="rrp">
-                    <small>
-                        RRP
-                        </small>
-                      {item.product.listPriceCurrency === Currency.EUR && (
-                        <CgEuro />
-                      )}{" "}
-                      {getItemSum(item.product.id, Currency.EUR)?.toFixed(2)} 
-                    </span>
+                  <div className="item" key={item.product.id}>
+                    <div className="meta">
+                      <div className="name">{item.product.name}</div>
+                      <div className="owner">
+                        <span>
+                          <FaUserAstronaut />
+                        </span>{" "}
+                        {item.product.owner} |{" "}
+                        <span className="rrp">
+                          <small>RRP</small>
+                          {item.product.listPriceCurrency === Currency.EUR && (
+                            <CgEuro />
+                          )}{" "}
+                          {getItemSum(item.product.id, Currency.EUR)?.toFixed(
+                            2
+                          )}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="stock">
+                      <div className="price">
+                        <GiToken /> {getItemSum(item.product.id)}
+                      </div>
+                      <div className="actions">
+                        <SquareButton
+                          type="button"
+                          className="reduceQuantity"
+                          onClick={() => reduceQuantity(item.product.id)}
+                        >
+                          <FiMinus />
+                        </SquareButton>
+                        <span className="quantity">
+                          {item.quantity} of {item.product.amountInStock}
+                        </span>
+                        <SquareButton
+                          type="button"
+                          className="increaseQuantity"
+                          onClick={() => increaseQuantity(item.product.id)}
+                        >
+                          <FiPlus />
+                        </SquareButton>
+                      </div>
                     </div>
                   </div>
-                  <div className="stock">
-                    <div className="price">
-                      <GiToken /> {getItemSum(item.product.id)}
-                    </div>
-                    <div className="actions">
-                      <SquareButton
-                        type="button"
-                        className="reduceQuantity"
-                        onClick={() => reduceQuantity(item.product.id)}
-                      >
-                        <FiMinus />
-                      </SquareButton>
-                      <span className="quantity">
-                        {item.quantity} of {item.product.amountInStock}
-                      </span>
-                      <SquareButton
-                        type="button"
-                        className="increaseQuantity"
-                        onClick={() => increaseQuantity(item.product.id)}
-                      >
-                        <FiPlus />
-                      </SquareButton>
-                    </div>
-                  </div>
-                </div>
                 </FadeIn>
               );
             })}
@@ -135,13 +132,13 @@ const MiniCart = () => {
             <br />
             Total: <GiToken /> {getTotal() + getFees()}
             <br />
-            <Rates amountInTokens={getTotal(Currency.TOKEN)}/>
+            <Rates amountInTokens={getTotal(Currency.TOKEN)} />
           </div>
-          <MiniCartActions/>
+          <CartActions />
         </>
       )}
     </Container>
   );
 };
 
-export default MiniCart;
+export default Cart;

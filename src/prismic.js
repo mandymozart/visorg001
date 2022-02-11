@@ -2,12 +2,12 @@ import * as prismic from '@prismicio/client'
 import { config } from './config'
 
 // Fill in your repository name
-export const repositoryName = config.prismicRepositoryName
-const endpoint = prismic.getEndpoint(repositoryName)
+
+const endpoint = prismic.getEndpoint(config.PRISMIC_REPOSITORY_NAME)
 
 export const client = prismic.createClient(endpoint, {
   // If your repo is private, add an access token
-  accessToken: config.prismicAccessToken,
+  accessToken: config.PRISMIC_ACCESS_TOKEN,
 
   // This defines how you will structure URL paths in your project.
   // Update the types to match the Custom Types in your project, and edit

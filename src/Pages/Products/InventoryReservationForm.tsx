@@ -5,7 +5,7 @@ import { enableMapSet } from "immer";
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import FadeIn from "../../Animations/FadeIn";
-import MiniCart from "../../Components/Cart/MiniCart";
+import Cart from "../../Components/Cart/Cart";
 import { useCartStore } from "../../Stores/CartStore";
 import { Product } from "./Product";
 
@@ -120,7 +120,7 @@ const InventoryReservationForm = () => {
       {isSubmitting ? (
         <FadeIn>We are submitting your reservations! Please wait!</FadeIn>
       ) : (
-        <MiniCart />
+        <Cart />
       )}
     </Container>
   );

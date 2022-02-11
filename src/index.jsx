@@ -21,8 +21,8 @@ ReactDOM.render(
     <Web3ReactProvider getLibrary={getLibrary}>
       <PrismicProvider client={client}>
         <Auth0Provider
-          domain={config.auth0Domain}
-          clientId={config.auth0ClientId}
+          domain={config.AUTH0_DOMAIN}
+          clientId={config.AUTH0_CLIENT_ID}
           redirectUri={window.location.origin}
         >
           <QueryClientProvider client={queryClient}>

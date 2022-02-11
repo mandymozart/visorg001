@@ -26,8 +26,9 @@ const Container = styled.button`
   transition: all 0.2s cubic-bezier(1, 0, 0, 1);
   outline: none;
   &:hover {
-    transform: translateY(-0.1rem);
-    box-shadow: inset 0 0 0 1px var(--color), inset 0 -0.6em 0 -0.35em rgba(0, 0, 0, 0.33);
+    transform: translateY(-0.05rem);
+    color: var(--second);
+    box-shadow: inset 0 0 0 1px var(--second), inset 0 -0.6em 0 -0.35em #0000ff54;
   }
 `;
 
@@ -43,7 +44,9 @@ export const PrimaryButton = styled(Button)`
   box-shadow: none;
   color: var(--background);
   &:hover {
-    box-shadow: inset 0 -0.6em 0 -0.35em rgba(0, 0, 0, 0.33);
+    background-color: var(--second);
+    color: var(--background);
+    box-shadow: inset 0 -0.6em 0 -0.35em #00000054;
   }
 `;
 export const SquareButton = styled(Button)`

@@ -8,7 +8,7 @@ import Footer from "./Components/Footer";
 import LoginButton from "./Components/LoginButton";
 import LogoutButton from "./Components/LogoutButton";
 import Navigation from "./Components/Navigation";
-import CartPage from "./Pages/Cart/Cart";
+import CartPage from "./Pages/Cart/CartPage";
 import Contact from "./Pages/Contact/Contact";
 import Success from "./Pages/Contact/Success";
 import Dashboard from "./Pages/Dashboard/Dashboard";
@@ -76,7 +76,7 @@ const App = () => {
         </Toaster>
         <Navigation />
         <WalletLogic />
-        <CartLogic />       
+        <CartLogic />
         <Routes>
           {/* <Redirect exact from="/" to="/" /> */}
           <Route exact path="/" element={<LandingPage />} />

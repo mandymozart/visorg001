@@ -46,7 +46,7 @@ export const useWalletStore = create<State>((set, get) => ({
         state.lastUpdate = wallet.lastUpdate;
       })
     ),
-  bake: () => ({
+  bakeWallet: () => ({
     id: get().id,
     address: get().address,
     owner: get().owner,
@@ -82,7 +82,7 @@ type State = Wallet & {
   setStatus: (status: WalletStatus) => void;
   setAlias: (alias: string) => void;
   hydrate: (wallet: Wallet) => void;
-  bake: () => Wallet;
+  bakeWallet: () => Wallet;
   addTokens: (tokens: number) => void;
   deductTokens: (tokens: number) => void;
   setLastUpdate: (lastUpdate: string) => void;

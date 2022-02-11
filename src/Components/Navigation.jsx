@@ -7,13 +7,15 @@ import { FiShoppingCart, FiUser } from "react-icons/fi";
 import {
   Gi3DGlasses,
   GiAchillesHeel,
-  GiBackpack, GiMagicPortal,
+  GiBackpack,
+  GiMagicPortal,
   GiToken
 } from "react-icons/gi";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useCartStore } from "../Stores/CartStore";
 import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
+import NavigationLink from "./Navigation/NavigationLink";
 import ViennaStruggleLogo from "./ViennaStruggleLogo";
 
 const Container = styled.div`
@@ -46,12 +48,12 @@ const Container = styled.div`
       justify-content: center;
       align-items: center;
       margin-left: 1rem;
-      cursor: pointer;
     }
   }
   .divider {
-    height: 2px;
+    height: 1px;
     width: 100%;
+    margin-bottom: 0.5rem;
     background-color: var(--color);
   }
   > nav {
@@ -85,14 +87,13 @@ const Container = styled.div`
       li {
         padding: 0;
         margin: 0;
-        a {
-          cursor: pointer;
-          text-align: left;
-          line-height: 3rem;
-          font-size: 1.5rem;
-          cursor: pointer;
-        }
       }
+    }
+    button {
+      text-align: left;
+      line-height: 2.5rem;
+      font-size: 1.5rem;
+      width: 100%;
     }
     &.isOpen {
       opacity: 1;
@@ -113,24 +114,14 @@ const Navigation = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
   const cartItems = useCartStore((store) => store.items);
   const [isOpen, setIsOpen] = useState(false);
-  const navigate = useNavigate();
 
-  const toggleOpen = (value) => {
-    setIsOpen(value);
-  };
-
-  const goToLink = (link) => {
-    setIsOpen(false);
-    if (link === "/" && isAuthenticated) link = "/dashboard";
-    navigate(link);
-  };
   return (
     <Container>
       <header className="glassomorphism">
         <Hamburger toggled={isOpen} toggle={setIsOpen} color={"var(--color)"} />
-        <a onClick={() => goToLink("/")}>
+        <NavigationLink setIsOpen={setIsOpen} to="/">
           <ViennaStruggleLogo />
-        </a>
+        </NavigationLink>
         <CartLink to="/cart">
           <FiShoppingCart />{" "}
           <small>
@@ -141,19 +132,31 @@ const Navigation = () => {
       <nav className={clsx({ isOpen: isOpen }, "glassomorphism")}>
         <ul>
           <li>
-            <a onClick={() => goToLink("/projects")}>
-              <GiAchillesHeel /> Projects
-            </a>
+            <NavigationLink
+              icon={<GiAchillesHeel />}
+              setIsOpen={setIsOpen}
+              to="/projects"
+            >
+              Projects
+            </NavigationLink>
           </li>
           <li>
-            <a onClick={() => goToLink("/tutorials")}>
-              <Gi3DGlasses /> Tutorials
-            </a>
+            <NavigationLink
+              icon={<Gi3DGlasses />}
+              setIsOpen={setIsOpen}
+              to="/tutorials"
+            >
+              Tutorials
+            </NavigationLink>
           </li>
           <li>
-            <a onClick={() => goToLink("/portal")}>
-              <GiMagicPortal /> Portal
-            </a>
+            <NavigationLink
+              icon={<GiMagicPortal />}
+              setIsOpen={setIsOpen}
+              to="/portal"
+            >
+              Portal
+            </NavigationLink>
           </li>
         </ul>
         <div className="divider"></div>
@@ -161,17 +164,31 @@ const Navigation = () => {
         {isAuthenticated ? (
           <ul>
             <li>
-              <FiUser/> <a onClick={() => goToLink("/profile")}>{user?.name}</a>
+              <NavigationLink
+                icon={<FiUser />}
+                setIsOpen={setIsOpen}
+                to="/profile"
+              >
+                {user?.name}
+              </NavigationLink>
             </li>
             <li>
-              <a onClick={() => goToLink("/inventory")}>
-                <GiBackpack /> Inventory
-              </a>
+              <NavigationLink
+                icon={<GiBackpack />}
+                setIsOpen={setIsOpen}
+                to="/inventory"
+              >
+                Inventory
+              </NavigationLink>
             </li>
             <li>
-              <a onClick={() => goToLink("/wallet")}>
-                <GiToken /> Wallet
-              </a>
+              <NavigationLink
+                icon={<GiToken />}
+                setIsOpen={setIsOpen}
+                to="/wallet"
+              >
+                Wallet
+              </NavigationLink>
             </li>
             <li>
               <LogoutButton />

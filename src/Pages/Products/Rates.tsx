@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import React from "react";
+import { config } from "../../config";
 import { useGetRates } from "../../Hooks/CoinbaseQueries";
 import { round } from "../../utils";
 
@@ -15,13 +16,13 @@ const Rates = ({ amountInTokens }: Props) => {
   return (
     <Container>
       <small>
-        EUR: {round(amountInTokens * 2 * rates.EUR , 2).toFixed(2)}
+        EUR: {round(amountInTokens * config.EUR_TO_TOKEN_EXCHANGE_RATE * rates.EUR , 2).toFixed(2)}
         <br />
-        USD: {round(amountInTokens * 2 * rates.USD, 2).toFixed(2)}
+        USD: {round(amountInTokens * config.EUR_TO_TOKEN_EXCHANGE_RATE * rates.USD, 2).toFixed(2)}
         <br />
-        ETH: {round(amountInTokens * 2 * rates.ETH, 6)}
+        ETH: {round(amountInTokens * config.EUR_TO_TOKEN_EXCHANGE_RATE * rates.ETH, 6)}
         <br />
-        BTC: {round(amountInTokens * 2 * rates.BTC, 6)}
+        BTC: {round(amountInTokens * config.EUR_TO_TOKEN_EXCHANGE_RATE * rates.BTC, 6)}
       </small>
     </Container>
   );

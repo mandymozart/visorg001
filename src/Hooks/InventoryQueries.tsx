@@ -7,7 +7,8 @@ import { Transaction } from "../Pages/Wallet/Transaction";
 import { Wallet } from "../Pages/Wallet/Wallet";
 
 const getUrl = (endpoint: string) => {
-  return new URL(config.inventoryApiEndpoint + endpoint).toString();
+  console.log(config.INVENTORY_API_ENDPOINT)
+  return new URL(config.INVENTORY_API_ENDPOINT + endpoint).toString();
 };
 
 function fetchWallets(): Promise<Wallet[] | undefined> {

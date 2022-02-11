@@ -11,7 +11,7 @@ const Container = styled.div`
   // Inner
   > div {
     /* padding: 1rem; */
-    width: var(--content-width);
+    max-width: var(--content-width);
     margin: 0 auto;
     margin-top: 2rem;
   }

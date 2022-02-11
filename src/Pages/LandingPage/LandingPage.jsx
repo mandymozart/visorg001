@@ -3,6 +3,7 @@ import { FiPhone } from "react-icons/fi";
 import FadeIn from "../../Animations/FadeIn";
 import Layout from "../../Components/Layout";
 import { NewsletterForm } from "../Newsletter/Newsletter";
+import ProjectsSection from "../Projects/ProjectsSection";
 import { BaseSection } from "./BaseSection";
 import { Hero } from "./Hero";
 
@@ -37,6 +38,9 @@ function LandingPage() {
         <FadeIn>
           <NewsletterForm />
         </FadeIn>
+      </BaseSection>
+      <BaseSection>
+        <ProjectsSection />
       </BaseSection>
     </Layout>
   );

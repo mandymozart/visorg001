@@ -3,14 +3,13 @@ import { useAllPrismicDocumentsByUIDs } from "@prismicio/react";
 import { RichText } from "prismic-reactjs";
 import React from "react";
 import { useParams } from "react-router-dom";
+import FadeIn from "../../Animations/FadeIn";
 import Layout from "../../Components/Layout";
-import Loader from "../../Components/Loader";
+import { PageLoader } from "../../Components/Loader";
 import Tags from "../../Components/Tags";
 import NotFound from "../NotFound";
 
-const Container = styled.div`
-
-`;
+const Container = styled.div``;
 const Header = styled.header`
   text-align: center;
 `;
@@ -59,31 +58,37 @@ const Tutorial = () => {
     return (
       <Layout>
         <Container>
-          <Header>
-            {!document[0].data.video.html && document[0].data?.image.url && (
-              <TeaserImage
-                src={document[0].data.image.url}
-                alt={document[0].data.image.alt}
+          <FadeIn>
+            <Header>
+              {!document[0].data.video.html && document[0].data?.image.url && (
+                <TeaserImage
+                  src={document[0].data.image.url}
+                  alt={document[0].data.image.alt}
+                />
+              )}
+              <Video
+                dangerouslySetInnerHTML={{
+                  __html: document[0].data.video.html,
+                }}
               />
-            )}
-            <Video
-              dangerouslySetInnerHTML={{
-                __html: document[0].data.video.html,
-              }}
-            />
-          </Header>
-          <Meta>
-            <Tags tags={document[0].data.tags} />
-          </Meta>
-          <Description>
-            <h3>{document[0].data.title}</h3>
-            <RichText render={document[0].data.content} />
-          </Description>
+            </Header>
+          </FadeIn>
+          <FadeIn>
+            <Meta>
+              <Tags tags={document[0].data.tags} />
+            </Meta>
+          </FadeIn>
+          <FadeIn>
+            <Description>
+              <h3>{document[0].data.title}</h3>
+              <RichText render={document[0].data.content} />
+            </Description>
+          </FadeIn>
         </Container>
       </Layout>
     );
   }
-  return <Loader />;
+  return <PageLoader />;
 };
 
 export default Tutorial;

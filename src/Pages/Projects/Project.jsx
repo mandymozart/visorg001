@@ -4,8 +4,9 @@ import { useAllPrismicDocumentsByUIDs } from "@prismicio/react";
 import { RichText } from "prismic-reactjs";
 import React from "react";
 import { useParams } from "react-router-dom";
+import FadeIn from "../../Animations/FadeIn";
 import Layout from "../../Components/Layout";
-import Loader from "../../Components/Loader";
+import { PageLoader } from "../../Components/Loader";
 import Role from "../../Components/Role";
 import Tags from "../../Components/Tags";
 import NotFound from "../NotFound";
@@ -33,51 +34,58 @@ const Description = styled.section`
 const Project = () => {
   const { uid } = useParams();
   const { user } = useAuth0();
-  const [document, { state, error }] = useAllPrismicDocumentsByUIDs(
-    "project",
-    [uid]
-  );
+  const [document, { state, error }] = useAllPrismicDocumentsByUIDs("project", [
+    uid,
+  ]);
 
   if (state === "failed") return <NotFound error={error} />;
   else if (state === "loaded")
     return (
       <Layout>
-        <Header>
-          <h3>{document[0].data.title}</h3>
-          {document[0].data?.image.url && (
-            <TeaserImage
-              src={document[0].data.image.url}
-              alt={document[0].data.image.alt}
+        <FadeIn>
+          <Header>
+            <h3>{document[0].data.title}</h3>
+            {document[0].data?.image.url && (
+              <TeaserImage
+                src={document[0].data.image.url}
+                alt={document[0].data.image.alt}
+              />
+            )}
+            <div
+              dangerouslySetInnerHTML={{ __html: document[0].data.video.html }}
             />
-          )}
-          <div dangerouslySetInnerHTML={{ __html: document[0].data.video.html }} />
-        </Header>
-        <Meta>
-          <Tags tags={document[0].tags} />
-          <br />
-          <br />
-          {user?.sub === document[0].data.owner_id && (
-            <>
-              <Role>Owner</Role>
-              {document[0].data.workspace_url && (
-                <a
-                  class="button"
-                  href={document[0].data.workspace_url.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Workspace
-                </a>
-              )}
-            </>
-          )}
-        </Meta>
-        <Description>
-          <RichText render={document[0].data.content} />
-        </Description>
+          </Header>
+        </FadeIn>
+        <FadeIn>
+          <Meta>
+            <Tags tags={document[0].tags} />
+            <br />
+            <br />
+            {user?.sub === document[0].data.owner_id && (
+              <>
+                <Role>Owner</Role>
+                {document[0].data.workspace_url && (
+                  <a
+                    class="button"
+                    href={document[0].data.workspace_url.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Workspace
+                  </a>
+                )}
+              </>
+            )}
+          </Meta>
+        </FadeIn>
+        <FadeIn>
+          <Description>
+            <RichText render={document[0].data.content} />
+          </Description>
+        </FadeIn>
       </Layout>
     );
-  return <Loader />;
+  return <PageLoader />;
 };
 
 export default Project;

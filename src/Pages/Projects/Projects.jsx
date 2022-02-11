@@ -3,9 +3,9 @@ import {
 } from "@prismicio/react";
 import React from "react";
 import Layout from "../../Components/Layout";
-import Loader from "../../Components/Loader";
+import { PageLoader } from "../../Components/Loader";
+import { SimpleProjectList } from "../../Components/SimpleProjectList";
 import NotFound from "../NotFound";
-import ProjectsSection from "./ProjectsSection";
 
 const Projects = ({ match }) => {
   const [document, { state, error }] = useAllPrismicDocumentsByType("project");
@@ -14,11 +14,12 @@ const Projects = ({ match }) => {
   else if (state === "loaded")
     return (
       <Layout>
-        {/* <h1>{match.params.status}</h1> */}
-        <ProjectsSection projects={document} />
+        <h1>Projects</h1>
+        <p>Unstruggle yourself.</p>
+        <SimpleProjectList projects={document} />
       </Layout>
     );
-  return <Loader />;
+  return <PageLoader />;
 };
 
 export default Projects;

@@ -5,6 +5,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import React from "react";
 import { FaUserAstronaut } from "react-icons/fa";
 import { GiCalendar } from "react-icons/gi";
+import FadeIn from "../../Animations/FadeIn";
 import { useCartStore } from "../../Stores/CartStore";
 
 dayjs.extend(relativeTime);
@@ -31,31 +32,34 @@ const InventoryReservations = () => {
   if (!user) return <></>;
   return (
     <Container>
-      {events?.length === 0 && <>Your cart is empty.</>}
-      <div className="results">
-        {events?.map((item) => {
-          if (item.renter === user.nickname)
-            return (
-              <div className="item" key={item.eventId}>
-                <div className="meta">
-                  <div className="name">{getProduct(item.productId)?.name}</div>
-                  <div className="owner">
-                    <span className="quantity">
-                      {item.quantity} unit{item.quantity > 1 && "s"} from{" "}
-                    </span>
-                    <span>
-                      <FaUserAstronaut />
-                    </span>{" "}
-                    {getProduct(item.productId)?.owner} {" "}
-                    {dayjs(item.toDate).fromNow()}
+      <FadeIn>
+        {events?.length === 0 && <>Your cart is empty.</>}
+        <div className="results">
+          {events?.map((item) => {
+            if (item.renter === user.nickname)
+              return (
+                <div className="item" key={item.eventId}>
+                  <div className="meta">
+                    <div className="name">
+                      {getProduct(item.productId)?.name}
+                    </div>
+                    <div className="owner">
+                      <span className="quantity">
+                        {item.quantity} unit{item.quantity > 1 && "s"} from{" "}
+                      </span>
+                      <span>
+                        <FaUserAstronaut />
+                      </span>{" "}
+                      {getProduct(item.productId)?.owner}{" "}
+                      {dayjs(item.toDate).fromNow()}
+                    </div>
                   </div>
-                </div>
-                <div className="dates">
-                  <small>
-                    <GiCalendar /> {item.fromDate} - {item.toDate} <br />
-                  </small>
-                </div>
-                {/* <div className="actions">
+                  <div className="dates">
+                    <small>
+                      <GiCalendar /> {item.fromDate} - {item.toDate} <br />
+                    </small>
+                  </div>
+                  {/* <div className="actions">
                 <button
                   type="button"
                   className="cancelReservation"
@@ -64,10 +68,11 @@ const InventoryReservations = () => {
                   <FiTrash />
                 </button>
               </div> */}
-              </div>
-            );
-        })}
-      </div>
+                </div>
+              );
+          })}
+        </div>
+      </FadeIn>
     </Container>
   );
 };

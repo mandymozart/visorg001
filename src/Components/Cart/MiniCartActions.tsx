@@ -1,6 +1,7 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import styled from "@emotion/styled";
 import { useWeb3React } from "@web3-react/core";
+import dayjs from "dayjs";
 import { enableMapSet } from "immer";
 import { nanoid } from "nanoid";
 import React, { useState } from "react";
@@ -9,9 +10,12 @@ import { default as Web3 } from "web3";
 import { useSendMail } from "../../Hooks/FunctionQueries";
 import {
   useAddInventoryEvent,
+  useAddTransaction,
   useGetRates,
+  useGetWallets,
   useUpdateWallets
 } from "../../Hooks/Queries";
+import { Wallet } from "../../Pages/Wallet/Wallet";
 import { useCartStore } from "../../Stores/CartStore";
 import { useWalletStore } from "../../Stores/WalletStore";
 import { errorHandler } from "../../Utilities/ErrorHandlers";
@@ -40,17 +44,20 @@ const MiniCartActions = () => {
   const clearItems = useCartStore((store) => store.clearItems);
   const fromDate = useCartStore((store) => store.fromDate);
   const toDate = useCartStore((store) => store.toDate);
+  
   const tokens = useWalletStore((store) => store.tokens);
   const deductTokens = useWalletStore((store) => store.deductTokens);
   const bake = useWalletStore((store) => store.bake);
 
   const addInventoryEvent = useAddInventoryEvent();
+  const addTransaction = useAddTransaction();
   const sendMail = useSendMail();
   const updateWallets = useUpdateWallets();
 
   // Web3
   const { active, account, library, activate, deactivate } = useWeb3React();
   const [minting, setMinting] = useState(false);
+  const { data: wallets } = useGetWallets();
 
   const { data: rates } = useGetRates();
 
@@ -71,11 +78,11 @@ const MiniCartActions = () => {
     }
     setIsSubmitting(true);
 
-    // update store
+    // TODO: Move to individual call. DO NOT charge self
     deductTokens(grandTotal);
-    // update remote wallet
-    let newWallet = bake();
-    updateWallets.mutate(newWallet, {
+    // update store
+    let benefactorWallet = bake();
+    updateWallets.mutate(benefactorWallet, {
       onSuccess: () => {
         console.info("Wallet updated!");
       },
@@ -85,6 +92,7 @@ const MiniCartActions = () => {
     items.forEach((item) => {
       // throttle requests
       setTimeout(() => {
+        console.log("Looking for wallet of ",item.product.owner)
         addInventoryEvent.mutate(
           {
             eventId: nanoid(8),
@@ -105,13 +113,52 @@ const MiniCartActions = () => {
                 toDate: toDate,
               });
               toast.success(
-                `Your wallet has been charged!\nLast transaction: ${grandTotal}\nNew balance: ${newWallet.tokens}`,
+                `Your wallet has been charged!\nLast transaction: ${grandTotal}\nNew balance: ${benefactorWallet.tokens}`,
                 { icon: "✨" }
               );
             },
             onError: errorHandler,
           }
         );
+        // Transfer tokens to beneficiary
+        // TODO: DO NOT CHARGE self
+        console.log("Looking for wallet of ",item.product.owner)
+        const beneficiaryWallet = wallets?.find(
+          (wallet) => wallet.alias === item.product.owner
+        );
+        if (beneficiaryWallet) {
+          const newBeneficiaryWallet: Wallet = {
+            id: beneficiaryWallet.id,
+            address: beneficiaryWallet.address,
+            owner: beneficiaryWallet.owner,
+            alias: beneficiaryWallet.alias,
+            tokens:
+              beneficiaryWallet.tokens + parseFloat(item.product.memberPrice) * item.quantity,
+            lastUpdate: dayjs().format(),
+            status: beneficiaryWallet.status,
+          };
+          console.log(
+            `old saldo: ${beneficiaryWallet.tokens} new saldo: ${newBeneficiaryWallet.tokens}`
+          );
+          updateWallets.mutate(newBeneficiaryWallet, {
+            onSuccess: () => {
+              const transcation = {
+                transactionId: nanoid(16),
+                beneficiary: beneficiaryWallet.address,
+                benefactor: benefactorWallet.address,
+                tokens: parseFloat(item.product.memberPrice) * item.quantity,
+                date: dayjs().format(),
+                status: "received",
+              };
+              addTransaction.mutate(transcation);
+              // TODO: Add transaction to receiptiens report
+              console.log("Transaction logged", JSON.stringify(transcation));
+            },
+            onError: errorHandler,
+          });
+        } else {
+          console.log("Beneficiary wallet not found")
+        }
       }, 1000);
     });
   };
@@ -148,14 +195,14 @@ const MiniCartActions = () => {
         onError: errorHandler,
       }
     );
-    console.log(
-      JSON.stringify({
-        user: user,
-        items: items,
-        fromDate: fromDate,
-        toDate: toDate,
-      })
-    );
+    // console.log(
+    //   JSON.stringify({
+    //     user: user,
+    //     items: items,
+    //     fromDate: fromDate,
+    //     toDate: toDate,
+    //   })
+    // );
 
     clearItems();
   };
@@ -196,7 +243,7 @@ const MiniCartActions = () => {
             isLoading={isSubmitting || isLoading}
             type="button"
             onClick={purchaseWithTokens}
-            >
+          >
             <b>Checkout {items.length} items</b>
           </PrimaryButton>{" "}
           {/* <PrimaryButton
@@ -206,7 +253,6 @@ const MiniCartActions = () => {
             >
             {minting ? "Waiting confirmation." : "ETH"}
           </PrimaryButton> */}
-          
           <Button onClick={() => clearItems()}>Clear items</Button> <br />
         </>
       )}

@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { useAllPrismicDocumentsByType } from "@prismicio/react";
 import React, { useEffect } from "react";
 import Layout from "../../Components/Layout";
-import Loader from "../../Components/Loader";
+import { PageLoader } from "../../Components/Loader";
 import { TutorialListItem } from "../../Components/TutorialListItem";
 import NotFound from "../NotFound";
 const Container = styled.div`
@@ -24,17 +24,17 @@ const Tutorials = ({ match }) => {
         <Container>
           <h1>Tutorials</h1>
           <p>We love share our skills.</p>
-        </Container>
 
         {document.map((tutorial) => (
           <div key={tutorial.data.uid}>
             <TutorialListItem tutorial={tutorial} />
           </div>
         ))}
+        </Container>
       </Layout>
     );
   }
-  return <Loader />;
+  return <PageLoader />;
 };
 
 export default Tutorials;

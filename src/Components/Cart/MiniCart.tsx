@@ -4,6 +4,7 @@ import { CgEuro } from "react-icons/cg";
 import { FaUserAstronaut } from "react-icons/fa";
 import { FiMinus, FiPlus } from "react-icons/fi";
 import { GiToken } from "react-icons/gi";
+import FadeIn from "../../Animations/FadeIn";
 import { Currency } from "../../Pages/Products/Currency";
 import Rates from "../../Pages/Products/Rates";
 import { useCartStore } from "../../Stores/CartStore";
@@ -61,7 +62,9 @@ const MiniCart = () => {
 
   return (
     <Container>
+      <FadeIn>
       <h2>My Cart</h2>
+      </FadeIn>
       {items.length < 1 ? (
         <>Your cart is empty.</>
       ) : (
@@ -69,6 +72,9 @@ const MiniCart = () => {
           <div className="items">
             {items?.map((item) => {
               return (
+                <FadeIn>
+
+                
                 <div className="item" key={item.product.id}>
                   <div className="meta">
                     <div className="name">{item.product.name}</div>
@@ -114,6 +120,7 @@ const MiniCart = () => {
                     </div>
                   </div>
                 </div>
+                </FadeIn>
               );
             })}
           </div>

@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
-import { motion } from "framer-motion";
 import React from "react";
 import { Link } from "react-router-dom";
+import FadeIn from "../Animations/FadeIn";
 import Tags from "./Tags";
 
 const Container = styled(Link)`
@@ -42,16 +42,7 @@ export const TutorialListItem = ({ tutorial }) => {
   if (!tutorial) return null;
   console.log(tutorial)
   return (
-    <motion.div
-      variants={variants}
-      initial="enter"
-      animate="center"
-      exit="exit"
-      transition={{
-        y: { type: "spring", stiffness: 300, damping: 30 },
-        opacity: { duration: 0.2 },
-      }}
-    >
+    <FadeIn>
       <Container to={`/tutorial/${tutorial.uid}`}>
         <img src={tutorial.data.image.url} alt={tutorial.data.image.alt}/>
         <div>
@@ -59,6 +50,6 @@ export const TutorialListItem = ({ tutorial }) => {
           <Tags tags={tutorial.tags} />
           </div>
       </Container>
-    </motion.div>
+    </FadeIn>
   );
 };

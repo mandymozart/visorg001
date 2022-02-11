@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import { enableMapSet } from "immer";
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
+import FadeIn from "../../Animations/FadeIn";
 import MiniCart from "../../Components/Cart/MiniCart";
 import { useCartStore } from "../../Stores/CartStore";
 import { Product } from "./Product";
@@ -19,7 +20,7 @@ const Container = styled.div`
 const Form = styled.form`
   max-width: var(--form-width);
   margin: 0 auto;
-  
+
   .options {
     position: sticky;
     text-align: left;
@@ -60,7 +61,6 @@ const InventoryReservationForm = () => {
   const setToDate = useCartStore((store) => store.setToDate);
 
   const [options, setOptions] = useState<any[]>([]);
-  
 
   useEffect(() => {
     const options = productsToOptions(products);
@@ -70,53 +70,55 @@ const InventoryReservationForm = () => {
   if (!user) return <></>;
   return (
     <Container>
-      <Form>
-        <fieldset>
-          <div className="fieldGroup">
-            <div className="field">
-              <label>
-                From
-                <input
-                  type="date"
-                  value={fromDate}
-                  min={dayjs().format("YYYY-MM-DD")}
-                  max={dayjs().add(6, "month").format("YYYY-MM-DD")}
-                  onChange={(event) => setFromDate(event.target.value)}
-                  name="checkin"
-                />
-              </label>
-            </div>
+      <FadeIn>
+        <Form>
+          <fieldset>
+            <div className="fieldGroup">
+              <div className="field">
+                <label>
+                  From
+                  <input
+                    type="date"
+                    value={fromDate}
+                    min={dayjs().format("YYYY-MM-DD")}
+                    max={dayjs().add(6, "month").format("YYYY-MM-DD")}
+                    onChange={(event) => setFromDate(event.target.value)}
+                    name="checkin"
+                  />
+                </label>
+              </div>
 
-            <div className="field">
-              <label>
-                To
-                <input
-                  type="date"
-                  value={toDate}
-                  min={dayjs(fromDate).add(1, "day").format("YYYY-MM-DD")}
-                  max={dayjs()
-                    .add(6, "month")
-                    .add(1, "day")
-                    .format("YYYY-MM-DD")}
-                  onChange={(event) => setToDate(event.target.value)}
-                  name="checkout"
-                />
-              </label>
+              <div className="field">
+                <label>
+                  To
+                  <input
+                    type="date"
+                    value={toDate}
+                    min={dayjs(fromDate).add(1, "day").format("YYYY-MM-DD")}
+                    max={dayjs()
+                      .add(6, "month")
+                      .add(1, "day")
+                      .format("YYYY-MM-DD")}
+                    onChange={(event) => setToDate(event.target.value)}
+                    name="checkout"
+                  />
+                </label>
+              </div>
             </div>
-          </div>
-        </fieldset>
-        <fieldset className="options">
-          <Select
-            options={options}
-            placeholder={"Select item ..."}
-            isLoading={isLoading}
-            onChange={addItem}
-          />
-        </fieldset>
-      </Form>
+          </fieldset>
+          <fieldset className="options">
+            <Select
+              options={options}
+              placeholder={"Select item ..."}
+              isLoading={isLoading}
+              onChange={addItem}
+            />
+          </fieldset>
+        </Form>
+      </FadeIn>
 
       {isSubmitting ? (
-        <>We are submitting your reservations! Please wait!</>
+        <FadeIn>We are submitting your reservations! Please wait!</FadeIn>
       ) : (
         <MiniCart />
       )}

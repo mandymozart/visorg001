@@ -3,17 +3,13 @@ import React from "react";
 import { CgArrowLongRightC } from "react-icons/cg";
 import { GiMusicalNotes } from "react-icons/gi";
 import { RiQuillPenFill } from "react-icons/ri";
-import { Link } from "react-router-dom";
 import TextLoop from "react-text-loop";
-import { PrimaryButton } from "../../Components/FormElements/Button";
-import { SimpleProjectList } from "../../Components/SimpleProjectList";
 
 const Container = styled.section`
   color: var(--background);
   width: var(--content-width-narrow);
   margin: 0 auto;
   text-align: left;
-  padding: 1rem;
   img {
     max-width: 100%;
     &.full {
@@ -21,11 +17,10 @@ const Container = styled.section`
     }
   }
 `;
-const ProjectsSection = ({ projects }) => {
-  console.log(projects);
+const ProjectsSection = () => {
   return (
     <Container>
-      <h2>
+      <h1>
         We tell stories of{" "}
         <TextLoop>
           <span>emotional </span>
@@ -33,17 +28,17 @@ const ProjectsSection = ({ projects }) => {
           <span>ancestral</span>
           <span>mental</span>
           <span>identity</span>
-          <span>orientational</span>
           <span>political</span>
         </TextLoop>{" "}
         struggle <br />
         through music.
         <br />
         &mdash; <br />
-      </h2>
-      <h2>
+      </h1>
+      <h1>
         <RiQuillPenFill /> <CgArrowLongRightC /> <GiMusicalNotes />
-      </h2>
+      </h1>
+{/*       
       <h3>
         You share your story with us!
         <br /> We share it with the beings on this planet and beyond!
@@ -82,8 +77,7 @@ const ProjectsSection = ({ projects }) => {
         together with people that care about stuff that matters, like really
         really care, gives us strength and heals our wunds. And because we are
         sick of manufactured feel good managers!
-      </p>
-      <SimpleProjectList projects={projects} />
+      </p> */}
     </Container>
   );
 };

@@ -64,7 +64,7 @@ export const NewsletterForm = () => (
       url={config.mailchimpSubscribeUrl}
       render={({ subscribe, status, message }) => (
         <div className="field">
-          <MailchimpSubscribe onSubmitted={(formData) => subscribe(formData)} />
+          <MailchimpSubscribe url={config.mailchimpSubscribeUrl} onSubmitted={(formData) => subscribe(formData)} />
           {status === "sending" && (
             <div style={{ color: "blue" }}>sending...</div>
           )}

@@ -4,7 +4,7 @@ import { useInView } from "react-intersection-observer";
 
 const variants = {
   visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } },
-  hidden: { opacity: 0, scale: 0.9 },
+  hidden: { opacity: 0, scale: 1 },
 };
 
 const FadeIn = ({ children }) => {

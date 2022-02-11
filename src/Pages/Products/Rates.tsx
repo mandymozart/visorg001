@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import React, { useEffect } from "react";
+import React from "react";
 import { useGetRates } from "../../Hooks/Queries";
 import { round } from "../../utils";
 
@@ -12,9 +12,6 @@ const Container = styled.div`
 
 const Rates = ({ amountInTokens }: Props) => {
   const { data: rates } = useGetRates();
-  useEffect(() => {
-    if (rates) console.log(rates.BTC, rates.ETH);
-  }, [rates]);
   if (!rates) return <></>;
   return (
     <Container>

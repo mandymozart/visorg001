@@ -9,6 +9,7 @@ import {
   useMatch,
   useResolvedPath
 } from "react-router-dom";
+import FadeIn from "../../Animations/FadeIn";
 import Layout from "../../Components/Layout";
 import InventoryReservationForm from "./InventoryReservationForm";
 import InventoryReservations from "./InventoryReservations";
@@ -79,11 +80,13 @@ const Inventory = () => {
   return (
     <Layout>
       <Container>
-        <h2>Rent items from portal</h2>
-        <InventoryNavigation>
-          <CustomLink to="reservations">All Reservations</CustomLink>{" "}
-          <CustomLink to="reservation">New Reservations</CustomLink>
-        </InventoryNavigation>
+        <FadeIn>
+          <h2>Rent items from portal</h2>
+          <InventoryNavigation>
+            <CustomLink to="reservations">All Reservations</CustomLink>{" "}
+            <CustomLink to="reservation">New Reservations</CustomLink>
+          </InventoryNavigation>
+        </FadeIn>
         <Body>
           <Routes>
             <Route path="/" element={<InventoryWelcome />} />
@@ -99,6 +102,7 @@ const Inventory = () => {
 const InventoryWelcome = () => {
   return (
     <>
+    <FadeIn>
       <h4>How it works</h4>
       <p>
         We like to share our infrastructure. In order to maintain the quality we
@@ -109,6 +113,7 @@ const InventoryWelcome = () => {
         Make a new reservation to rent equipment. The app will let you know when
         an item is not available or where it is.
       </p>
+    </FadeIn>
     </>
   );
 };

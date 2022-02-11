@@ -76,7 +76,7 @@ const App = () => {
         </Toaster>
         <Navigation />
         <WalletLogic />
-        <CartLogic />
+        <CartLogic />       
         <Routes>
           {/* <Redirect exact from="/" to="/" /> */}
           <Route exact path="/" element={<LandingPage />} />

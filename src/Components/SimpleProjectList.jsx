@@ -3,9 +3,12 @@ import React from "react";
 import { SimpleProjectListItem } from "./SimpleProjectListItem";
 
 const Container = styled.div`
-  max-width: var(--content-width-narrow);
-  margin-bottom: 1rem;
+  max-width: var(--content-width);
+  padding-bottom: 4rem;
   margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
 `;
 
 const SimpleProjectList = ({ projects }) => {

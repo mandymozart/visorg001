@@ -11,13 +11,13 @@
   --form-width: 30rem;
   --content-height: calc(100vh - var(--header-height));
 
-  --color: #bb6bd9;
-  --background: #f9c1c8;
-  --background: yellow;
-  --second: #0000ff;
-  --third: #00ff00;
+  --color: #d88af5;
+  --second: #3271bf;
+  --third: #eedc0f;
+  --fourth: #ffffff;
   --text: var(--color);
-  --background-invert: black;
+  --background: var(--second);
+  --background-invert: var(--third);
 
   /* --card-background: #d9d9d9;
   --card-background-image: linear-gradient(315deg, #d9d9d9 0%, #f6f2f2 74%); */
@@ -38,7 +38,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--background);
   min-height: 100vh;
-  background: url("images/background.jpg") cover contain;
 }
 html {
   font-size: 16px;
@@ -69,12 +68,11 @@ h1,
 h2,
 h3,
 h4,
-h5,
-h6,
 th {
   font-family: "Sporting Grotesque_Regular", -apple-system, BlinkMacSystemFont,
     "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
     "Droid Sans", "Helvetica Neue", sans-serif;
+
 }
 
 code {
@@ -87,6 +85,16 @@ p {
 }
 h1 {
   font-size: 3.5rem;
+}
+h5, h6 {
+  text-transform: uppercase;
+  margin: 0 0 0.5rem 0;
+}
+h5 {
+  font-size: .8rem;
+}
+h6 {
+  font-size: .7rem;
 }
 form {
   margin-bottom: 1rem;
@@ -160,7 +168,7 @@ input:hover {
   color: var(--color);
 }
 input:focus {
-  border-color: greenyellow;
+  border-color: var(--fourth);
 }
 .error {
   font-size: 0.5rem;
@@ -174,7 +182,7 @@ a {
   transform: translateX(0) translateY(0);
 }
 a:hover {
-  color: var(--second);
+  color: var(--third);
 }
 
 @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {

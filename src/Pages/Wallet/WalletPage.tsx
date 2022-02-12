@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import React from "react";
-import FadeIn from "../../Animations/FadeIn";
+import FadeInView from "../../Animations/FadeInView";
 import Transactions from "../../Components/Wallet/Transactions";
 import Wallet from "../../Components/Wallet/Wallet";
 
@@ -12,9 +12,9 @@ const WalletPage = () => {
   return (
     <Container>
       <Wallet />
-      <FadeIn>
+      <FadeInView>
         <Transactions />
-      </FadeIn>
+      </FadeInView>
     </Container>
   );
 };

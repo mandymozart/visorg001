@@ -1,12 +1,10 @@
 import styled from "@emotion/styled";
 
 export const Hero = styled.div`
-  background: #ffff00;
   padding: 1rem;
   padding-bottom: 4rem;
-  /* svg {
-    margin-bottom: 1.5rem;
-  } */
+  min-height: calc(100vh - 20rem);
+  border-radius: .5rem;
   h1 {
     margin-top: 0;
     margin-bottom: 1rem;

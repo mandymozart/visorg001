@@ -3,7 +3,7 @@ import { useAllPrismicDocumentsByUIDs } from "@prismicio/react";
 import { RichText } from "prismic-reactjs";
 import React from "react";
 import { useParams } from "react-router-dom";
-import FadeIn from "../../Animations/FadeIn";
+import FadeInView from "../../Animations/FadeInView";
 import Layout from "../../Components/Layout";
 import { PageLoader } from "../../Components/Loader";
 import Tags from "../../Components/Tags";
@@ -58,7 +58,7 @@ const Tutorial = () => {
     return (
       <Layout>
         <Container>
-          <FadeIn>
+          <FadeInView>
             <Header>
               {!document[0].data.video.html && document[0].data?.image.url && (
                 <TeaserImage
@@ -72,18 +72,18 @@ const Tutorial = () => {
                 }}
               />
             </Header>
-          </FadeIn>
-          <FadeIn>
+          </FadeInView>
+          <FadeInView>
             <Meta>
               <Tags tags={document[0].data.tags} />
             </Meta>
-          </FadeIn>
-          <FadeIn>
+          </FadeInView>
+          <FadeInView>
             <Description>
               <h3>{document[0].data.title}</h3>
               <RichText render={document[0].data.content} />
             </Description>
-          </FadeIn>
+          </FadeInView>
         </Container>
       </Layout>
     );

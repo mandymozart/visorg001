@@ -15,7 +15,8 @@ export type Product = {
     modifiedAt: string;
     weight: string;
     isTaxFree: string;
-    owner: string;
+    abbreviation: string;
+    // owner: string;
     amount: number;
     amountInStock: number;
     isRental: string;

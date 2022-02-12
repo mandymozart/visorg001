@@ -1,6 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import React from "react";
-import FadeIn from "../../Animations/FadeIn";
+import FadeInView from "../../Animations/FadeInView";
 import Layout from "../../Components/Layout";
 
 export default () => {
@@ -8,10 +8,10 @@ export default () => {
   if (!isAuthenticated) return null;
   return (
     <Layout>
-      <FadeIn>
+      <FadeInView>
         <h2>Welcome, {user.name}</h2>
         <p style={{textAlign:"center"}}>Use the menu to rent inventory.</p>
-      </FadeIn>
+      </FadeInView>
     </Layout>
   );
 };

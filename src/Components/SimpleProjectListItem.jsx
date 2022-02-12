@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import React from "react";
 import { Link } from "react-router-dom";
-import FadeIn from "../Animations/FadeIn";
+import FadeInView from "../Animations/FadeInView";
 import Status from "./Status";
 import Tags from "./Tags";
 
@@ -22,12 +22,12 @@ const Container = styled(Link)`
 export const SimpleProjectListItem = ({ project }) => {
   if (!project) return null;
   return (
-    <FadeIn>
+    <FadeInView>
       <Container to={`/project/${project.uid}`}>
-        <h3>{project.data.title}</h3>
         <img src={project.data.image.url} alt={project.data.image.alt}/>
+        <h3>{project.data.title}</h3>
         <Status>{project.data.status}</Status> <Tags tags={project.tags} />
       </Container>
-    </FadeIn>
+    </FadeInView>
   );
 };

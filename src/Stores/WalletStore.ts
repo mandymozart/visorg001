@@ -26,14 +26,14 @@ export const useWalletStore = create<State>((set, get) => ({
         state.status = status;
       })
     ),
-  alias: "",
-  setAlias: (alias) =>
+  abbreviation: "",
+  setAlias: (abbreviation) =>
     set(
       produce((state) => {
-        state.alias = alias;
+        state.abbreviation = abbreviation;
       })
     ),
-  tokens: 0,
+  balance: 0,
   hydrate: (wallet) =>
     set(
       produce((state) => {
@@ -41,8 +41,8 @@ export const useWalletStore = create<State>((set, get) => ({
         state.address = wallet.address;
         state.owner = wallet.owner;
         state.status = wallet.status;
-        state.tokens = wallet.tokens;
-        state.alias = wallet.alias;
+        state.balance = wallet.balance;
+        state.abbreviation = wallet.abbreviation;
         state.lastUpdate = wallet.lastUpdate;
       })
     ),
@@ -51,20 +51,20 @@ export const useWalletStore = create<State>((set, get) => ({
     address: get().address,
     owner: get().owner,
     status: get().status,
-    tokens: get().tokens,
-    alias: get().alias,
+    balance: get().balance,
+    abbreviation: get().abbreviation,
     lastUpdate: get().lastUpdate,
   }),
-  addTokens: (tokens) =>
+  addTokens: (amount) =>
     set(
       produce((state) => {
-        state.tokens = get().tokens + tokens;
+        state.balance = get().balance + amount;
       })
     ),
-  deductTokens: (tokens) =>
+  deductTokens: (amount) =>
     set(
       produce((state) => {
-        state.tokens = get().tokens - tokens;
+        state.balance = get().balance - amount;
       })
     ),
   lastUpdate: "",
@@ -80,11 +80,11 @@ type State = Wallet & {
   setAddress: (address: string) => void;
   setOwner: (owner: string) => void;
   setStatus: (status: WalletStatus) => void;
-  setAlias: (alias: string) => void;
+  setAlias: (abbreviation: string) => void;
   hydrate: (wallet: Wallet) => void;
   bakeWallet: () => Wallet;
-  addTokens: (tokens: number) => void;
-  deductTokens: (tokens: number) => void;
+  addTokens: (amount: number) => void;
+  deductTokens: (amount: number) => void;
   setLastUpdate: (lastUpdate: string) => void;
 };
 

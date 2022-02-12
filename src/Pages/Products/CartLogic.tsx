@@ -17,7 +17,7 @@ const CartLogic = () => {
   },[isLoading, isLoadingEvents,setIsLoading])
 
   useEffect(() => {
-    if (products) replaceProducts(products);
+    if (products) replaceProducts(products.filter(product => product.isRental === '1'));
   }, [products, replaceProducts]);
 
   useEffect(() => {

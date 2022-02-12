@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import React from "react";
 import { GiMailbox } from "react-icons/gi";
-import MailchimpSubscribe from "react-mailchimp-subscribe";
+import Mailchimp from "react-mailchimp-form";
 import Layout from "../../Components/Layout";
 import { config } from "../../config";
 import { BaseSection } from "../LandingPage/BaseSection";
@@ -21,6 +21,20 @@ const Container = styled.div`
   backdrop-filter: blur(8px);
   input {
     margin-bottom: 1rem;
+    font-size: 1rem;
+    line-height: 2rem;
+    border: var(--color) 1px solid;
+    border-radius: 0.15em;
+    padding: 0 0.5rem;
+    display: block;
+    border-radius: 0.2rem;
+    box-sizing: border-box;
+    text-decoration: none;
+    position: relative;
+    transition: all 0.3s cubic-bezier(1, 0, 0, 1);
+    outline: none;
+    margin-right: 0.5rem;
+    width: 100%;
   }
   button {
     width: 100%;
@@ -55,30 +69,23 @@ const Container = styled.div`
 // use the render prop and your custom form
 export const NewsletterForm = () => (
   <Container>
-    <h2><GiMailbox/> {" "}Newsletter</h2>
+    <h2>
+      <GiMailbox /> Newsletter
+    </h2>
     <p>
       Receive upcoming open calls, releases and events straight into your inbox.
       Cancel anytime.
     </p>
-    <MailchimpSubscribe
-      url={config.mailchimpSubscribeUrl}
-      render={({ subscribe, status, message }) => (
-        <div className="field">
-          <MailchimpSubscribe url={config.mailchimpSubscribeUrl} onSubmitted={(formData) => subscribe(formData)} />
-          {status === "sending" && (
-            <div style={{ color: "blue" }}>sending...</div>
-          )}
-          {status === "error" && (
-            <div
-              style={{ color: "red" }}
-              dangerouslySetInnerHTML={{ __html: message }}
-            />
-          )}
-          {status === "success" && (
-            <div style={{ color: "green" }}>Subscribed !</div>
-          )}
-        </div>
-      )}
+    <Mailchimp
+      action={config.MAILCHIMP_SUBSCRIBE_URL}
+      fields={[
+        {
+          name: "EMAIL",
+          placeholder: "Email",
+          type: "email",
+          required: true,
+        },
+      ]}
     />
   </Container>
 );

@@ -34,8 +34,8 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <style>
       :root {
-        --widgetbot-height: calc(100vh - 7rem);
-        --widgetbot-width: calc(var(--content-width) - 2rem);
+        --widgetbot-height: calc(100vh - 2rem);
+        --widgetbot-width: calc(100vw - 2rem);
       }
       .widgetbot {
         position: fixed;
@@ -45,10 +45,15 @@
         transform: translateY(var(--widgetbot-height));
         opacity: 0;
         transition: all 1s ease-in-out;
-        z-index: 100;
+        z-index: 10000;
         max-width: var(--widgetbot-width) !important;
         max-height: var(--widgetbot-height);
         margin: 0 auto;
+        border: 2px solid var(--color);
+        box-sizing: border-box;
+        /* Up 1 */
+        box-shadow: 4px 4px 0px var(--color);
+        border-radius: 8px;
         pointer-events: none;
       }
       .widget-open .widgetbot {
@@ -70,7 +75,7 @@
         border: 0;
         border-radius: 1rem;
         position: fixed;
-        bottom: 2rem;
+        top: 2rem;
         right: 2rem;
         height: 3rem;
         padding: 0;

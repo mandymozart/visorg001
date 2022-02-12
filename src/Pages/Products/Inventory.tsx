@@ -1,17 +1,20 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import styled from "@emotion/styled";
 import React from "react";
-import type { LinkProps } from "react-router-dom";
 import {
   Link,
+  LinkProps,
+  Outlet,
   Route,
   Routes,
   useMatch,
   useResolvedPath
 } from "react-router-dom";
-import FadeIn from "../../Animations/FadeIn";
+import FadeInView from "../../Animations/FadeInView";
 import Layout from "../../Components/Layout";
-import InventoryReservationForm from "./InventoryReservationForm";
+import InventoryWelcomePage from "../Inventory/InventoryWelcomePage";
+import InventoryFavorites from "./InventoryFavorites";
+import InventoryProducts from "./InventoryProducts";
 import InventoryReservations from "./InventoryReservations";
 
 const Container = styled.div`
@@ -52,25 +55,38 @@ const Body = styled.div`
   }
 `;
 
-const InventoryNavigation = styled.nav`
+const TabNavigation = styled.nav`
   text-align: center;
   margin-bottom: 1rem;
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    li {
+      display: inline-block;
+      padding: 0 2rem;
+    }
+  }
 `;
+
+type StyledLinkProps = {
+  match: boolean;
+};
+const StyledLink = styled(Link)(
+  ({ match }: StyledLinkProps) => `
+  ${match && `border-bottom: 1px solid var(--third);`}
+`
+);
 
 function CustomLink({ children, to, ...props }: LinkProps) {
   let resolved = useResolvedPath(to);
   let match = useMatch({ path: resolved.pathname, end: true });
 
   return (
-    <span>
-      <Link
-        style={{ textDecoration: match ? "underline" : "none" }}
-        to={to}
-        {...props}
-      >
-        {children}
-      </Link>
-    </span>
+    <StyledLink match={!!match} to={to} {...props}>
+      <h5>{children}</h5>
+    </StyledLink>
   );
 }
 
@@ -80,41 +96,34 @@ const Inventory = () => {
   return (
     <Layout>
       <Container>
-        <FadeIn>
+        <FadeInView>
           <h2>Rent items from portal</h2>
-          <InventoryNavigation>
-            <CustomLink to="reservations">All Reservations</CustomLink>{" "}
-            <CustomLink to="reservation">New Reservations</CustomLink>
-          </InventoryNavigation>
-        </FadeIn>
+          <TabNavigation>
+            <ul>
+              <li>
+                <CustomLink to="product">Pick a date</CustomLink>{" "}
+              </li>
+              <li>
+                <CustomLink to="reservations">Reservations</CustomLink>{" "}
+              </li>
+              <li>
+                <CustomLink to="favorites">Favorites</CustomLink>
+              </li>
+            </ul>
+          </TabNavigation>
+        </FadeInView>
         <Body>
           <Routes>
-            <Route path="/" element={<InventoryWelcome />} />
+            <Route path="/" element={<InventoryWelcomePage />} />
             <Route path="reservations" element={<InventoryReservations />} />
-            <Route path="reservation" element={<InventoryReservationForm />} />
+            <Route path="favorites" element={<InventoryFavorites />} />
+            <Route path="product" element={<InventoryProducts />} />
+            <Route path="product/:productId" element={<InventoryProducts />} />
           </Routes>
+          <Outlet />
         </Body>
       </Container>
     </Layout>
-  );
-};
-
-const InventoryWelcome = () => {
-  return (
-    <>
-    <FadeIn>
-      <h4>How it works</h4>
-      <p>
-        We like to share our infrastructure. In order to maintain the quality we
-        also share the responsibility. Making sure that we pay for the rentals
-        guarantees long term sustainability of the portal.
-      </p>
-      <p>
-        Make a new reservation to rent equipment. The app will let you know when
-        an item is not available or where it is.
-      </p>
-    </FadeIn>
-    </>
   );
 };
 

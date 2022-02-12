@@ -36,8 +36,9 @@ import WalletPage from "./Pages/Wallet/WalletPage";
 const Container = styled.div``;
 
 const Notification = styled.div`
-  background: white;
+  background: var(--third);
   padding: 1rem;
+  color: var(--second);
   text-align: center;
   font-size: 0.75rem;
 `;
@@ -56,11 +57,9 @@ const App = () => {
   return (
     <Container>
       <BrowserRouter>
-        {!isAuthenticated && (
-          <Notification>
-            Currently we are accepting applications for Portal Memberships only.
-          </Notification>
-        )}
+        <Notification>
+          Currently we are accepting applications for Portal Memberships only.
+        </Notification>
         <Toaster position="bottom-left" toastOptions={{ duration: 5000 }}>
           {(t) => (
             <ToastBar toast={t}>

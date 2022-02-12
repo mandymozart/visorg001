@@ -4,9 +4,18 @@ import Loader from "../Loader";
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   isLoading?: boolean;
+  success?: boolean;
+  failed?: boolean;
   icon?: FC;
 }
-const Container = styled.button`
+
+type StyledContainerProps = {
+  success?: boolean;
+  failed?: boolean;
+};
+
+const Container = styled.button(
+  ({ success, failed }: StyledContainerProps) => `
   line-height: 2rem;
   font-size: 1rem;
   justify-self: center;
@@ -24,28 +33,45 @@ const Container = styled.button`
   text-align: center;
   position: relative;
   transition: all 0.2s cubic-bezier(1, 0, 0, 1);
-  outline: none;
+  ${success && `&:before {content:"👌"}`}
+  ${failed && `&:before {content:"👎"}`}
   &:hover {
     transform: translateY(-0.05rem);
-    color: var(--second);
-    box-shadow: inset 0 0 0 1px var(--second), inset 0 -0.6em 0 -0.35em #0000ff54;
+    box-shadow: inset 0 0 0 1px var(--color), inset 0 -0.6em 0 -0.35em #0000ff54;
   }
-`;
+`
+);
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ isLoading = false, icon, children, ...props }, ref) => (
-    <Container {...props} ref={ref}>
-      {isLoading ? <Loader/> : children}
+  (
+    {
+      isLoading = false,
+      success = false,
+      failed = false,
+      icon,
+      children,
+      ...props
+    },
+    ref
+  ) => (
+    <Container
+      {...props}
+      disabled={isLoading}
+      success={success}
+      failed={failed}
+      ref={ref}
+    >
+      {isLoading ? <Loader size={24} /> : children}
     </Container>
   )
 );
 export const PrimaryButton = styled(Button)`
-  background-color: var(--color);
+  background-color: var(--second);
   box-shadow: none;
-  color: var(--background);
+  color: var(--fourth);
   &:hover {
     background-color: var(--second);
-    color: var(--background);
+    color: var(--fourth);
     box-shadow: inset 0 -0.6em 0 -0.35em #00000054;
   }
 `;

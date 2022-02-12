@@ -7,7 +7,6 @@ import { Transaction } from "../Pages/Wallet/Transaction";
 import { Wallet } from "../Pages/Wallet/Wallet";
 
 const getUrl = (endpoint: string) => {
-  console.log(config.INVENTORY_API_ENDPOINT)
   return new URL(config.INVENTORY_API_ENDPOINT + endpoint).toString();
 };
 

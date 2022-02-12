@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import React from "react";
 import { Link } from "react-router-dom";
+import ViennaStruggleLogo from "./ViennaStruggleLogo";
 
 const Container = styled.footer`
   background: var(--background-invert);
@@ -8,6 +9,12 @@ const Container = styled.footer`
   line-height: 1.5rem;
   color: var(--background);
   text-align: center;
+  @media screen and (min-width: 600px) {
+    display: flex;
+    gap: 3rem;
+    text-align: left;
+    padding-bottom: 8rem;
+  }
   ul {
     margin: 0;
     list-style: none;
@@ -15,6 +22,14 @@ const Container = styled.footer`
     li {
       /* display: inline; */
       padding: 0 0.5rem;
+      h5 {
+        margin: 0;
+        color: var(--background);
+        text-transform: uppercase;
+      }
+      &:first-of-type {
+        margin-bottom: 0.5rem;
+      }
       a {
         color: var(--background);
         &:hover {
@@ -23,12 +38,32 @@ const Container = styled.footer`
       }
     }
   }
+  div {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--fourth);
+    border-radius: 0.5rem;
+    padding: 2rem;
+    svg {
+      margin-bottom: 0;
+    }
+  }
 `;
 const Footer = () => {
   return (
     <Container>
+      <div>
+        <ViennaStruggleLogo />
+        <br />
+        <small>&copy; 2021</small>
+      </div>
       <ul>
-        <li>Struggle</li>
+        <li>
+          <h5>Struggle</h5>
+        </li>
         <li>
           <Link to={"/projects"}>Projects</Link>{" "}
         </li>
@@ -45,7 +80,9 @@ const Footer = () => {
         </li>
       </ul>
       <ul>
-        <li>Third-Party</li>
+        <li>
+          <h5>Third-Party</h5>
+        </li>
         <li>
           <a href="https://soundcloud.com/viennastruggle" rel="noreferrer">
             Soundcloud
@@ -67,7 +104,9 @@ const Footer = () => {
       </ul>
 
       <ul>
-        <li>Operations</li>
+        <li>
+          <h5>Operations</h5>
+        </li>
         <li>
           <Link to="/team">Team</Link>
         </li>
@@ -81,7 +120,6 @@ const Footer = () => {
           <Link to="/page/privacy-policy">Privacy Policy</Link>
         </li>
       </ul>
-      <small>&copy; 2021 Vienna Struggle</small>
     </Container>
   );
 };

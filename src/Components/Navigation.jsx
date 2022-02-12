@@ -3,16 +3,13 @@ import styled from "@emotion/styled";
 import clsx from "clsx";
 import Hamburger from "hamburger-react";
 import React, { useState } from "react";
-import { FiShoppingCart, FiUser } from "react-icons/fi";
+import { FiUser } from "react-icons/fi";
 import {
   Gi3DGlasses,
-  GiAchillesHeel,
-  GiBackpack,
+  GiAchillesHeel, GiBackpack,
   GiMagicPortal,
   GiToken
 } from "react-icons/gi";
-import { Link } from "react-router-dom";
-import { useCartStore } from "../Stores/CartStore";
 import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
 import NavigationLink from "./Navigation/NavigationLink";
@@ -20,7 +17,7 @@ import ViennaStruggleLogo from "./ViennaStruggleLogo";
 
 const Container = styled.div`
   position: fixed;
-  top: 2rem;
+  top: 5rem;
   width: 100vw;
   z-index: 1000;
   pointer-events: none;
@@ -103,16 +100,17 @@ const Container = styled.div`
   }
 `;
 
-const CartLink = styled(Link)`
-  position: relative;
-  span {
-    padding-left: 0.5rem;
+const ProfileLink = styled(NavigationLink)`
+justify-content: center;
+  img {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
   }
 `;
 
 const Navigation = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
-  const cartItems = useCartStore((store) => store.items);
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -122,12 +120,9 @@ const Navigation = () => {
         <NavigationLink setIsOpen={setIsOpen} to="/">
           <ViennaStruggleLogo />
         </NavigationLink>
-        <CartLink to="/cart">
-          <FiShoppingCart />{" "}
-          <small>
-            {cartItems.length > 0 && <span>{cartItems.length}</span>}
-          </small>
-        </CartLink>
+        <ProfileLink to="/wallet" setIsOpen={setIsOpen}>
+        <img src={user?.picture} alt={user?.name} />
+        </ProfileLink>
       </header>
       <nav className={clsx({ isOpen: isOpen }, "glassomorphism")}>
         <ul>

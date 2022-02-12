@@ -2,7 +2,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import React, { useEffect } from "react";
+import React from "react";
 import { useGetTransactions } from "../../Hooks/InventoryQueries";
 import { useWalletStore } from "../../Stores/WalletStore";
 import TransactionItem from "./TransactionItem";
@@ -20,9 +20,6 @@ const Transactions = () => {
   const { data: transactions } = useGetTransactions();
   const address = useWalletStore((store) => store.address);
 
-  useEffect(() => {
-    console.log(transactions);
-  }, [transactions]);
   if (!user) return <></>;
   return (
     <Container>
@@ -32,14 +29,26 @@ const Transactions = () => {
         <h5>Incoming</h5>
         {transactions?.map((transaction) => {
           if (transaction.beneficiary === address)
-            return <TransactionItem type="outgoing" transaction={transaction} />;
+            return (
+              <TransactionItem
+                type="outgoing"
+                transaction={transaction}
+                key={transaction.transactionId}
+              />
+            );
         })}
       </div>
       <div className="outgoing">
         <h5>Outgoing</h5>
         {transactions?.map((transaction) => {
           if (transaction.benefactor === address)
-            return <TransactionItem type="incoming" transaction={transaction} />;
+            return (
+              <TransactionItem
+                type="incoming"
+                transaction={transaction}
+                key={transaction.transactionId}
+              />
+            );
         })}
       </div>
     </Container>

@@ -222,12 +222,12 @@ const Container = styled.div`
 type WalletCardProps = {
   status: WalletStatus;
   address: string;
-  tokens: number;
+  balance: number;
   lastUpdate: string;
 };
 const WalletCard = ({
   status,
-  tokens,
+  balance,
   address,
   lastUpdate,
 }: WalletCardProps) => {
@@ -252,7 +252,7 @@ const WalletCard = ({
             </span>
           </div>
           <div className="cc__balance-text">
-            <GiToken /> {tokens}
+            <GiToken /> {balance}
           </div>
         </div>
         <div

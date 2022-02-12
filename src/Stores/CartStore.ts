@@ -5,7 +5,6 @@ import { mountStoreDevtool } from "simple-zustand-devtools";
 import create from "zustand";
 import { persist } from "zustand/middleware";
 import { CartItem } from "../Pages/Products/CartItem";
-import { Currency } from "../Pages/Products/Currency";
 import { InventoryEvent } from "../Pages/Products/InventoryEvent";
 import { Product } from "../Pages/Products/Product";
 import { round } from "../utils";
@@ -84,8 +83,22 @@ export const useCartStore = create<State>(
           })
         ),
       selectedProduct: undefined,
-      getProduct: (productId: string) =>
-        get().products.find((item) => item.productId === productId),
+      selectProduct: ({ value }: any) => {
+        // set selected
+        set(
+          produce((state: State) => {
+            if (state.products) {
+              const selectedProduct = state.products.find(
+                (item: Product) => item.id === value
+              );
+              state.selectedProduct = selectedProduct;
+            }
+          })
+        );
+      },
+      getProductByProductId: (id: string) =>
+        get().products.find((item) => item.productId === id),
+      getProduct: (id: string) => get().products.find((item) => item.id === id),
       events: [],
       replaceEvents: (events) =>
         set(
@@ -130,45 +143,32 @@ export const useCartStore = create<State>(
           })
         );
       },
-      getTotal: (currency = Currency.TOKEN) => {
-        let sum = 0;
+      getTotal: (abbreviation) => {
+        let price = 0;
         get().items.forEach((item) => {
-          let itemSum = 0;
-          switch (currency) {
-            case Currency.EUR:
-              itemSum = parseFloat(item.product.listPrice);
-              break;
-            case Currency.TOKEN:
-            default:
-              itemSum = parseFloat(item.product.memberPrice);
-              break;
-          }
-          sum = sum + itemSum * item.quantity;
+          if (item.product.abbreviation !== abbreviation)
+            price =
+              price + parseFloat(item.product.memberPrice) * item.quantity;
         });
-        return sum;
+        return price;
       },
-      getItemSum: (id, currency = Currency.TOKEN) => {
+      getItemSum: (abbreviation, id) => {
         const item = get().items.find(
           (item: CartItem) => item.product.id === id
         );
         let price = 0;
-        if (item) {
-          switch (currency) {
-            case Currency.EUR:
-              price = parseFloat(item.product.listPrice);
-              break;
-            case Currency.TOKEN:
-            default:
-              price = parseFloat(item.product.memberPrice);
-              break;
-          }
-          return price * item.quantity;
+        if (item && item.product.abbreviation !== abbreviation) {
+          price = parseFloat(item.product.memberPrice) * item.quantity;
         }
+        return price;
       },
-      getFees: (currency = Currency.TOKEN) => {
-        // Needs to extend depending on membership
-        let sum = get().getTotal(currency);
-        return round((sum / 100) * 30, 4); // 30 is percentage
+      getFees: (abbreviation) => {
+        // TODO: Needs to extend depending on membership
+        let fees = get().getTotal(abbreviation);
+        return round((fees / 100) * 30, 4); // 30 is percentage
+      },
+      getGrandTotal: (owner) => {
+        return get().getTotal(owner) + get().getFees(owner);
       },
     }),
     {
@@ -186,7 +186,8 @@ type State = {
   setIsLoading: (value: boolean) => void;
   isSubmitting: boolean;
   setIsSubmitting: (value: boolean) => void;
-  getProduct: (productId: string) => Product | undefined;
+  getProduct: (id: string) => Product | undefined;
+  getProductByProductId: (id: string) => Product | undefined;
   fromDate: string;
   setFromDate: (fromDate: string) => void;
   toDate: string;
@@ -194,14 +195,16 @@ type State = {
   products: Product[];
   replaceProducts: (products: Product[]) => void;
   selectedProduct: Product | undefined; // detail page makes this redundant
+  selectProduct: (product: Product) => void;
   events: InventoryEvent[];
   replaceEvents: (products: InventoryEvent[]) => void;
   reset: () => void;
   increaseQuantity: (id: string) => void;
   reduceQuantity: (id: string) => void;
-  getTotal: (currency?: Currency) => number;
-  getItemSum: (id: string, currency?: Currency) => number | undefined;
-  getFees: (currency?: Currency) => number;
+  getTotal: (owner: string) => number;
+  getItemSum: (owner: string, id: string) => number;
+  getFees: (owner: string) => number;
+  getGrandTotal: (owner: string) => number;
 };
 
 if (process.env.REACT_APP_STAGE === undefined) {

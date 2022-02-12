@@ -15,12 +15,12 @@ const Container = styled.div`
 `;
 
 const MiniWallet = () => {
-  const tokens = useWalletStore((store) => store.tokens);
+  const { balance } = useWalletStore();
   return (
     <Container>
       <h5>Your current balance</h5>
-      <GiToken /> {tokens} <br />
-      <Rates amountInTokens={tokens} />
+      <GiToken /> {balance} <br />
+      <Rates amountInTokens={balance} />
       <br />
       <PrimaryButton>Top up</PrimaryButton>
     </Container>

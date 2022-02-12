@@ -4,7 +4,7 @@ import { useAllPrismicDocumentsByUIDs } from "@prismicio/react";
 import { RichText } from "prismic-reactjs";
 import React from "react";
 import { useParams } from "react-router-dom";
-import FadeIn from "../../Animations/FadeIn";
+import FadeInView from "../../Animations/FadeInView";
 import Layout from "../../Components/Layout";
 import { PageLoader } from "../../Components/Loader";
 import Role from "../../Components/Role";
@@ -42,7 +42,7 @@ const Project = () => {
   else if (state === "loaded")
     return (
       <Layout>
-        <FadeIn>
+        <FadeInView>
           <Header>
             <h3>{document[0].data.title}</h3>
             {document[0].data?.image.url && (
@@ -55,8 +55,8 @@ const Project = () => {
               dangerouslySetInnerHTML={{ __html: document[0].data.video.html }}
             />
           </Header>
-        </FadeIn>
-        <FadeIn>
+        </FadeInView>
+        <FadeInView>
           <Meta>
             <Tags tags={document[0].tags} />
             <br />
@@ -77,12 +77,12 @@ const Project = () => {
               </>
             )}
           </Meta>
-        </FadeIn>
-        <FadeIn>
+        </FadeInView>
+        <FadeInView>
           <Description>
             <RichText render={document[0].data.content} />
           </Description>
-        </FadeIn>
+        </FadeInView>
       </Layout>
     );
   return <PageLoader />;

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import React from "react";
-import FadeIn from "../../Animations/FadeIn";
+import FadeInView from "../../Animations/FadeInView";
 import CTA from "../../Components/CTA";
 import Layout from "../../Components/Layout";
 
@@ -27,7 +27,7 @@ function FindUs() {
   return (
     <Layout>
       <Container>
-        <FadeIn>
+        <FadeInView>
           <h1>Find us</h1>
           <p>
             <b>Portal</b>
@@ -52,23 +52,23 @@ function FindUs() {
               Reserve a studio visit.
             </CTA>
           </p>
-        </FadeIn>
+        </FadeInView>
         <div className="stereoview">
-          <FadeIn>
+          <FadeInView>
             <img
-              src="https://res.cloudinary.com/ddqo2y6zh/image/upload/ar_1:1,b_rgb:ffff00,bo_0px_solid_rgb:ffff00,c_fill,g_auto,o_100,r_max,w_1000/v1640687631/visorg001-viennastruggle-com/portal-cyclorma-outview.jpg"
+              src="https://res.cloudinary.com/ddqo2y6zh/image/upload/w_1000/v1640687631/visorg001-viennastruggle-com/portal-cyclorma-outview.jpg"
               alt=""
             />
-          </FadeIn>
-          <FadeIn>
+          </FadeInView>
+          <FadeInView>
             <img
-              src="https://res.cloudinary.com/ddqo2y6zh/image/upload/ar_1:1,b_rgb:ffff00,bo_1px_solid_rgb:ffff00,c_fill,g_auto,r_max,w_1000/v1640687696/visorg001-viennastruggle-com/portal-ambisonic-hexagon.jpg"
+              src="https://res.cloudinary.com/ddqo2y6zh/image/upload/w_1000/v1640687696/visorg001-viennastruggle-com/portal-ambisonic-hexagon.jpg"
               alt=""
             />
-          </FadeIn>
+          </FadeInView>
         </div>
-      </Container>
-      <FadeIn>
+        <br />
+      <FadeInView>
         <Iframe
           title="map"
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2657.527172526606!2d16.358674215333448!3d48.23497857923129!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476d071fb2895ddf%3A0xcfc072afb1d60cb1!2sVienna%20Struggle%20Portal!5e0!3m2!1sen!2sat!4v1636981125722!5m2!1sen!2sat"
@@ -77,7 +77,8 @@ function FindUs() {
           allowfullscreen=""
           loading="lazy"
         ></Iframe>
-      </FadeIn>
+      </FadeInView>
+      </Container>
     </Layout>
   );
 }

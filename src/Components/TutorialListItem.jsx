@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import React from "react";
 import { Link } from "react-router-dom";
-import FadeIn from "../Animations/FadeIn";
+import FadeInView from "../Animations/FadeInView";
 import Tags from "./Tags";
 
 const Container = styled(Link)`
@@ -42,7 +42,7 @@ export const TutorialListItem = ({ tutorial }) => {
   if (!tutorial) return null;
   console.log(tutorial)
   return (
-    <FadeIn>
+    <FadeInView>
       <Container to={`/tutorial/${tutorial.uid}`}>
         <img src={tutorial.data.image.url} alt={tutorial.data.image.alt}/>
         <div>
@@ -50,6 +50,6 @@ export const TutorialListItem = ({ tutorial }) => {
           <Tags tags={tutorial.tags} />
           </div>
       </Container>
-    </FadeIn>
+    </FadeInView>
   );
 };

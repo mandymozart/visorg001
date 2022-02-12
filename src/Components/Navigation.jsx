@@ -3,10 +3,9 @@ import styled from "@emotion/styled";
 import clsx from "clsx";
 import Hamburger from "hamburger-react";
 import React, { useState } from "react";
-import { FiUser } from "react-icons/fi";
 import {
   Gi3DGlasses,
-  GiAchillesHeel, GiBackpack,
+  GiAchillesHeel, GiAstronautHelmet, GiBackpack,
   GiMagicPortal,
   GiToken
 } from "react-icons/gi";
@@ -160,7 +159,7 @@ const Navigation = () => {
           <ul>
             <li>
               <NavigationLink
-                icon={<FiUser />}
+                icon={<GiAstronautHelmet />}
                 setIsOpen={setIsOpen}
                 to="/profile"
               >

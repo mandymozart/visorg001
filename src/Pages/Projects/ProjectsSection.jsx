@@ -5,7 +5,6 @@ import { GiMusicalNotes } from "react-icons/gi";
 import { RiQuillPenFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import TextLoop from "react-text-loop";
-import { PrimaryButton } from "../../Components/FormElements/Button";
 
 const Container = styled.section`
   color: var(--background);
@@ -41,17 +40,32 @@ const ProjectsSection = () => {
         <RiQuillPenFill /> <CgArrowLongRightC /> <GiMusicalNotes />
       </h1>
 
-      <h3>
-        You share your story with us!
-        <br /> We share it with the beings on this planet and beyond!
-      </h3>
-      <p>
-        Our stories are crowdsourced stories of strugglers from around the
-        world. We want to hear about the little stories, the big stories, and
-        the sad stories you have or had adopting to a new age. Together we will
-        always be louder!
+      <p className="text-xl">
+        You share your story with us! We share it with the beings on this planet and beyond through
+        music videos!
+        Together we are an orchestra!
       </p>
-      <h3>How does it work?</h3>
+      <p className="text-xl">
+        Our songs are crowdsourced stories of strugglers from around the world.
+        We want to hear about the little stories, the big stories, and the sad
+        stories you have or had adopting to a new age. Together we will always
+        be louder!
+      </p>
+      <p className="text-xl">
+        It's a lot of hard work we put into our website, the studio and the
+        organisation of the orchestra and label, so please be patient and
+        subscribe to our newsletter. We will announce our first open calls soon.
+      </p>
+      <p className="text-xl">
+        In the meantime you can browse through our first two release in our
+        <Link to="/projects">project section</Link> or join us for a root beer in our <Link to="/portal/findus">portal</Link>.
+      </p>
+      <h1>
+        Unstruggle yourself!
+        <br />
+        &mdash; <br />
+      </h1>
+      {/* <h3>How does it work?</h3>
       <ul>
         <li>
           First, read some of our{" "}
@@ -94,7 +108,7 @@ const ProjectsSection = () => {
         together with people that care about stuff that matters, like really
         really care, gives us strength and heals our wunds. And because we are
         sick of manufactured feel good managers!
-      </p>
+      </p> */}
     </Container>
   );
 };

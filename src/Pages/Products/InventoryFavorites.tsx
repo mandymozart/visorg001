@@ -67,7 +67,7 @@ const InventoryFavorites = () => {
           <fieldset className="options">
             <Select
               options={options}
-              placeholder={"Select item ..."}
+              placeholder={`Select item ... (${options.length})`}
               isLoading={isLoading}
               onChange={addItem}
             />

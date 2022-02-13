@@ -3,15 +3,14 @@ import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
 import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
-import pluralize from "pluralize";
 import React, { useCallback, useEffect, useState } from "react";
+import FadeInView from "../../Animations/FadeInView";
 import { useGetReservationsForProduct } from "../../Hooks/InventoryQueries";
 import { InventoryEvent } from "../../Pages/Products/InventoryEvent";
 import { Product } from "../../Pages/Products/Product";
 import ProductReservationItem from "../../Pages/Products/ProductReservationItem";
 import { useProductStore } from "../../Stores/ProductStore";
 import { DateRange, overlap } from "../../Utilities/overlapDateRanges";
-import { Button } from "../FormElements/Button";
 import Loader from "../Loader";
 import Tag from "../Tag";
 
@@ -33,15 +32,13 @@ type Props = {
 };
 
 const getReservationsAmountBetweenDates = (
-  productId: string,
-  reservations: InventoryEvent[] | undefined,
+  event: InventoryEvent[] | undefined,
   fromDate: string,
   toDate: string
 ) => {
   let amount = 0;
-  reservations?.filter((item) => {
+  event?.filter((item) => {
     if (
-      item.productId === productId &&
       // dayjs(fromDate).isBetween(dayjs(item.fromDate), dayjs(item.toDate)) &&
       // !dayjs(toDate).isBetween(dayjs(item.fromDate), dayjs(item.toDate))
       overlap([
@@ -69,14 +66,11 @@ const eventsToDateRanges = (events: InventoryEvent[]) => {
 const ProductReservations = ({ product }: Props) => {
   const { mutate, isLoading, isError } = useGetReservationsForProduct();
   const { fromDate, toDate } = useProductStore();
-  const [availableAmount, setAvailableAmount] = useState<number>();
+  const { availableQuantity, setAvailableQuantity } = useProductStore();
   const [reservations, setReservations] = useState<
     InventoryEvent[] | undefined
   >();
   const [futureReservations, setFutureReservations] = useState<
-    InventoryEvent[] | undefined
-  >();
-  const [pastReservations, setPastReservations] = useState<
     InventoryEvent[] | undefined
   >();
   const [activeReservations, setActiveReservations] = useState<
@@ -88,71 +82,80 @@ const ProductReservations = ({ product }: Props) => {
       mutate(product.productId, {
         onSuccess: (results) => {
           setReservations(results);
-          setFutureReservations(
-            results?.filter((item) => {
-              // future reservations
-              if (dayjs(item.fromDate).isSameOrAfter(dayjs())) return item;
-            })
-          );
-          setPastReservations(
-            results?.filter((item) => {
-              if (dayjs(item.toDate).isBefore(dayjs())) return item;
-            })
-          );
-          setActiveReservations(
-            results?.filter((item) => {
-              if (dayjs().isBetween(dayjs(item.fromDate), dayjs(item.toDate)))
-                return item;
-            })
-          );
         },
       });
   }, [mutate, setReservations, product]);
 
+  // Update on date range change
   const checkAvailability = useCallback(() => {
     const amount = getReservationsAmountBetweenDates(
-      product.productId,
       reservations,
       fromDate,
       toDate
     );
     console.log("check availability ...", fromDate, toDate, amount);
-    setAvailableAmount(product.amountInStock - amount);
+    setAvailableQuantity(product.amountInStock - amount);
+    setFutureReservations(
+      reservations?.filter((item) => {
+        if (dayjs(item.fromDate).isAfter(dayjs(toDate))) return item;
+      })
+    );
+    setActiveReservations(
+      reservations?.filter((item) => {
+        if (
+          overlap([
+            { start: new Date(fromDate), end: new Date(toDate) },
+            { start: new Date(item.fromDate), end: new Date(item.toDate) },
+          ]).overlap
+        )
+          return item;
+      })
+    );
   }, [fromDate, toDate, reservations, product]);
-
   useEffect(() => {
     checkAvailability();
   }, [fromDate, toDate, checkAvailability]);
 
+  // Update on date range change
+  useEffect(() => {}, [
+    reservations,
+    setFutureReservations,
+    setActiveReservations,
+    fromDate,
+    toDate,
+  ]);
+
   if (!product) return <>No product id provided.</>;
   if (isLoading) return <Loader />;
   if (isError) return <>Sorry, an error occured!</>;
+  if(!activeReservations && !futureReservations ) return <></>
   return (
-    <Container>
-      <Button onClick={() => checkAvailability()}>Check availability</Button>
-      {availableAmount && (
-        <h2>{pluralize("unit", availableAmount, true)} available</h2>
-      )}
-      <h3>Today</h3>
-      <h5>
-        Active reservations <Tag>{activeReservations?.length}</Tag>
-      </h5>
-      {activeReservations?.map((item, index) => (
-        <ProductReservationItem item={item} key={index} />
-      ))}
-      <h5>
-        Future reservations <Tag>{futureReservations?.length}</Tag>
-      </h5>
-      {futureReservations?.map((item, index) => (
-        <ProductReservationItem item={item} key={index} />
-      ))}
-      <h5>
-        Past reservations <Tag>{pastReservations?.length}</Tag>
-      </h5>
-      {pastReservations?.map((item, index) => (
-        <ProductReservationItem item={item} key={index} />
-      ))}
-    </Container>
+    <FadeInView>
+      <Container>
+        {/* <h2>{pluralize("unit", availableQuantity, true)} available</h2> */}
+        {/* <h3>{dayjs(fromDate).format("DD.MM")} &mdash; {dayjs(toDate).format("DD.MM.YYYY")}</h3> */}
+        {activeReservations && activeReservations.length > 0 && (
+          <>
+            <h5>
+              Active <Tag>{activeReservations?.length}</Tag>
+            </h5>
+            {activeReservations?.map((item, index) => (
+              <ProductReservationItem item={item} key={index} />
+            ))}
+          </>
+        )}
+        {futureReservations && futureReservations.length > 0 && (
+          <>
+            <h5>
+              Future <Tag>{futureReservations?.length}</Tag>
+            </h5>
+            {futureReservations?.map((item, index) => (
+              <ProductReservationItem item={item} key={index} />
+            ))}
+          </>
+        )}
+      </Container>
+    </FadeInView>
   );
 };
 

@@ -6,8 +6,8 @@ import FadeInView from "../../Animations/FadeInView";
 import Layout from "../../Components/Layout";
 import InventoryWelcomePage from "../Inventory/InventoryWelcomePage";
 import InventoryFavorites from "./InventoryFavorites";
+import MyInventoryReservations from "./InventoryMyReservations";
 import InventoryProducts from "./InventoryProducts";
-import InventoryReservations from "./InventoryReservations";
 
 const Container = styled.div`
   padding: 1rem;
@@ -107,7 +107,7 @@ const Inventory = () => {
         <Body>
           <Routes>
             <Route path="/" element={<InventoryWelcomePage />} />
-            <Route path="reservations" element={<InventoryReservations />} />
+            <Route path="reservations" element={<MyInventoryReservations />} />
             <Route path="favorites" element={<InventoryFavorites />} />
             <Route path="product" element={<InventoryProducts />} />
             <Route path="product/:productId" element={<InventoryProducts />} />

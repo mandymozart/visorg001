@@ -33,11 +33,14 @@ const Container = styled.button(
   text-align: center;
   position: relative;
   transition: all 0.2s cubic-bezier(1, 0, 0, 1);
-  ${success && `&:before {content:"👌"}`}
-  ${failed && `&:before {content:"👎"}`}
+  &:after {
+    ${success && `content:" 👌";`}
+    ${failed && `content:" 👎";}`}
+  }
   &:hover {
     transform: translateY(-0.05rem);
-    box-shadow: inset 0 0 0 1px var(--color), inset 0 -0.6em 0 -0.35em #0000ff54;
+    color: var(--sixth);
+    box-shadow: inset 0 0 0 1px var(--sixth), inset 0 -0.6em 0 -0.35em #00000054;
   }
 `
 );
@@ -61,17 +64,18 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       failed={failed}
       ref={ref}
     >
-      {isLoading ? <Loader size={24} /> : children}
+      {isLoading ? <Loader size={16} /> : children}
     </Container>
   )
 );
 export const PrimaryButton = styled(Button)`
-  background-color: var(--second);
+  background-color: var(--sixth);
   box-shadow: none;
-  color: var(--fourth);
+  color: var(--background);
+  font-weight: bold;
   &:hover {
-    background-color: var(--second);
-    color: var(--fourth);
+    background-color: var(--fifth);
+    color: var(--sixth);
     box-shadow: inset 0 -0.6em 0 -0.35em #00000054;
   }
 `;

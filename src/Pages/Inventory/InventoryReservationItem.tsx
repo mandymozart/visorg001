@@ -2,7 +2,6 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import React from "react";
 import { FaUserAstronaut } from "react-icons/fa";
-import { GiCalendar } from "react-icons/gi";
 import FadeInView from "../../Animations/FadeInView";
 import { useCartStore } from "../../Stores/CartStore";
 import { InventoryEvent } from "../Products/InventoryEvent";
@@ -34,9 +33,7 @@ const InventoryReservationItem = ({ item }: Props) => {
           </div>
         </div>
         <div className="dates">
-          <small>
-            <GiCalendar /> {item.fromDate} - {item.toDate} <br />
-          </small>
+          {item.fromDate} &mdash; {item.toDate} <br />
         </div>
       </div>
     </FadeInView>

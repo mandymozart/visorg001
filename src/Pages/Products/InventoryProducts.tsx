@@ -22,12 +22,9 @@ const Form = styled.form`
   margin: 0 auto;
 
   .options {
-    position: sticky;
-    text-align: left;
-    top: 6rem;
     z-index: 10;
     margin: 0;
-    padding: 1rem 0;
+    text-align: left;
   }
   .results {
     text-align: center;
@@ -115,10 +112,9 @@ const InventoryProducts = () => {
                   <input
                     type="date"
                     value={toDate}
-                    min={dayjs(fromDate).add(1, "day").format("YYYY-MM-DD")}
+                    min={dayjs(fromDate).format("YYYY-MM-DD")}
                     max={dayjs()
                       .add(6, "month")
-                      .add(1, "day")
                       .format("YYYY-MM-DD")}
                     onChange={(event) => setToDate(event.target.value)}
                     name="checkout"

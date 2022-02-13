@@ -18,6 +18,9 @@ const Container = styled.div`
   margin: 0 auto;
   padding: 2rem 0;
   text-align: left;
+  h2 {
+    margin: 0;
+  }
   &.isOwner {
     .abbreviation {
       color: var(--third);
@@ -40,12 +43,6 @@ const SelectedProduct = () => {
           <h2 className="name">{selectedProduct.name}</h2>
         </FadeInView>
         <div className="meta">
-          <FadeInView>
-            <p className="availability">
-              We can not guarantee, that the item is available for your selected
-              period. Working on it.
-            </p>
-          </FadeInView>
           <FadeInView>
             <div className="tags">
               <span className="abbreviation">
@@ -73,9 +70,7 @@ const SelectedProduct = () => {
             <Rates amountInTokens={parseInt(selectedProduct.listPrice)} />
           </div>
         </FadeInView>
-        <FadeInView>
-          <ProductReservations product={selectedProduct} />
-        </FadeInView>
+        <ProductReservations product={selectedProduct} />
       </Container>
       <ProductCheckoutActions />
     </>

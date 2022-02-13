@@ -9,7 +9,7 @@ import ProductCheckoutButton from "./ProductCheckoutButton";
 const Container = styled.div`
   text-align: right;
   position: fixed;
-  top: 1rem;
+  bottom: 1rem;
   left: 1rem;
   width: calc(100vw - 2rem);
   display: flex;
@@ -18,10 +18,10 @@ const Container = styled.div`
   z-index: 10;
   /* border-top: 1px solid var(--color); */
   border: 2px solid var(--color);
-    box-sizing: border-box;
-    /* Up 1 */
-    box-shadow: 4px 4px 0px var(--color);
-    border-radius: 8px;
+  box-sizing: border-box;
+  /* Up 1 */
+  box-shadow: 4px 4px 0px var(--color);
+  border-radius: 8px;
   button {
     flex: 1;
     &:last-of-type {
@@ -29,12 +29,12 @@ const Container = styled.div`
     }
   }
   .quantitySelector {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      padding: 0 1rem;
-    }
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0 1rem;
+  }
 `;
 
 const ProductCheckoutActions = () => {
@@ -43,34 +43,37 @@ const ProductCheckoutActions = () => {
     quantity,
     reduceQuantity,
     increaseQuantity,
+    availableQuantity,
   } = useProductStore();
   if (!selectedProduct) return <></>;
   return (
     <FadeIn>
-        <div>
 
-        </div>
       <Container className="glassomorphism">
-        <div className="quantitySelector">
-            <SquareButton
-              type="button"
-              className="reduceQuantity"
-              onClick={() => reduceQuantity()}
-            >
-              <FiMinus />
-            </SquareButton>
-            <span className="quantity">
-              {quantity} of {selectedProduct.amountInStock}
-            </span>
-            <SquareButton
-              type="button"
-              className="increaseQuantity"
-              onClick={() => increaseQuantity()}
-            >
-              <FiPlus />
-            </SquareButton>
-          </div>
-          {quantity > 0 && (<ProductCheckoutButton />)}
+        {availableQuantity > 0 && (
+          <>
+            <div className="quantitySelector">
+              <SquareButton
+                type="button"
+                className="reduceQuantity"
+                onClick={() => reduceQuantity()}
+              >
+                <FiMinus />
+              </SquareButton>
+              <span className="quantity">
+                {quantity} of {availableQuantity}
+              </span>
+              <SquareButton
+                type="button"
+                className="increaseQuantity"
+                onClick={() => increaseQuantity()}
+              >
+                <FiPlus />
+              </SquareButton>
+            </div>
+          </>
+        )}
+        <ProductCheckoutButton />
       </Container>
     </FadeIn>
   );

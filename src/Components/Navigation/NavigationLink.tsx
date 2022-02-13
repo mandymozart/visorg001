@@ -13,12 +13,12 @@ const Container = styled.button`
   padding: 0;
   margin: 0;
   cursor: pointer;
-  color: var(--color);
+  color: var(--fifth);
   span {
     flex: 0 0 2rem;
   }
   &:hover {
-      color: var(--second);
+      color: var(--sixth);
   }
 `;
 

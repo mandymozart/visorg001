@@ -32,7 +32,7 @@ const Container = styled.div`
   }
 `;
 
-const InventoryReservations = () => {
+const MyInventoryReservations = () => {
   const { address } = useWalletStore();
   const [reservations, setReservations] = useState<
     InventoryEvent[] | undefined
@@ -58,12 +58,12 @@ const InventoryReservations = () => {
     <Container>
       <FadeInView>
         <h2>
-          Reservations <Tag>{reservations?.length}</Tag>
+          My reservations <Tag>{reservations?.length}</Tag>
         </h2>
       </FadeInView>
       <FadeInView>
         {reservations?.length === 0 && (
-          <>No reservations of your items upcoming</>
+          <>Nobody made reservations on your items, yet!</>
         )}
         <div className="results">
           {reservations?.map((item, index) => (
@@ -75,4 +75,4 @@ const InventoryReservations = () => {
   );
 };
 
-export default InventoryReservations;
+export default MyInventoryReservations;

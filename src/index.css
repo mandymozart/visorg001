@@ -15,6 +15,8 @@
   --second: #3271bf;
   --third: #eedc0f;
   --fourth: #ffffff;
+  --fifth: #00ff00;
+  --sixth: #000000;
   --text: var(--color);
   --background: var(--second);
   --background-invert: var(--third);
@@ -117,7 +119,7 @@ form {
 fieldset {
   border: 0;
   padding: 0;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 .field input,
 .field textarea {
@@ -182,12 +184,12 @@ a {
   transform: translateX(0) translateY(0);
 }
 a:hover {
-  color: var(--third);
+  color: var(--fifth);
 }
 
 @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
   .glassomorphism {
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(6px);
   }
 }

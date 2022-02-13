@@ -60,6 +60,14 @@ export const useProductStore = create<State>(
           })
         );
       },
+      availableQuantity: 0,
+      setAvailableQuantity: (quantity: number) => {
+        set(
+          produce((state: State) => {
+            state.availableQuantity = quantity;
+          })
+        );
+      },
       getItemSum: (abbreviation) => {
         let price = 0;
         const product = get().selectedProduct;
@@ -89,9 +97,11 @@ type State = {
   setToDate: (toDate: string) => void;
   selectedProduct: Product | undefined; // detail page makes this redundant
   setSelectedProduct: (product: Product) => void;
-  quantity: 0;
+  quantity: number;
   increaseQuantity: () => void;
   reduceQuantity: () => void;
+  availableQuantity: number;
+  setAvailableQuantity: (quantity: number)=> void;
   getItemSum: (abbreviation: string) => number;
   getFees: (abbreviation: string) => number;
 };

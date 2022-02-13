@@ -24,14 +24,10 @@ import { PrimaryButton } from "../FormElements/Button";
 const ProductCheckoutButton = () => {
   const { user } = useAuth0();
 
-  // Cart store
   const { selectedProduct, quantity, getFees, getItemSum, fromDate, toDate } =
     useProductStore();
-
-  // Wallet store / benefactor
   const { abbreviation, address, status } = useWalletStore();
-
-  // Reservation submission store
+  const { availableQuantity } = useProductStore();
   const {
     isSubmitting,
     success,
@@ -52,6 +48,7 @@ const ProductCheckoutButton = () => {
     setFinishedSendFundsToBeneficiary,
     setFinishedSendFees,
     // setFinishedSendReport,
+    reset,
   } = useReservationSubmissionStore();
 
   // Queries
@@ -238,8 +235,9 @@ const ProductCheckoutButton = () => {
       console.log("all calls done!");
       const message = `You paid ${
         getItemSum(abbreviation) + getFees(abbreviation)
-      }🪙 incl. ${getFees(abbreviation)}🪙`;
+      }🪙 incl. ${getFees(abbreviation)}🪙 fees`;
       toast.success(message, { icon: "👌" });
+      reset();
       setIsSubmitting(false);
       setSuccess(true);
     }
@@ -253,10 +251,13 @@ const ProductCheckoutButton = () => {
     getItemSum,
     getFees,
     abbreviation,
+    reset,
   ]);
-  
+
   if (!user) return <></>;
   if (!selectedProduct) return <></>;
+  if (availableQuantity <= 0) return <div className="text-xl">Not in stock. Change date!</div>;
+  if (quantity <= 0) return <div className="text-xl">Increase quantity to reserve</div>
   return (
     <PrimaryButton
       isLoading={isSubmitting}
@@ -266,11 +267,12 @@ const ProductCheckoutButton = () => {
       onClick={purchase}
     >
       Reserve{" "}
-      {abbreviation !== selectedProduct.abbreviation && (
-        <>
-          for <GiToken /> {getItemSum(abbreviation) + getFees(abbreviation)}
-        </>
-      )}
+      {abbreviation !== selectedProduct.abbreviation &&
+        getItemSum(abbreviation) + getFees(abbreviation) > 0 && availableQuantity > 0 &&(
+          <>
+            for <GiToken /> {getItemSum(abbreviation) + getFees(abbreviation)}
+          </>
+        )}
     </PrimaryButton>
   );
 };

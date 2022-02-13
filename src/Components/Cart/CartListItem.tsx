@@ -11,7 +11,7 @@ import { Currency } from "../../Pages/Products/Currency";
 import { useCartStore } from "../../Stores/CartStore";
 import { useProductStore } from "../../Stores/ProductStore";
 import { useWalletStore } from "../../Stores/WalletStore";
-import { Button } from "../FormElements/Button";
+import { Button, PrimaryButton } from "../FormElements/Button";
 
 const Container = styled.div`
   display: flex;
@@ -94,9 +94,9 @@ const CartListItem = ({ item }: Props) => {
           </div>
         </div>
         <div className="actions">
-          <Button type="button" onClick={() => select(item.product.id)}>
+          <PrimaryButton type="button" onClick={() => select(item.product.id)}>
             Select
-          </Button>
+          </PrimaryButton>
           <Button type="button" onClick={() => reduceQuantity(item.product.id)}>
             Remove
           </Button>

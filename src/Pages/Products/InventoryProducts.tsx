@@ -56,13 +56,10 @@ const InventoryProducts = () => {
     products,
     isLoading,
     isSubmitting,
-    fromDate,
-    toDate,
     getProduct,
     getProductByProductId,
-    setFromDate,
-    setToDate,
   } = useCartStore();
+  const { fromDate, toDate, setFromDate, setToDate } = useProductStore();
 
   const { setSelectedProduct, reset } = useProductStore();
   const { reset: resetReservation } = useReservationSubmissionStore();
@@ -81,7 +78,6 @@ const InventoryProducts = () => {
       resetReservation();
       reset();
       setSelectedProduct(product);
-      console.log(product);
     }
   };
 
@@ -90,7 +86,7 @@ const InventoryProducts = () => {
       const product = getProductByProductId(productId);
       if (product) setSelectedProduct(product);
     }
-  }, [productId]);
+  }, [productId, getProductByProductId, setSelectedProduct]);
 
   if (!user) return <></>;
   return (

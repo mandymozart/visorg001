@@ -5,7 +5,8 @@ export type Wallet = {
   status: WalletStatus;
   abbreviation: string; // vis abbreviation
   balance: number;
-  lastUpdate: string;
+  createdDate: string;
+  updatedDate: string;
 };
 
 export enum WalletStatus {

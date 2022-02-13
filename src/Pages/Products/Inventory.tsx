@@ -1,15 +1,7 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import styled from "@emotion/styled";
 import React from "react";
-import {
-  Link,
-  LinkProps,
-  Outlet,
-  Route,
-  Routes,
-  useMatch,
-  useResolvedPath
-} from "react-router-dom";
+import { NavLink, NavLinkProps, Outlet, Route, Routes } from "react-router-dom";
 import FadeInView from "../../Animations/FadeInView";
 import Layout from "../../Components/Layout";
 import InventoryWelcomePage from "../Inventory/InventoryWelcomePage";
@@ -70,23 +62,23 @@ const TabNavigation = styled.nav`
   }
 `;
 
-type StyledLinkProps = {
-  match: boolean;
-};
-const StyledLink = styled(Link)(
-  ({ match }: StyledLinkProps) => `
-  ${match && `border-bottom: 1px solid var(--third);`}
-`
-);
+const CustomLinkWrapper = styled.span`
+  .isActive {
+    border-bottom: 1px solid var(--third);
+  }
+`;
 
-function CustomLink({ children, to, ...props }: LinkProps) {
-  let resolved = useResolvedPath(to);
-  let match = useMatch({ path: resolved.pathname, end: true });
-
+function CustomLink({ children, to, ...props }: NavLinkProps) {
   return (
-    <StyledLink match={!!match} to={to} {...props}>
-      <h5>{children}</h5>
-    </StyledLink>
+    <CustomLinkWrapper>
+      <NavLink
+        className={(navData) => (navData.isActive ? "isActive" : "")}
+        to={to}
+        {...props}
+      >
+        <h5>{children}</h5>
+      </NavLink>
+    </CustomLinkWrapper>
   );
 }
 

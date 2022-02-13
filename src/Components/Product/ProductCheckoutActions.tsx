@@ -9,7 +9,7 @@ import ProductCheckoutButton from "./ProductCheckoutButton";
 const Container = styled.div`
   text-align: right;
   position: fixed;
-  bottom: 1rem;
+  top: 1rem;
   left: 1rem;
   width: calc(100vw - 2rem);
   display: flex;

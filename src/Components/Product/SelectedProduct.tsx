@@ -6,8 +6,10 @@ import FadeInView from "../../Animations/FadeInView";
 import Rates from "../../Pages/Products/Rates";
 import { useProductStore } from "../../Stores/ProductStore";
 import { useWalletStore } from "../../Stores/WalletStore";
+import PlaintextParagraph from "../PlaintextParagraph";
 import Tag from "../Tag";
 import ProductCheckoutActions from "./ProductCheckoutActions";
+import ProductReservations from "./ProductReservations";
 
 const Container = styled.div`
   max-width: var(--form-width);
@@ -24,44 +26,57 @@ const Container = styled.div`
 `;
 
 const SelectedProduct = () => {
-  const { selectedProduct, reset } = useProductStore();
+  const { selectedProduct } = useProductStore();
   const { abbreviation } = useWalletStore();
   if (!selectedProduct) return <></>;
   return (
     <>
-      <FadeInView>
-        <Container
-          className={clsx({
-            isOwner: selectedProduct.abbreviation === abbreviation,
-          })}
-        >
-          <div className="meta">
+      <Container
+        className={clsx({
+          isOwner: selectedProduct.abbreviation === abbreviation,
+        })}
+      >
+        <FadeInView>
+          <h2 className="name">{selectedProduct.name}</h2>
+        </FadeInView>
+        <div className="meta">
+          <FadeInView>
             <p className="availability">
               We can not guarantee, that the item is available for your selected
               period. Working on it.
             </p>
-            <h3 className="name">{selectedProduct.name}</h3>
-            <div className="abbreviation">
-              <Tag>
-                <FaUserAstronaut />{" "}
-                {selectedProduct.abbreviation === abbreviation ? (
-                  <strong>You own this item</strong>
-                ) : (
-                  selectedProduct.abbreviation
-                )}
-              </Tag>
+          </FadeInView>
+          <FadeInView>
+            <div className="tags">
+              <span className="abbreviation">
+                <Tag>
+                  <FaUserAstronaut />{" "}
+                  {selectedProduct.abbreviation === abbreviation ? (
+                    <strong>You own this item</strong>
+                  ) : (
+                    selectedProduct.abbreviation
+                  )}
+                </Tag>
+              </span>
+              <span className="status">
+                <Tag>{selectedProduct.status}</Tag>
+              </span>
             </div>
-            <div className="status">
-              <Tag>{selectedProduct.status}</Tag>
-            </div>
-          </div>
-          <p>{selectedProduct.description}</p>
+          </FadeInView>
+        </div>
+        <FadeInView>
+          <PlaintextParagraph text={selectedProduct.description} />
+        </FadeInView>
+        <FadeInView>
           <div className="rrp">
             <h4>RRP (recommended retail price):</h4>
             <Rates amountInTokens={parseInt(selectedProduct.listPrice)} />
           </div>
-        </Container>
-      </FadeInView>
+        </FadeInView>
+        <FadeInView>
+          <ProductReservations product={selectedProduct} />
+        </FadeInView>
+      </Container>
       <ProductCheckoutActions />
     </>
   );

@@ -2,8 +2,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import styled from "@emotion/styled";
 import React from "react";
 import FadeInView from "../../Animations/FadeInView";
-import { useWalletStore } from "../../Stores/WalletStore";
-import { PrimaryButton } from "../FormElements/Button";
+import { Button } from "../FormElements/Button";
 import WalletCard from "./WalletCard";
 
 const Container = styled.div`
@@ -21,18 +20,12 @@ const Container = styled.div`
 
 const Wallet = () => {
   const { isAuthenticated } = useAuth0();
-  const {address, balance, status, lastUpdate} = useWalletStore();
 
   return (
     <Container>
       <FadeInView>
         <h2>My Wallet</h2>
-        <WalletCard
-          address={address}
-          balance={balance}
-          lastUpdate={lastUpdate}
-          status={status}
-        />
+        <WalletCard />
       </FadeInView>
       <FadeInView>
         <p>
@@ -44,9 +37,9 @@ const Wallet = () => {
         <p>Using tokens saves you 50% compared on our list prices.</p>
 
         <div className="actions">
-          <PrimaryButton>
+          <Button>
             {!isAuthenticated ? "Compare plans" : "Upgrade plan"}
-          </PrimaryButton>
+          </Button>
         </div>
       </FadeInView>
       <h5>Disclaimer</h5>

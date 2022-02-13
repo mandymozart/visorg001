@@ -1,0 +1,350 @@
+import { useAuth0 } from "@auth0/auth0-react";
+import dayjs from "dayjs";
+import { nanoid } from "nanoid";
+import React, { useEffect } from "react";
+import toast from "react-hot-toast";
+import { GiToken } from "react-icons/gi";
+import { config } from "../../config";
+import {
+  useAddInventoryEvent,
+  useAddTransaction,
+  useBalanceUpdate,
+  useGetWallet,
+  useGetWallets
+} from "../../Hooks/InventoryQueries";
+import { WalletStatus } from "../../Pages/Wallet/Wallet";
+import { useProductStore } from "../../Stores/ProductStore";
+import { useReservationSubmissionStore } from "../../Stores/ReservationSubmissionStore";
+import { useWalletStore } from "../../Stores/WalletStore";
+import { successHandler } from "../../Utilities/ErrorHandlers";
+import { PrimaryButton } from "../FormElements/Button";
+
+const ProductCheckoutButton = () => {
+  const { user } = useAuth0();
+
+  // Cart store
+  const { selectedProduct, quantity, getFees, getItemSum, fromDate, toDate } =
+    useProductStore();
+
+  // Wallet store / benefactor
+  const { abbreviation, address, status } = useWalletStore();
+
+  // Reservation submission store
+  const {
+    isSubmitting,
+    success,
+    failed,
+    ready,
+    setSuccess,
+    setFailed,
+    setIsSubmitting,
+    setReady,
+    finishedSubmitIventoryEvent,
+    finishedLogTransaction,
+    finishedDeductFundsFromBenefactor,
+    finishedSendFundsToBeneficiary,
+    finishedSendReport,
+    setFinishedSubmitIventoryEvent,
+    setFinishedLogTransaction,
+    setFinishedDeductFundsFromBenefactor,
+    setFinishedSendFundsToBeneficiary,
+    setFinishedSendFees,
+    setFinishedSendReport,
+  } = useReservationSubmissionStore();
+
+  // Queries
+  const { data: wallets } = useGetWallets();
+  const addInventoryEvent = useAddInventoryEvent();
+  const addTransaction = useAddTransaction();
+  const updateWallets = useBalanceUpdate();
+  const { mutate: mutateGetWallet } = useGetWallet();
+
+  const errorHandler = (error: any) => {
+    setFailed(true);
+    setIsSubmitting(false);
+    setSuccess(false);
+    toast.error(`${error}`, { icon: "💣" });
+  };
+
+  /**
+   * Submit inventory event
+   */
+  const submitInventoryEvent = async () => {
+    const newInventoryEvent = {
+      eventId: nanoid(16),
+      renter: address,
+      abbreviation: abbreviation,
+      type: "reservation",
+      productId: selectedProduct?.productId || "",
+      fromDate: fromDate,
+      toDate: toDate,
+      quantity: quantity,
+    };
+    console.info("submitting inventory event ...");
+    addInventoryEvent.mutate(newInventoryEvent, {
+      onSuccess: () => {
+        console.info("submitted inventory event", newInventoryEvent);
+        setFinishedSubmitIventoryEvent(true);
+      },
+      onError: errorHandler,
+    });
+  };
+
+  /**
+   * Log transaction
+   */
+  const logTransaction = async () => {
+    const beneficiaryAddress = wallets?.find(
+      (wallet) => wallet.abbreviation === selectedProduct?.abbreviation
+    )?.address;
+    if (beneficiaryAddress) {
+      const transcation = {
+        transactionId: nanoid(16),
+        beneficiary: beneficiaryAddress,
+        benefactor: address,
+        amount: getItemSum(abbreviation),
+        referenceText: `Renting ${selectedProduct?.name} (${selectedProduct?.amount})`,
+        date: dayjs().format(),
+        status: "received",
+      };
+      console.info("logging Transaction ...");
+      addTransaction.mutate(transcation, {
+        onSuccess: () => {
+          console.info("logged transaction", transcation);
+          setFinishedLogTransaction(true);
+        },
+        onError: successHandler,
+      });
+    } else {
+      errorHandler(`Beneficiary address not found`);
+    }
+  };
+
+  /**
+   * Send funds to beneficary
+   */
+  const sendFundsToBeneficiary = async () => {
+    const beneficiaryAddress = wallets?.find(
+      (wallet) => wallet.abbreviation === selectedProduct?.abbreviation
+    )?.address;
+    if (beneficiaryAddress) {
+      console.log("getting beneficiary wallet ...", beneficiaryAddress);
+      // get latest wallet version before calculating new funds (not bullet proof)
+      mutateGetWallet(beneficiaryAddress, {
+        onSuccess: (beneficiary) => {
+          console.log("omg");
+          console.log("got beneficiary wallet", beneficiary);
+          if (beneficiary) {
+            const newBalance = beneficiary.balance + getItemSum(abbreviation);
+            console.info(
+              `sendFundsToBeneficiary ${beneficiary.abbreviation}`,
+              newBalance
+            );
+            updateWallets.mutate(
+              {
+                id: beneficiary.id,
+                balance: newBalance,
+              },
+              {
+                onSuccess: () => setFinishedSendFundsToBeneficiary(true),
+                onError: errorHandler,
+              }
+            );
+          } else {
+            errorHandler(`Beneficiary wallet not found`);
+          }
+        },
+        onError: (e) => {
+          console.error("omk");
+          errorHandler(e);
+        },
+        onSettled: () => {
+          console.info("settled getWallet", address);
+        },
+      });
+    } else {
+      errorHandler(`Beneficiary wallet not found`);
+    }
+  };
+
+  /**
+   * Send funds to beneficary
+   * skipped if BANK
+   */
+  const sendFees = async () => {
+    if (abbreviation === config.BANK_WALLET_ABBREVIATION) {
+      setFinishedSendFees(true);
+    } else {
+      // get latest wallet version before calculating new funds (not bullet proof)
+      mutateGetWallet(config.BANK_WALLET_ADDRESS, {
+        onSuccess: (bank) => {
+          if (bank) {
+            const newBalance = bank.balance + getFees(abbreviation);
+            console.info(`sendFees ${bank.abbreviation}`, newBalance);
+            updateWallets.mutate(
+              {
+                id: bank.id,
+                balance: newBalance,
+              },
+              {
+                onSuccess: () => setFinishedSendFees(true),
+                onError: errorHandler,
+              }
+            );
+          } else {
+            errorHandler(`Bank wallet not found`);
+          }
+        },
+        onError: errorHandler,
+      });
+    }
+  };
+
+  /**
+   * Deduct funds from benefactor
+   * skip if benefactor is bank
+   * benefactor is also responsible for fees
+   */
+  const deductFundsFromBenefactor = async () => {
+    if (abbreviation === config.BANK_WALLET_ABBREVIATION) {
+      setFinishedDeductFundsFromBenefactor(true);
+    } else {
+      mutateGetWallet(address, {
+        onSuccess: (benefactor) => {
+          if (benefactor) {
+            const newBalance =
+              benefactor.balance -
+              getItemSum(abbreviation) +
+              getFees(abbreviation);
+            console.info(
+              `deductFundsFromBenefactor ${abbreviation}`,
+              newBalance
+            );
+            updateWallets.mutate(
+              {
+                id: benefactor.id,
+                balance: newBalance,
+              },
+              {
+                onSuccess: () => setFinishedSendFundsToBeneficiary(true),
+                onError: errorHandler,
+              }
+            );
+          } else errorHandler(`Benefactor wallet not found`);
+        },
+        onError: errorHandler,
+      });
+    }
+  };
+
+  /**
+   * Purchase item with VIS Token
+   * TODO: Refetch wallets' balance before updating.
+   * WARNING - Currently when sending two requests to the same wallet, only the last transaction is locked.
+   * @returns void
+   */
+  const purchase = async () => {
+    if (!selectedProduct) {
+      errorHandler(new Error(`No product selected`));
+      return;
+    }
+    if (quantity < 1) {
+      errorHandler(new Error(`Insufficient quantities available`));
+      return;
+    }
+    if (status === WalletStatus.UNAUTHORIZED) {
+      errorHandler(new Error(`Your wallet is unauthorized`));
+      return;
+    }
+    if (status === WalletStatus.SUSPENDED) {
+      errorHandler(new Error(`You wallet is suspended`));
+      return;
+    }
+
+    setIsSubmitting(true);
+    setReady(true);
+  };
+
+  useEffect(() => {
+    if (ready) {
+      try {
+        submitInventoryEvent();
+      } catch (e) {
+        console.error("submitInventoryEvent", e);
+      } finally {
+        console.log("submit inventory event done!");
+      }
+      try {
+        sendFundsToBeneficiary();
+      } catch (e) {
+        console.error("sendFundsToBeneficiary", e);
+      } finally {
+        console.log("send funds to beneficiary done!");
+      }
+      try {
+        deductFundsFromBenefactor();
+      } catch (e) {
+        console.error("deductFundsFromBenefactor", e);
+      } finally {
+        console.log("deduct funds from benefactor done!");
+      }
+      try {
+        logTransaction();
+      } catch (e) {
+        console.log("logTransaction", e);
+      } finally {
+        console.log("log transaction done!");
+      }
+      try {
+        sendFees();
+      } catch (e) {
+        console.log("sendFees", e);
+      } finally {
+        console.log("send fees done!");
+      }
+      const message = `You paid ${
+        getItemSum(abbreviation) + getFees(abbreviation)
+      } incl. ${getFees(abbreviation)}`;
+      toast.success(message);
+    }
+  }, [ready]);
+
+  useEffect(() => {
+    if (
+      finishedDeductFundsFromBenefactor &&
+      finishedLogTransaction &&
+      finishedSendFundsToBeneficiary &&
+      finishedSubmitIventoryEvent
+    ) {
+      setIsSubmitting(false);
+    }
+  }, [
+    finishedDeductFundsFromBenefactor,
+    finishedLogTransaction,
+    finishedSendFundsToBeneficiary,
+    finishedSubmitIventoryEvent,
+    setIsSubmitting,
+    setSuccess,
+  ]);
+
+  if (!user) return <></>;
+  if (!selectedProduct) return <></>;
+  return (
+    <PrimaryButton
+      isLoading={isSubmitting}
+      success={success}
+      failed={failed}
+      type="button"
+      onClick={purchase}
+    >
+      Reserve{" "}
+      {abbreviation !== selectedProduct.abbreviation && (
+        <>
+          for <GiToken /> {getItemSum(abbreviation) + getFees(abbreviation)}
+        </>
+      )}
+    </PrimaryButton>
+  );
+};
+
+export default ProductCheckoutButton;

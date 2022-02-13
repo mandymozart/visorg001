@@ -5,12 +5,12 @@ import { mountStoreDevtool } from "simple-zustand-devtools";
 import create from "zustand";
 import { persist } from "zustand/middleware";
 import { CartItem } from "../Pages/Products/CartItem";
-import { InventoryEvent } from "../Pages/Products/InventoryEvent";
 import { Product } from "../Pages/Products/Product";
 import { round } from "../utils";
 
 type Items = CartItem[];
 
+// TODO: Refactor to useFavoriteStore
 export const useCartStore = create<State>(
   persist(
     (set, get) => ({
@@ -99,13 +99,6 @@ export const useCartStore = create<State>(
       getProductByProductId: (id: string) =>
         get().products.find((item) => item.productId === id),
       getProduct: (id: string) => get().products.find((item) => item.id === id),
-      events: [],
-      replaceEvents: (events) =>
-        set(
-          produce((state: State) => {
-            state.events = events;
-          })
-        ),
       reset: () =>
         set(
           produce((state: State) => {
@@ -196,8 +189,6 @@ type State = {
   replaceProducts: (products: Product[]) => void;
   selectedProduct: Product | undefined; // detail page makes this redundant
   selectProduct: (product: Product) => void;
-  events: InventoryEvent[];
-  replaceEvents: (products: InventoryEvent[]) => void;
   reset: () => void;
   increaseQuantity: (id: string) => void;
   reduceQuantity: (id: string) => void;

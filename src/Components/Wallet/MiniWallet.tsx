@@ -3,7 +3,7 @@ import React from "react";
 import { GiToken } from "react-icons/gi";
 import Rates from "../../Pages/Products/Rates";
 import { useWalletStore } from "../../Stores/WalletStore";
-import { PrimaryButton } from "../FormElements/Button";
+import { Button } from "../FormElements/Button";
 
 const Container = styled.div`
   padding: 0.5rem;
@@ -22,7 +22,7 @@ const MiniWallet = () => {
       <GiToken /> {balance} <br />
       <Rates amountInTokens={balance} />
       <br />
-      <PrimaryButton>Top up</PrimaryButton>
+      <Button>Top up</Button>
     </Container>
   );
 };

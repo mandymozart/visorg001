@@ -1,100 +1,65 @@
-import axios from "axios";
 import { useMutation, useQuery } from "react-query";
-import { config } from "../config";
-import { InventoryEvent } from "../Pages/Products/InventoryEvent";
-import { Product } from "../Pages/Products/Product";
-import { Transaction } from "../Pages/Wallet/Transaction";
-import { Wallet } from "../Pages/Wallet/Wallet";
-
-const getUrl = (endpoint: string) => {
-  return new URL(config.INVENTORY_API_ENDPOINT + endpoint).toString();
-};
-
-function fetchWallets(): Promise<Wallet[] | undefined> {
-  return axios
-    .get(getUrl("/wallets"))
-    .then((response) => response.data.wallets);
-}
+import {
+  AddTransactionParams,
+  BalanceUpdateParams, fetchBenefactorTransactions, fetchBeneficiaryTransactions, fetchEvents, fetchProduct, fetchProducts, fetchReservationsForAddress, fetchReservationsForProduct, fetchWallet, fetchWallets, postAddTransaction, postBalanceUpdate
+} from "./InventoryApi";
 
 export const useGetWallets = () => {
   return useQuery("getWallets", () => fetchWallets());
 };
 
-export const useUpdateWallets = () => {
-  return useMutation(async (wallet: Wallet) => {
-    const url = getUrl(`/wallets/${wallet.id}`);
-    await axios
-      .put(
-        url,
-        { wallet: wallet },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then((res) => res.data);
-  });
+export const useGetWallet = () => {
+  return useMutation("getWallet", async (address: string) =>
+    fetchWallet(address)
+  );
 };
 
-function fetchEvents(): Promise<InventoryEvent[] | undefined> {
-  return axios.get(getUrl("/events")).then((response) => response.data.events);
-}
+export const useBalanceUpdate = () => {
+  return useMutation("balanceUpdate", (params: BalanceUpdateParams) =>
+    postBalanceUpdate(params)
+  );
+};
 
 export const useGetInventoryEvents = () => {
   return useQuery("getInventoryEvents", () => fetchEvents());
 };
 
-export const useAddInventoryEvent = () => {
-  const url = getUrl("/events");
-  return useMutation(async (data: InventoryEvent) => {
-    await axios
-      .post(
-        url,
-        { event: data },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then((res) => res.data);
-  });
+export const useGetReservationsForAddress = () => {
+  return useMutation("getGetReservationsForAddress", (address: string) =>
+    fetchReservationsForAddress(address)
+  );
 };
 
-function fetchTransactions(): Promise<Transaction[] | undefined> {
-  return axios
-    .get(getUrl("/transactions"))
-    .then((response) => response.data.transactions);
-}
+export const useGetReservationsForProduct = () => {
+  return useMutation("getGetReservationsForProduct", (productId: string) =>
+    fetchReservationsForProduct(productId)
+  );
+};
 
-export const useGetTransactions = () => {
-  return useQuery("getTransactions", () => fetchTransactions());
+export const useGetBeneficiaryTransactions = () => {
+  return useMutation("getBeneficiaryTransaction", (address: string) =>
+    fetchBeneficiaryTransactions(address)
+  );
+};
+
+export const useGetBenefactorTransactions = () => {
+  return useMutation("getBenefactorTransaction", (address: string) =>
+    fetchBenefactorTransactions(address)
+  );
 };
 
 export const useAddTransaction = () => {
-  const url = getUrl("/transactions");
-  return useMutation(async (data: Transaction) => {
-    await axios
-      .post(
-        url,
-        { transaction: data },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then((res) => res.data);
-  });
+  return useMutation("addTransaction", (transaction: AddTransactionParams) =>
+    postAddTransaction(transaction)
+  );
 };
-
-function fetchProducts(): Promise<Product[] | undefined> {
-  return axios
-    .get(getUrl("/products"))
-    .then((response) => response.data.products);
-}
 
 export const useGetProducts = () => {
   return useQuery("getProducts", () => fetchProducts());
+};
+
+export const useGetProduct = () => {
+  return useMutation("getProduct", (productId: string) =>
+    fetchProduct(productId)
+  );
 };

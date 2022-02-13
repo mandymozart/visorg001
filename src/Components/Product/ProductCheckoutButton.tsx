@@ -1,34 +1,25 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import dayjs from "dayjs";
-import { nanoid } from "nanoid";
-import React, { useEffect, useState } from "react";
+import { AxiosError } from "axios";
+import React, { useEffect } from "react";
 import toast from "react-hot-toast";
 import { GiToken } from "react-icons/gi";
 import { config } from "../../config";
 import {
-  useAddInventoryEvent,
-  useAddTransaction,
-  useGetWallets,
-  useUpdateWallets
-} from "../../Hooks/InventoryQueries";
-import { Wallet, WalletStatus } from "../../Pages/Wallet/Wallet";
+  fetchWallet,
+  postAddInventoryEvent,
+  postAddTransaction,
+  postBalanceUpdate
+} from "../../Hooks/InventoryApi";
+import { useGetWallets } from "../../Hooks/InventoryQueries";
+import {
+  InventoryEventStatus,
+  InventoryEventType
+} from "../../Pages/Products/InventoryEvent";
+import { WalletStatus } from "../../Pages/Wallet/Wallet";
 import { useProductStore } from "../../Stores/ProductStore";
 import { useReservationSubmissionStore } from "../../Stores/ReservationSubmissionStore";
 import { useWalletStore } from "../../Stores/WalletStore";
-import { successHandler } from "../../Utilities/ErrorHandlers";
 import { PrimaryButton } from "../FormElements/Button";
-
-const updateBalance = (prev: Wallet, newBalance: number): Wallet => {
-  return {
-    id: prev.id,
-    address: prev.address,
-    owner: prev.owner,
-    abbreviation: prev.abbreviation,
-    balance: newBalance,
-    lastUpdate: dayjs().format(),
-    status: prev.status,
-  };
-};
 
 const ProductCheckoutButton = () => {
   const { user } = useAuth0();
@@ -38,59 +29,33 @@ const ProductCheckoutButton = () => {
     useProductStore();
 
   // Wallet store / benefactor
-  const { abbreviation, address, balance, deductTokens, bakeWallet, status } =
-    useWalletStore();
-
-  // Beneficiary wallet
-  const [beneficiary, setBeneficiary] = useState<Wallet>({
-    id: 0,
-    abbreviation: "",
-    address: "",
-    owner: "",
-    balance: 0,
-    status: WalletStatus.UNAUTHORIZED,
-    lastUpdate: "",
-  });
-
-  // Bank wallet
-  const [bank, setBank] = useState<Wallet>({
-    id: 0,
-    abbreviation: "vis",
-    address: "6b9e0bab-ae49-43a4-8cda-49a9b17f9c61",
-    owner: "auth0|60dc9dd80605b20072d6bc85",
-    balance: 0,
-    status: WalletStatus.ACTIVATE,
-    lastUpdate: "",
-  });
+  const { abbreviation, address, status } = useWalletStore();
 
   // Reservation submission store
   const {
     isSubmitting,
     success,
     failed,
-    ready,
+    // ready,
     setSuccess,
     setFailed,
     setIsSubmitting,
-    setReady,
+    // setReady,
     finishedSubmitIventoryEvent,
     finishedLogTransaction,
     finishedDeductFundsFromBenefactor,
     finishedSendFundsToBeneficiary,
-    finishedSendReport,
+    // finishedSendReport,
     setFinishedSubmitIventoryEvent,
     setFinishedLogTransaction,
     setFinishedDeductFundsFromBenefactor,
     setFinishedSendFundsToBeneficiary,
     setFinishedSendFees,
-    setFinishedSendReport,
+    // setFinishedSendReport,
   } = useReservationSubmissionStore();
 
   // Queries
   const { data: wallets } = useGetWallets();
-  const addInventoryEvent = useAddInventoryEvent();
-  const addTransaction = useAddTransaction();
-  const updateWallets = useUpdateWallets();
 
   const errorHandler = (error: any) => {
     setFailed(true);
@@ -99,109 +64,143 @@ const ProductCheckoutButton = () => {
     toast.error(`${error}`, { icon: "💣" });
   };
 
+  const getBeneficiaryWallet = () =>
+    wallets?.find(
+      (wallet) => wallet.abbreviation === selectedProduct?.abbreviation
+    )?.address;
+
   /**
    * Submit inventory event
    */
-  const submitInventoryEvent = () => {
+  const addInventoryEvent = async () => {
+    if (!selectedProduct?.productId) throw new Error(`No product selected`);
     const newInventoryEvent = {
-      eventId: nanoid(16),
-      renter: abbreviation,
-      type: "reservation",
+      renter: address,
+      abbreviation: abbreviation,
+      type: InventoryEventType.RESERVATION,
       productId: selectedProduct?.productId || "",
+      quantity: quantity,
       fromDate: fromDate,
       toDate: toDate,
-      quantity: quantity,
+      status: InventoryEventStatus.REVIEW,
     };
-    addInventoryEvent.mutate(newInventoryEvent, {
-      onSuccess: () => setFinishedSubmitIventoryEvent(true),
-      onError: errorHandler,
-    });
+    console.info("submitting inventory event ...");
+    await postAddInventoryEvent(newInventoryEvent)
+      .then((res) => {
+        setFinishedSubmitIventoryEvent(true);
+        return res.data;
+      })
+      .catch((e: AxiosError) => {
+        throw e;
+      });
   };
 
   /**
    * Log transaction
    */
-  const logTransaction = () => {
+  const logTransaction = async () => {
+    const beneficiaryAddress = getBeneficiaryWallet();
+    if (!beneficiaryAddress) throw new Error(`Beneficiary address not found`);
     const transcation = {
-      transactionId: nanoid(16),
-      beneficiary: beneficiary.address,
+      beneficiary: beneficiaryAddress,
       benefactor: address,
-      tokens: getItemSum(abbreviation),
-      date: dayjs().format(),
-      status: "received",
+      amount: getItemSum(abbreviation),
+      referenceText: `Renting ${selectedProduct?.name} (${selectedProduct?.amount})`,
     };
-    console.log("logTransaction", transcation);
-    addTransaction.mutate(transcation, {
-      onSuccess: () => setFinishedLogTransaction(true),
-      onError: successHandler,
-    });
+    console.info("logging Transaction ...");
+    await postAddTransaction(transcation)
+      .then(() => setFinishedLogTransaction(true))
+      .catch((e: AxiosError) => {
+        throw e;
+      });
   };
 
   /**
    * Send funds to beneficary
+   * skip if beneficiary is benefactor
    */
-  const sendFundsToBeneficiary = () => {
-    const newBeneficiary: Wallet = updateBalance(
-      beneficiary,
-      beneficiary.balance + getItemSum(abbreviation)
-    );
-    console.log("sendFundsToBeneficiary", newBeneficiary);
-    updateWallets.mutate(newBeneficiary, {
-      onSuccess: () => setFinishedSendFundsToBeneficiary(true),
-      onError: errorHandler,
-    });
+  const sendFundsToBeneficiary = async () => {
+    if (selectedProduct?.abbreviation === abbreviation) {
+      setFinishedSendFundsToBeneficiary(true);
+      return;
+    }
+    const beneficiaryAddress = getBeneficiaryWallet();
+    if (!beneficiaryAddress) throw new Error(`Beneficiary address not found`);
+    console.log("fetch beneficiary wallet ...", beneficiaryAddress);
+    const beneficiary = await fetchWallet(beneficiaryAddress);
+    if (!beneficiary)
+      throw new Error(`Beneficiary wallet could not be reached`);
+    const newBalance = beneficiary.balance + getItemSum(abbreviation);
+    await postBalanceUpdate({
+      id: beneficiary.id,
+      balance: newBalance,
+    })
+      .then(() => setFinishedSendFundsToBeneficiary(true))
+      .catch((e: AxiosError) => {
+        throw e;
+      });
   };
 
   /**
    * Send funds to beneficary
    * skipped if BANK
    */
-  const sendFees = () => {
+  const sendFees = async () => {
     if (abbreviation === config.BANK_WALLET_ABBREVIATION) {
       setFinishedSendFees(true);
-    } else {
-      const newWallet: Wallet = updateBalance(
-        bank,
-        bank.balance + getItemSum(abbreviation)
-      );
-      console.log("sendFees", newWallet);
-      updateWallets.mutate(newWallet, {
-        onSuccess: () => setFinishedSendFees(true),
-        onError: errorHandler,
-      });
+      return;
     }
+    console.log(
+      "fetch beneficiary wallet ...",
+      config.BANK_WALLET_ABBREVIATION
+    );
+    const bank = await fetchWallet(config.BANK_WALLET_ADDRESS);
+    if (!bank) throw new Error(`Bank wallet could not be reached`);
+    const fees = getFees(abbreviation);
+    const newBalance = bank.balance + fees;
+    console.log("post balance update ...", fees, newBalance);
+    await postBalanceUpdate({
+      id: bank.id,
+      balance: newBalance,
+    })
+      .then(() => setFinishedSendFees(true))
+      .catch((e) => {
+        throw e;
+      });
   };
 
   /**
    * Deduct funds from benefactor
-   * skip if benefactor is bank
+   * skip if benefactor is beneficiary
    * benefactor is also responsible for fees
    */
-  const deductFundsFromBenefactor = () => {
-    if (abbreviation === config.BANK_WALLET_ABBREVIATION) {
+  const deductFundsFromBenefactor = async () => {
+    if (abbreviation === selectedProduct?.abbreviation) {
       setFinishedDeductFundsFromBenefactor(true);
-    } else {
-      deductTokens(getItemSum(abbreviation));
-      const benefactor = bakeWallet();
-      const newBenefactor: Wallet = updateBalance(
-        benefactor,
-        benefactor.balance - getItemSum(abbreviation) - getFees(abbreviation)
-      );
-      console.log("deductFundsFromBenefactor", newBenefactor);
-      updateWallets.mutate(newBenefactor, {
-        onSuccess: () => setFinishedDeductFundsFromBenefactor(true),
-        onError: errorHandler,
-      });
+      return;
     }
+    console.log("fetch benefactor wallet ...", address);
+    const benefactor = await fetchWallet(address);
+    if (!benefactor) throw new Error(`Benefactor wallet could not be reached`);
+    const position = -(getItemSum(abbreviation) + getFees(abbreviation));
+    const newBalance = benefactor.balance + position;
+    console.log("post balance update ...", position, newBalance);
+    await postBalanceUpdate({
+      id: benefactor.id,
+      balance: newBalance,
+    })
+      .then(() => setFinishedDeductFundsFromBenefactor(true))
+      .catch((e) => {
+        throw e;
+      });
   };
 
   /**
    * Purchase item with VIS Token
-   * TODO: Refetch wallets' balance before updating.
    * WARNING - Currently when sending two requests to the same wallet, only the last transaction is locked.
    * @returns void
    */
-  const purchase = () => {
+  const purchase = async () => {
     if (!selectedProduct) {
       errorHandler(new Error(`No product selected`));
       return;
@@ -218,46 +217,16 @@ const ProductCheckoutButton = () => {
       errorHandler(new Error(`You wallet is suspended`));
       return;
     }
-    const beneficiary = wallets?.find(
-      (wallet) => wallet.abbreviation === selectedProduct.abbreviation
-    );
-    if (!beneficiary) {
-      errorHandler(
-        new Error(
-          `Beneficiary ${selectedProduct.abbreviation} wallet not found`
-        )
-      );
-      return;
-    }
-    const bank = wallets?.find(
-      (wallet) => wallet.address === config.BANK_WALLET_ADDRESS
-    );
-    if (!bank) {
-      errorHandler(new Error(`Bank wallet not found`));
-      return;
-    }
 
-    setBeneficiary(beneficiary);
-    setBank(bank);
-    setReady(true);
+    setIsSubmitting(true);
+
+    // Transactions
+    logTransaction();
+    sendFundsToBeneficiary();
+    deductFundsFromBenefactor();
+    sendFees();
+    addInventoryEvent();
   };
-
-  useEffect(() => {
-    console.log(quantity, ready);
-    if (ready) {
-      setIsSubmitting(true);
-      submitInventoryEvent();
-      sendFundsToBeneficiary();
-      deductFundsFromBenefactor();
-      logTransaction();
-      sendFees();
-
-      const message = `You paid ${getItemSum(abbreviation)} (+ ${getFees(
-        abbreviation
-      )}) to ${beneficiary.abbreviation} (${beneficiary.address})`;
-      toast.success(message);
-    }
-  }, [ready, bank, beneficiary]);
 
   useEffect(() => {
     if (
@@ -266,7 +235,13 @@ const ProductCheckoutButton = () => {
       finishedSendFundsToBeneficiary &&
       finishedSubmitIventoryEvent
     ) {
+      console.log("all calls done!");
+      const message = `You paid ${
+        getItemSum(abbreviation) + getFees(abbreviation)
+      }🪙 incl. ${getFees(abbreviation)}🪙`;
+      toast.success(message, { icon: "👌" });
       setIsSubmitting(false);
+      setSuccess(true);
     }
   }, [
     finishedDeductFundsFromBenefactor,
@@ -275,8 +250,11 @@ const ProductCheckoutButton = () => {
     finishedSubmitIventoryEvent,
     setIsSubmitting,
     setSuccess,
+    getItemSum,
+    getFees,
+    abbreviation,
   ]);
-
+  
   if (!user) return <></>;
   if (!selectedProduct) return <></>;
   return (

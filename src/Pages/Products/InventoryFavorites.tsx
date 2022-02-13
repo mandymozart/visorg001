@@ -1,6 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import styled from "@emotion/styled";
-import { enableMapSet } from "immer";
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import FadeInView from "../../Animations/FadeInView";
@@ -8,10 +7,8 @@ import Cart from "../../Components/Cart/Cart";
 import { useCartStore } from "../../Stores/CartStore";
 import { Product } from "./Product";
 
-enableMapSet();
-
 const Container = styled.div`
-  max-width: var(width);
+  max-width: var(--content-width);
   margin: 0 auto;
   text-align: center;
 `;

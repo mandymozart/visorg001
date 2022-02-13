@@ -1,15 +1,16 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
+import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
 import relativeTime from "dayjs/plugin/relativeTime";
-import React from "react";
-import { FaUserAstronaut } from "react-icons/fa";
-import { GiCalendar } from "react-icons/gi";
+import React, { useEffect, useState } from "react";
 import FadeInView from "../../Animations/FadeInView";
-import { useCartStore } from "../../Stores/CartStore";
+import { useGetReservationsForAddress } from "../../Hooks/InventoryQueries";
 import { useWalletStore } from "../../Stores/WalletStore";
+import InventoryReservationItem from "../Inventory/InventoryReservationItem";
+import { InventoryEvent } from "./InventoryEvent";
 
 dayjs.extend(relativeTime);
+dayjs.extend(isSameOrAfter);
 
 const Container = styled.div`
   max-width: var(--content-width);
@@ -26,59 +27,34 @@ const Container = styled.div`
 `;
 
 const InventoryReservations = () => {
-  const { events, getProductByProductId } = useCartStore();
-  const { user } = useAuth0();
-  const { abbreviation } = useWalletStore();
+  const { address } = useWalletStore();
+  const [reservations, setReservations] = useState<
+    InventoryEvent[] | undefined
+  >();
+  const { mutate, isLoading } = useGetReservationsForAddress();
 
-  if (!user) return <></>;
+  useEffect(() => {
+    mutate(address, {
+      onSuccess: (events) => setReservations(events),
+    });
+  }, [mutate, address, reservations, setReservations]);
+
+  // if (isLoading) return <Loader />;
   return (
     <Container>
       <FadeInView>
-        {events?.length === 0 && <>Your cart is empty.</>}
+        <h2>Reservations</h2>
+      </FadeInView>
+      <FadeInView>
+        {reservations?.length === 0 && (
+          <>No reservations of your items upcoming</>
+        )}
         <div className="results">
-          {events
-            ?.filter(
-              (event) =>
-                event.type === "reservation" && // match only reservations
-                dayjs().isBefore(dayjs(event.fromDate))
-            )
-            ?.map((item) => {
-              console.log(item);
-              if (item.renter === abbreviation)
-                return (
-                  <div className="item" key={item.eventId}>
-                    <div className="meta">
-                      <div className="name">
-                        {getProductByProductId(item.productId)?.name}
-                      </div>
-                      <div className="abbreviation">
-                        <span className="quantity">
-                          {item.quantity} unit{item.quantity > 1 && "s"} from{" "}
-                        </span>
-                        <span>
-                          <FaUserAstronaut />
-                        </span>{" "}
-                        {getProductByProductId(item.productId)?.abbreviation}{" "}
-                        {dayjs(item.toDate).fromNow()}
-                      </div>
-                    </div>
-                    <div className="dates">
-                      <small>
-                        <GiCalendar /> {item.fromDate} - {item.toDate} <br />
-                      </small>
-                    </div>
-                    {/* <div className="actions">
-                <button
-                  type="button"
-                  className="cancelReservation"
-                  // onClick={() => removeItem(item.product.id)}
-                >
-                  <FiTrash />
-                </button>
-              </div> */}
-                  </div>
-                );
-            })}
+          {reservations
+            ?.filter((event) => dayjs().isSameOrAfter(dayjs(event.fromDate)))
+            ?.map((item) => (
+              <InventoryReservationItem item={item} />
+            ))}
         </div>
       </FadeInView>
     </Container>

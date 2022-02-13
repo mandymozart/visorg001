@@ -2,11 +2,16 @@ import { useAuth0 } from "@auth0/auth0-react";
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import React from "react";
-import { useGetTransactions } from "../../Hooks/InventoryQueries";
+import React, { useEffect, useState } from "react";
+import FadeInView from "../../Animations/FadeInView";
+import {
+  useGetBenefactorTransactions,
+  useGetBeneficiaryTransactions
+} from "../../Hooks/InventoryQueries";
+import { Transaction } from "../../Pages/Wallet/Transaction";
 import { useWalletStore } from "../../Stores/WalletStore";
-import TransactionItem from "./TransactionItem";
-
+import TransactionList from "./TransactionList";
+import { TransactionType } from "./TransactionType";
 dayjs.extend(relativeTime);
 
 const Container = styled.div`
@@ -17,41 +22,52 @@ const Container = styled.div`
 
 const Transactions = () => {
   const { user } = useAuth0();
-  const { data: transactions } = useGetTransactions();
+  const {
+    mutate: mutateBeneficiaryTransactions,
+    isLoading: isLoadingBeneficiaryTransactions,
+  } = useGetBeneficiaryTransactions();
+  const {
+    mutate: mutateBenefactorTransactions,
+    isLoading: isLoadingBenefactorTransactions,
+  } = useGetBenefactorTransactions();
   const address = useWalletStore((store) => store.address);
+  const [beneficiaryTransactions, setBeneficiaryTransactions] =
+    useState<Transaction[]>();
+  const [benefactorTransactions, setBenefactorTransactions] =
+    useState<Transaction[]>();
+
+  useEffect(() => {
+    mutateBeneficiaryTransactions(address, {
+      onSuccess: (transactions) => setBeneficiaryTransactions(transactions),
+    });
+    mutateBenefactorTransactions(address, {
+      onSuccess: (transactions) => setBenefactorTransactions(transactions),
+    });
+  }, [
+    mutateBeneficiaryTransactions,
+    mutateBenefactorTransactions,
+    setBeneficiaryTransactions,
+    setBenefactorTransactions,
+    address
+  ]);
 
   if (!user) return <></>;
   return (
-    <Container>
-      <h4>Transaction history</h4>
-      {transactions?.length === 0 && <>No transactions recorded, yet.</>}
-      <div className="incoming">
-        <h5>Incoming</h5>
-        {transactions?.map((transaction) => {
-          if (transaction.beneficiary === address)
-            return (
-              <TransactionItem
-                type="outgoing"
-                transaction={transaction}
-                key={transaction.transactionId}
-              />
-            );
-        })}
-      </div>
-      <div className="outgoing">
-        <h5>Outgoing</h5>
-        {transactions?.map((transaction) => {
-          if (transaction.benefactor === address)
-            return (
-              <TransactionItem
-                type="incoming"
-                transaction={transaction}
-                key={transaction.transactionId}
-              />
-            );
-        })}
-      </div>
-    </Container>
+    <FadeInView>
+      <Container>
+        <h4>Transaction history</h4>
+        <TransactionList
+          isLoading={isLoadingBeneficiaryTransactions}
+          type={TransactionType.INCOMING}
+          transactions={beneficiaryTransactions}
+        />
+        <TransactionList
+          isLoading={isLoadingBenefactorTransactions}
+          type={TransactionType.OUTGOING}
+          transactions={benefactorTransactions}
+        />
+      </Container>
+    </FadeInView>
   );
 };
 

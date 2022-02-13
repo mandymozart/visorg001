@@ -96,7 +96,7 @@ const Inventory = () => {
                 <CustomLink to="product">Pick a date</CustomLink>{" "}
               </li>
               <li>
-                <CustomLink to="reservations">Reservations</CustomLink>{" "}
+                <CustomLink to="reservations">My reservations</CustomLink>{" "}
               </li>
               <li>
                 <CustomLink to="favorites">Favorites</CustomLink>

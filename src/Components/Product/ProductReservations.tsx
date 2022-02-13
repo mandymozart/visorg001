@@ -4,12 +4,14 @@ import isBetween from "dayjs/plugin/isBetween";
 import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 import pluralize from "pluralize";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useGetReservationsForProduct } from "../../Hooks/InventoryQueries";
 import { InventoryEvent } from "../../Pages/Products/InventoryEvent";
 import { Product } from "../../Pages/Products/Product";
 import ProductReservationItem from "../../Pages/Products/ProductReservationItem";
-import { useCartStore } from "../../Stores/CartStore";
+import { useProductStore } from "../../Stores/ProductStore";
+import { DateRange, overlap } from "../../Utilities/overlapDateRanges";
+import { Button } from "../FormElements/Button";
 import Loader from "../Loader";
 import Tag from "../Tag";
 
@@ -37,35 +39,36 @@ const getReservationsAmountBetweenDates = (
   toDate: string
 ) => {
   let amount = 0;
-  reservations
-    ?.filter((item) => item.productId === productId)
-    ?.filter((item) => {
-      if (dayjs(fromDate).isBetween(dayjs(item.fromDate), dayjs(item.toDate)))
-        return item;
-    })
-    ?.filter((item) => {
-      if (
-        dayjs(fromDate).isSameOrBefore(dayjs(item.toDate)) &&
-        dayjs(toDate).isBetween(dayjs(item.fromDate), dayjs(item.toDate))
-      )
-        return item;
-    })
-    ?.filter((item) => {
-      if (
-        dayjs(toDate).isBetween(dayjs(item.fromDate), dayjs(item.toDate)) &&
-        dayjs(toDate).isSameOrAfter(dayjs(item.toDate))
-      )
-        return item;
-    })
-    ?.forEach((item) => {
+  reservations?.filter((item) => {
+    if (
+      item.productId === productId &&
+      // dayjs(fromDate).isBetween(dayjs(item.fromDate), dayjs(item.toDate)) &&
+      // !dayjs(toDate).isBetween(dayjs(item.fromDate), dayjs(item.toDate))
+      overlap([
+        { start: new Date(fromDate), end: new Date(toDate) },
+        { start: new Date(item.fromDate), end: new Date(item.toDate) },
+      ]).overlap
+    )
       amount = amount + item.quantity;
-    });
+    return item;
+  });
   return amount;
+};
+
+const eventsToDateRanges = (events: InventoryEvent[]) => {
+  let results: DateRange[] = [];
+  events.forEach((event) => {
+    results.push({
+      start: new Date(event.fromDate),
+      end: new Date(event.toDate),
+    });
+  });
+  return results;
 };
 
 const ProductReservations = ({ product }: Props) => {
   const { mutate, isLoading, isError } = useGetReservationsForProduct();
-  const { fromDate, toDate } = useCartStore();
+  const { fromDate, toDate } = useProductStore();
   const [availableAmount, setAvailableAmount] = useState<number>();
   const [reservations, setReservations] = useState<
     InventoryEvent[] | undefined
@@ -85,15 +88,6 @@ const ProductReservations = ({ product }: Props) => {
       mutate(product.productId, {
         onSuccess: (results) => {
           setReservations(results);
-          setAvailableAmount(
-            product.amountInStock -
-              getReservationsAmountBetweenDates(
-                product.productId,
-                results,
-                fromDate,
-                toDate
-              )
-          );
           setFutureReservations(
             results?.filter((item) => {
               // future reservations
@@ -102,7 +96,7 @@ const ProductReservations = ({ product }: Props) => {
           );
           setPastReservations(
             results?.filter((item) => {
-              if (dayjs(item.toDate).isSameOrBefore(dayjs())) return item;
+              if (dayjs(item.toDate).isBefore(dayjs())) return item;
             })
           );
           setActiveReservations(
@@ -113,14 +107,33 @@ const ProductReservations = ({ product }: Props) => {
           );
         },
       });
-  }, [mutate, setReservations, product, setAvailableAmount,fromDate,toDate,]);
+  }, [mutate, setReservations, product]);
+
+  const checkAvailability = useCallback(() => {
+    const amount = getReservationsAmountBetweenDates(
+      product.productId,
+      reservations,
+      fromDate,
+      toDate
+    );
+    console.log("check availability ...", fromDate, toDate, amount);
+    setAvailableAmount(product.amountInStock - amount);
+  }, [fromDate, toDate, reservations, product]);
+
+  useEffect(() => {
+    checkAvailability();
+  }, [fromDate, toDate, checkAvailability]);
 
   if (!product) return <>No product id provided.</>;
   if (isLoading) return <Loader />;
   if (isError) return <>Sorry, an error occured!</>;
   return (
     <Container>
-      <h2>{pluralize("unit",availableAmount, true)} available</h2>
+      <Button onClick={() => checkAvailability()}>Check availability</Button>
+      {availableAmount && (
+        <h2>{pluralize("unit", availableAmount, true)} available</h2>
+      )}
+      <h3>Today</h3>
       <h5>
         Active reservations <Tag>{activeReservations?.length}</Tag>
       </h5>

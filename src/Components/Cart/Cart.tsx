@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import React from "react";
 import FadeInView from "../../Animations/FadeInView";
 import { useCartStore } from "../../Stores/CartStore";
-import CartActions from "./CartActions";
 import CartListItem from "./CartListItem";
 import CartSummary from "./CartSummary";
 
@@ -25,7 +24,6 @@ const Cart = () => {
             })}
           </div>
           <CartSummary />
-          <CartActions />
         </>
       )}
     </Container>

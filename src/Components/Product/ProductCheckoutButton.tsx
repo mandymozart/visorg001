@@ -1,7 +1,9 @@
 import { useAuth0 } from "@auth0/auth0-react";
+import styled from "@emotion/styled";
 import { AxiosError } from "axios";
 import React, { useEffect } from "react";
 import toast from "react-hot-toast";
+import { FiRefreshCcw } from "react-icons/fi";
 import { GiToken } from "react-icons/gi";
 import { config } from "../../config";
 import {
@@ -21,13 +23,22 @@ import { useReservationSubmissionStore } from "../../Stores/ReservationSubmissio
 import { useWalletStore } from "../../Stores/WalletStore";
 import { PrimaryButton } from "../FormElements/Button";
 
+const Container = styled(PrimaryButton)``;
+
+const PlaceholderText = styled.div`
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex: 1;
+`;
+
 const ProductCheckoutButton = () => {
   const { user } = useAuth0();
 
   const { selectedProduct, quantity, getFees, getItemSum, fromDate, toDate } =
     useProductStore();
   const { abbreviation, address, status } = useWalletStore();
-  const { availableQuantity } = useProductStore();
+  const { availableQuantity, reset: resetProduct } = useProductStore();
   const {
     isSubmitting,
     success,
@@ -48,7 +59,7 @@ const ProductCheckoutButton = () => {
     setFinishedSendFundsToBeneficiary,
     setFinishedSendFees,
     // setFinishedSendReport,
-    reset,
+    reset: resetSubmission,
   } = useReservationSubmissionStore();
 
   // Queries
@@ -193,6 +204,14 @@ const ProductCheckoutButton = () => {
   };
 
   /**
+   * Refresh reservation events and wallets to let the user know what just happened
+   * @returns void
+   */
+  const refresh = () => {
+    // dunno how to do it properly, perhapse redirect to a success page within the route
+  };
+
+  /**
    * Purchase item with VIS Token
    * WARNING - Currently when sending two requests to the same wallet, only the last transaction is locked.
    * @returns void
@@ -237,7 +256,8 @@ const ProductCheckoutButton = () => {
         getItemSum(abbreviation) + getFees(abbreviation)
       }🪙 incl. ${getFees(abbreviation)}🪙 fees`;
       toast.success(message, { icon: "👌" });
-      reset();
+      resetSubmission();
+      resetProduct();
       setIsSubmitting(false);
       setSuccess(true);
     }
@@ -251,29 +271,33 @@ const ProductCheckoutButton = () => {
     getItemSum,
     getFees,
     abbreviation,
-    reset,
+    resetSubmission,
+    resetProduct,
   ]);
 
   if (!user) return <></>;
   if (!selectedProduct) return <></>;
-  if (availableQuantity <= 0) return <div className="text-xl">Not in stock. Change date!</div>;
-  if (quantity <= 0) return <div className="text-xl">Increase quantity to reserve</div>
+  if (availableQuantity <= 0)
+    return <PlaceholderText>Not in stock. Change date!</PlaceholderText>;
+  if (quantity <= 0)
+    return <PlaceholderText>Increase quantity to reserve</PlaceholderText>;
+  if (success)
+    return (
+      <PrimaryButton icon={<FiRefreshCcw />} onClick={() => refresh()}>
+        Refresh
+      </PrimaryButton>
+    );
   return (
-    <PrimaryButton
-      isLoading={isSubmitting}
-      success={success}
-      failed={failed}
-      type="button"
-      onClick={purchase}
-    >
+    <Container isLoading={isSubmitting} type="button" onClick={purchase}>
       Reserve{" "}
       {abbreviation !== selectedProduct.abbreviation &&
-        getItemSum(abbreviation) + getFees(abbreviation) > 0 && availableQuantity > 0 &&(
+        getItemSum(abbreviation) + getFees(abbreviation) > 0 &&
+        availableQuantity > 0 && (
           <>
             for <GiToken /> {getItemSum(abbreviation) + getFees(abbreviation)}
           </>
         )}
-    </PrimaryButton>
+    </Container>
   );
 };
 

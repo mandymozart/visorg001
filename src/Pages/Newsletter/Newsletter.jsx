@@ -9,8 +9,7 @@ import { BaseSection } from "../LandingPage/BaseSection";
 const Container = styled.div`
   max-width: var(--form-width);
   margin: 2rem auto;
-  padding: 4rem 4rem;
-  background: rgba(255, 255, 255, 0.7);
+  padding: 1rem;
   /* Hole */
   border: 2px solid var(--color);
   box-sizing: border-box;
@@ -37,11 +36,11 @@ const Container = styled.div`
     width: 100%;
   }
   button {
-    width: 100%;
     line-height: 2rem;
+    width: 100%;
     font-size: 1rem;
     justify-self: center;
-    font-weight: 100;
+    text-align: center;
     padding: 0 1rem;
     cursor: pointer;
     border: 0;
@@ -49,20 +48,32 @@ const Container = styled.div`
     border-radius: 0.15em;
     box-sizing: border-box;
     text-decoration: none;
-    background-color: var(--text);
-    color: #ffffff;
     text-align: center;
     position: relative;
     transition: all 0.2s cubic-bezier(1, 0, 0, 1);
-    outline: none;
+
+    background-color: var(--fifth);
+    box-shadow: none;
+    color: var(--background);
+    font-weight: bold;
     &:hover {
-      transform: translateY(-0.1rem);
-      box-shadow: inset 0 -0.6em 0 -0.35em rgba(0, 0, 0, 0.23);
+      background-color: var(--fifth);
+      color: var(--background);
+      box-shadow: inset 0 -0.6em 0 -0.35em #00000054;
+    }
+    &:hover {
+      transform: translateY(-0.05rem);
+      background-color: var(--fifth);
+      color: var(--background);
+      box-shadow: inset 0 -0.6em 0 -0.35em #00000054;
     }
   }
   &&& h2 {
     margin: 0;
     text-align: left;
+  }
+  p {
+    margin-bottom: 1rem;
   }
 `;
 

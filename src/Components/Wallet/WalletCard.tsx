@@ -5,12 +5,14 @@ import { GiToken } from "react-icons/gi";
 import moreImage from "../../images/more-48.png";
 import { WalletStatus } from "../../Pages/Wallet/Wallet";
 import { useWalletStore } from "../../Stores/WalletStore";
+import { round } from "../../utils";
 import Tag from "../Tag";
 
 const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 1rem 0;
 
   &&& .cc {
     font-family: "Urbanist", sans-serif !important;
@@ -251,7 +253,7 @@ const WalletCard = () => {
             </span>
           </div>
           <div className="cc__balance-text">
-            <GiToken /> {balance}
+            <GiToken /> {round(balance, 6)}
           </div>
         </div>
         <div

@@ -10,25 +10,32 @@ import { PageLoader } from "../../Components/Loader";
 import Role from "../../Components/Role";
 import Tags from "../../Components/Tags";
 import NotFound from "../NotFound";
+import { Video } from "../Tutorials/Tutorial";
 
 const Header = styled.header`
   text-align: center;
-  img {
-    max-width: 100%;
-  }
 `;
 const Meta = styled.div`
+h3 {
+  margin-top: 2rem;
+}
   text-align: center;
   padding: 1rem;
 `;
 const TeaserImage = styled.img`
-  width: 25rem;
+  max-width: var(--form-width);
+  margin: 0 auto;
 `;
 const Description = styled.section`
   max-width: var(--content-width-narrow);
   font-size: 1.2rem;
   margin: 0 auto;
   padding: 1rem;
+  p {
+    text-indent: 2rem;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
 `;
 
 const Project = () => {
@@ -44,22 +51,25 @@ const Project = () => {
       <Layout>
         <FadeInView>
           <Header>
-            <h3>{document[0].data.title}</h3>
             {document[0].data?.image.url && (
               <TeaserImage
-                src={document[0].data.image.url}
-                alt={document[0].data.image.alt}
+              src={document[0].data.image.url}
+              alt={document[0].data.image.alt}
               />
-            )}
-            <div
-              dangerouslySetInnerHTML={{ __html: document[0].data.video.html }}
-            />
+              )}
+            {document[0].data.video.html && (
+              <Video
+              dangerouslySetInnerHTML={{
+                __html: document[0].data.video.html,
+              }}
+              />
+              )}
           </Header>
         </FadeInView>
         <FadeInView>
           <Meta>
-            <Tags tags={document[0].tags} />
-            <br />
+            <h3>{document[0].data.title}</h3>
+            {document[0].tags && (<Tags tags={document[0].tags} />)}
             <br />
             {user?.sub === document[0].data.owner_id && (
               <>

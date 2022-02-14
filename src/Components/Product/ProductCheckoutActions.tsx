@@ -7,33 +7,40 @@ import { SquareButton } from "../FormElements/Button";
 import ProductCheckoutButton from "./ProductCheckoutButton";
 
 const Container = styled.div`
-  text-align: right;
+  width: 100vw;
   position: fixed;
   bottom: 1rem;
-  left: 1rem;
-  width: calc(100vw - 2rem);
-  display: flex;
-  padding: 1rem;
-  gap: 1rem;
-  z-index: 10;
-  /* border-top: 1px solid var(--color); */
-  border: 2px solid var(--color);
-  box-sizing: border-box;
-  /* Up 1 */
-  box-shadow: 4px 4px 0px var(--color);
-  border-radius: 8px;
-  button {
-    flex: 1;
-    &:last-of-type {
-      margin: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 1;
+  > div {
+    pointer-events: all;
+    text-align: right;
+    margin: 0 auto;
+    width: var(--form-width);
+    display: flex;
+    padding: .5rem .5rem;
+    gap: .5rem;
+    z-index: 10;
+    /* border-top: 1px solid var(--color); */
+    border: 2px solid var(--color);
+    box-sizing: border-box;
+    /* Up 1 */
+    box-shadow: 4px 4px 0px var(--color);
+    border-radius: 8px;
+    button {
+      flex: 1;
+      &:last-of-type {
+        margin: 0;
+      }
     }
-  }
-  .quantitySelector {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 0 1rem;
+    .quantitySelector {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0;
+    }
   }
 `;
 
@@ -48,32 +55,33 @@ const ProductCheckoutActions = () => {
   if (!selectedProduct) return <></>;
   return (
     <FadeIn>
-
-      <Container className="glassomorphism">
-        {availableQuantity > 0 && (
-          <>
-            <div className="quantitySelector">
-              <SquareButton
-                type="button"
-                className="reduceQuantity"
-                onClick={() => reduceQuantity()}
-              >
-                <FiMinus />
-              </SquareButton>
-              <span className="quantity">
-                {quantity} of {availableQuantity}
-              </span>
-              <SquareButton
-                type="button"
-                className="increaseQuantity"
-                onClick={() => increaseQuantity()}
-              >
-                <FiPlus />
-              </SquareButton>
-            </div>
-          </>
-        )}
-        <ProductCheckoutButton />
+      <Container>
+        <div className="glassomorphism">
+          {availableQuantity > 0 && (
+            <>
+              <div className="quantitySelector">
+                <SquareButton
+                  type="button"
+                  className="reduceQuantity"
+                  onClick={() => reduceQuantity()}
+                >
+                  <FiMinus />
+                </SquareButton>
+                <span className="quantity">
+                  {quantity} of {availableQuantity}
+                </span>
+                <SquareButton
+                  type="button"
+                  className="increaseQuantity"
+                  onClick={() => increaseQuantity()}
+                >
+                  <FiPlus />
+                </SquareButton>
+              </div>
+            </>
+          )}
+          <ProductCheckoutButton />
+        </div>
       </Container>
     </FadeIn>
   );

@@ -20,7 +20,7 @@ const Meta = styled.div`
 const TeaserImage = styled.img`
   width: 25rem;
 `;
-const Video = styled.div`
+export const Video = styled.div`
   position: relative;
   overflow: hidden;
   width: 100%;

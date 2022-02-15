@@ -9,8 +9,10 @@ import { useGetReservationsForProduct } from "../../Hooks/InventoryQueries";
 import { InventoryEvent } from "../../Pages/Products/InventoryEvent";
 import { Product } from "../../Pages/Products/Product";
 import ProductReservationItem from "../../Pages/Products/ProductReservationItem";
+import { WalletStatus } from "../../Pages/Wallet/Wallet";
 import { useProductStore } from "../../Stores/ProductStore";
-import { DateRange, overlap } from "../../Utilities/overlapDateRanges";
+import { useWalletStore } from "../../Stores/WalletStore";
+import { overlap } from "../../Utilities/overlapDateRanges";
 import Loader from "../Loader";
 import Tag from "../Tag";
 
@@ -52,20 +54,11 @@ const getReservationsAmountBetweenDates = (
   return amount;
 };
 
-const eventsToDateRanges = (events: InventoryEvent[]) => {
-  let results: DateRange[] = [];
-  events.forEach((event) => {
-    results.push({
-      start: new Date(event.fromDate),
-      end: new Date(event.toDate),
-    });
-  });
-  return results;
-};
 
 const ProductReservations = ({ product }: Props) => {
   const { mutate, isLoading, isError } = useGetReservationsForProduct();
   const { fromDate, toDate } = useProductStore();
+  const {status } = useWalletStore()
   const { availableQuantity, setAvailableQuantity } = useProductStore();
   const [reservations, setReservations] = useState<
     InventoryEvent[] | undefined
@@ -127,6 +120,7 @@ const ProductReservations = ({ product }: Props) => {
 
   if (!product) return <>No product id provided.</>;
   if (isLoading) return <Loader />;
+    if(status !== WalletStatus.ACTIVE) return <></>
   if (isError) return <>Sorry, an error occured!</>;
   if(!activeReservations && !futureReservations ) return <></>
   return (

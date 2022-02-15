@@ -291,6 +291,7 @@ const ProductCheckoutButton = () => {
 
   if (!user) return <></>;
   if (!selectedProduct) return <></>;
+  if(status !== WalletStatus.ACTIVE) return <PlaceholderText>Your wallet is suspended! {" "}<a href="mailto: support@viennastruggle.com">Contact support!</a></PlaceholderText>
   if (availableQuantity <= 0)
     return <PlaceholderText>Not in stock. Change date!</PlaceholderText>;
   if (quantity <= 0)

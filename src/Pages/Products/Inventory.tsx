@@ -7,9 +7,9 @@ import AuthentificationRequired from "../../Components/Authentification/Authenti
 import Layout from "../../Components/Layout";
 import InventoryWelcomePage from "../Inventory/InventoryWelcomePage";
 import InventoryFavorites from "./InventoryFavorites";
-import MyInventoryReservations from "./InventoryMyReservations";
+import InventoryLentOut from "./InventoryLentOut";
 import InventoryProducts from "./InventoryProducts";
-import InventoryReservations from "./InventoryReservations";
+import InventoryRented from "./InventoryRented";
 
 const Container = styled.div`
   padding: 1rem;
@@ -126,8 +126,8 @@ const Inventory = () => {
         <Body>
           <Routes>
             <Route path="/" element={<InventoryWelcomePage />} />
-            <Route path="rented" element={<MyInventoryReservations />} />
-            <Route path="lent-out" element={<InventoryReservations />} />
+            <Route path="rented" element={<InventoryRented />} />
+            <Route path="lent-out" element={<InventoryLentOut />} />
             <Route path="favorites" element={<InventoryFavorites />} />
             <Route path="product" element={<InventoryProducts />} />
             <Route path="product/:productId" element={<InventoryProducts />} />

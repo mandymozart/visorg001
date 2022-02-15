@@ -20,7 +20,7 @@ import NewsletterPage from "./Pages/Newsletter/Newsletter";
 import NotFound from "./Pages/NotFound";
 import Page from "./Pages/Page/Page";
 import PortalMembershipForm from "./Pages/Portal/PortalMembershipForm";
-import CartLogic from "./Pages/Products/CartLogic";
+import FavoritesLogic from "./Pages/Products/FavoritesLogic";
 import Inventory from "./Pages/Products/Inventory";
 import Profile from "./Pages/Profile/Profile";
 import MyProjects from "./Pages/Projects/MyProjects";
@@ -76,7 +76,7 @@ const App = () => {
         </Toaster>
         <Navigation />
         <WalletLogic />
-        <CartLogic />
+        <FavoritesLogic />
         <Routes>
           {/* <Redirect exact from="/" to="/" /> */}
           <Route exact path="/" element={<LandingPage />} />

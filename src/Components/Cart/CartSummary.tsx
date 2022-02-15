@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import React from "react";
 import { GiToken } from "react-icons/gi";
 import FadeInView from "../../Animations/FadeInView";
-import { useCartStore } from "../../Stores/CartStore";
+import { useFavoriteStore } from "../../Stores/FavoritesStore";
 import { useWalletStore } from "../../Stores/WalletStore";
 
 const Container = styled.div`
@@ -12,7 +12,7 @@ const Container = styled.div`
 
 const CartSummary = () => {
   const { abbreviation, balance } = useWalletStore();
-  const { getTotal, getFees } = useCartStore();
+  const { getTotal, getFees } = useFavoriteStore();
   return (
     <FadeInView>
       <Container>

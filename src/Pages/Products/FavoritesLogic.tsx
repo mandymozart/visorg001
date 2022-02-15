@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { useGetProducts } from "../../Hooks/InventoryQueries";
-import { useCartStore } from "../../Stores/CartStore";
+import { useFavoriteStore } from "../../Stores/FavoritesStore";
 
-const CartLogic = () => {
-  const { replaceProducts, setIsLoading } = useCartStore();
+const FavoritesLogic = () => {
+  const { replaceProducts, setIsLoading } = useFavoriteStore();
   const { data: products, isLoading } = useGetProducts();
-
+  
   useEffect(() => {
     setIsLoading(isLoading);
   }, [isLoading, setIsLoading]);
@@ -18,4 +18,4 @@ const CartLogic = () => {
   return <></>;
 };
 
-export default CartLogic;
+export default FavoritesLogic;

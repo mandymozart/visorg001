@@ -8,6 +8,7 @@ import {
   fetchEvents,
   fetchProduct,
   fetchProducts,
+  fetchReservationsByRentedFrom,
   fetchReservationsByRenter,
   fetchReservationsForProduct,
   fetchWallet,
@@ -58,7 +59,7 @@ export const useGetReservationsByRenter = () => {
 
 export const useGetReservationsByRentedFrom = () => {
   return useMutation("getGetReservationsForAddress", (address: string) =>
-    fetchReservationsByRenter(address)
+    fetchReservationsByRentedFrom(address)
   );
 };
 

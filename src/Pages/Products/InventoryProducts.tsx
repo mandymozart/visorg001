@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import Select from "react-select";
 import FadeInView from "../../Animations/FadeInView";
 import SelectedProduct from "../../Components/Product/SelectedProduct";
-import { useCartStore } from "../../Stores/CartStore";
+import { useFavoriteStore } from "../../Stores/FavoritesStore";
 import { useProductStore } from "../../Stores/ProductStore";
 import { useReservationSubmissionStore } from "../../Stores/ReservationSubmissionStore";
 import { Product } from "./Product";
@@ -55,7 +55,7 @@ const InventoryProducts = () => {
     isSubmitting,
     getProduct,
     getProductByProductId,
-  } = useCartStore();
+  } = useFavoriteStore();
   const { fromDate, toDate, setFromDate, setToDate } = useProductStore();
 
   const { setSelectedProduct, reset } = useProductStore();

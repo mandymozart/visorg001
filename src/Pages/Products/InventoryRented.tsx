@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import FadeInView from "../../Animations/FadeInView";
 import Loader from "../../Components/Loader";
 import Tag from "../../Components/Tag";
-import { useGetReservationsByRentedFrom } from "../../Hooks/InventoryQueries";
+import { useGetReservationsByRenter } from "../../Hooks/InventoryQueries";
 import { useWalletStore } from "../../Stores/WalletStore";
 import InventoryReservationItem from "../Inventory/InventoryReservationItem";
 import { InventoryEvent } from "./InventoryEvent";
@@ -18,8 +18,7 @@ const Container = styled.div`
   max-width: var(--content-width);
   margin: 0 auto;
   h2 {
-    display: flex;
-    justify-content: space-between;
+    margin-bottom: 2rem;
   }
   &&& .stock {
     flex: auto;
@@ -32,18 +31,18 @@ const Container = styled.div`
   }
 `;
 
-const InventoryReservations = () => {
+const InventoryRented = () => {
   const { address } = useWalletStore();
   const [reservations, setReservations] = useState<
     InventoryEvent[] | undefined
   >();
-  const { mutate } = useGetReservationsByRentedFrom();
+  const { mutate } = useGetReservationsByRenter();
 
   useEffect(() => {
     mutate(address, {
       onSuccess: (events) =>
         setReservations(
-          events?.filter((event) => dayjs().isSameOrAfter(dayjs(event.toDate)))
+          events?.filter((event) => dayjs(event.toDate).isSameOrAfter(dayjs()))
         ),
     });
   }, [mutate, address, reservations, setReservations]);
@@ -58,12 +57,12 @@ const InventoryReservations = () => {
     <Container>
       <FadeInView>
         <h2>
-          Lent out <Tag>{reservations?.length}</Tag>
+          Rented <Tag>{reservations?.length}</Tag>
         </h2>
       </FadeInView>
       <FadeInView>
         {reservations?.length === 0 && (
-          <>No reservations of your items upcoming</>
+          <>Nobody made reservations on your items, yet!</>
         )}
         <div className="results">
           {reservations?.map((item, index) => (
@@ -75,4 +74,4 @@ const InventoryReservations = () => {
   );
 };
 
-export default InventoryReservations;
+export default InventoryRented;

@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import FadeInView from "../../Animations/FadeInView";
 import { CartItem } from "../../Pages/Products/CartItem";
 import { Currency } from "../../Pages/Products/Currency";
-import { useCartStore } from "../../Stores/CartStore";
+import { useFavoriteStore } from "../../Stores/FavoritesStore";
 import { useProductStore } from "../../Stores/ProductStore";
 import { useWalletStore } from "../../Stores/WalletStore";
 import { Button, PrimaryButton } from "../FormElements/Button";
@@ -52,7 +52,7 @@ type Props = {
 };
 
 const CartListItem = ({ item }: Props) => {
-  const { getProduct, reduceQuantity } = useCartStore();
+  const { getProduct, reduceQuantity } = useFavoriteStore();
   const { setSelectedProduct } = useProductStore();
   const { abbreviation } = useWalletStore();
   const navigate = useNavigate();

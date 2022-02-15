@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import FadeInView from "../../Animations/FadeInView";
 import Cart from "../../Components/Cart/Cart";
-import { useCartStore } from "../../Stores/CartStore";
+import { useFavoriteStore } from "../../Stores/FavoritesStore";
 import { Product } from "./Product";
 
 const Container = styled.div`
@@ -47,10 +47,10 @@ const productsToOptions = (products: Product[] | undefined) => {
 const InventoryFavorites = () => {
   const { user } = useAuth0();
 
-  const products = useCartStore((store) => store.products);
-  const isLoading = useCartStore((store) => store.isLoading);
-  const isSubmitting = useCartStore((store) => store.isSubmitting);
-  const addItem = useCartStore((store) => store.addItem);
+  const products = useFavoriteStore((store) => store.products);
+  const isLoading = useFavoriteStore((store) => store.isLoading);
+  const isSubmitting = useFavoriteStore((store) => store.isSubmitting);
+  const addItem = useFavoriteStore((store) => store.addItem);
 
   const [options, setOptions] = useState<any[]>([]);
 

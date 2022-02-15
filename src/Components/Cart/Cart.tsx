@@ -1,14 +1,14 @@
 import styled from "@emotion/styled";
 import React from "react";
 import FadeInView from "../../Animations/FadeInView";
-import { useCartStore } from "../../Stores/CartStore";
+import { useFavoriteStore } from "../../Stores/FavoritesStore";
 import CartListItem from "./CartListItem";
 import CartSummary from "./CartSummary";
 
 const Container = styled.div``;
 
 const Cart = () => {
-  const { items } = useCartStore();
+  const { items } = useFavoriteStore();
   return (
     <Container>
       <FadeInView>

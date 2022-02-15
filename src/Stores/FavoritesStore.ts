@@ -10,13 +10,14 @@ import { round } from "../utils";
 
 type Items = CartItem[];
 
-// TODO: Refactor to useFavoriteStore
-export const useCartStore = create<State>(
+// TODO: Simplify and remove quantities
+export const useFavoriteStore = create<State>(
   persist(
     (set, get) => ({
       items: [],
-      addItem: ({ value }: any) => {
+      addItem: ({ value }: { value: string }) => {
         const id: unknown = value;
+        console.log("addItem",value);
         // set selected
         set(
           produce((state: State) => {
@@ -40,6 +41,20 @@ export const useCartStore = create<State>(
             }
           })
         );
+      },
+      hasItem: (productId: string) =>
+        !!get().items.findIndex((item) => item.product.productId === productId),
+      removeItem: (productId: string) => {
+        const index = get().items.findIndex(
+          (item) => item.product.productId === productId
+        );
+        if (index > 0) {
+          set(
+            produce((state: State) => {
+              state.items.splice(index);
+            })
+          );
+        }
       },
       clearItems: () =>
         set(
@@ -173,7 +188,9 @@ export const useCartStore = create<State>(
 
 type State = {
   items: Items;
-  addItem: (id: string) => void;
+  addItem: ({ value }: { value: string }) => void;
+  hasItem: (productId: string) => boolean;
+  removeItem: (productId: string) => void;
   clearItems: () => void;
   isLoading: boolean;
   setIsLoading: (value: boolean) => void;
@@ -202,5 +219,5 @@ if (process.env.REACT_APP_STAGE === undefined) {
   let root = document.createElement("div");
   root.id = "cartStore";
   document.body.appendChild(root);
-  mountStoreDevtool("CartStore", useCartStore as any, root);
+  mountStoreDevtool("CartStore", useFavoriteStore as any, root);
 }

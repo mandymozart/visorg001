@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import FadeInView from "../../Animations/FadeInView";
 import Loader from "../../Components/Loader";
 import Tag from "../../Components/Tag";
-import { useGetReservationsByRenter } from "../../Hooks/InventoryQueries";
+import { useGetReservationsByRentedFrom } from "../../Hooks/InventoryQueries";
 import { useWalletStore } from "../../Stores/WalletStore";
 import InventoryReservationItem from "../Inventory/InventoryReservationItem";
 import { InventoryEvent } from "./InventoryEvent";
@@ -32,18 +32,18 @@ const Container = styled.div`
   }
 `;
 
-const MyInventoryReservations = () => {
+const InventoryLentOut = () => {
   const { address } = useWalletStore();
   const [reservations, setReservations] = useState<
     InventoryEvent[] | undefined
   >();
-  const { mutate } = useGetReservationsByRenter();
+  const { mutate } = useGetReservationsByRentedFrom();
 
   useEffect(() => {
     mutate(address, {
       onSuccess: (events) =>
         setReservations(
-          events?.filter((event) => dayjs().isSameOrAfter(dayjs(event.toDate)))
+          events?.filter((event) => dayjs(event.toDate).isSameOrAfter(dayjs()))
         ),
     });
   }, [mutate, address, reservations, setReservations]);
@@ -58,12 +58,12 @@ const MyInventoryReservations = () => {
     <Container>
       <FadeInView>
         <h2>
-          Rented <Tag>{reservations?.length}</Tag>
+          Lent out <Tag>{reservations?.length}</Tag>
         </h2>
       </FadeInView>
       <FadeInView>
         {reservations?.length === 0 && (
-          <>Nobody made reservations on your items, yet!</>
+          <>No reservations of your items upcoming</>
         )}
         <div className="results">
           {reservations?.map((item, index) => (
@@ -75,4 +75,4 @@ const MyInventoryReservations = () => {
   );
 };
 
-export default MyInventoryReservations;
+export default InventoryLentOut;

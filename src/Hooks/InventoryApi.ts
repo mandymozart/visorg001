@@ -143,6 +143,7 @@ export const fetchReservationsForProduct = async (
 
 export type AddInventoryEventParams = {
   renter: string;
+  rentedFrom: string;
   type: InventoryEventType;
   productId: string;
   quantity: number;
@@ -159,6 +160,7 @@ export const postAddInventoryEvent = async (params: AddInventoryEventParams) =>
         event: {
           eventId: nanoid(),
           renter: params.renter,
+          rentedFrom: params.rentedFrom,
           type: params.type,
           productId: params.productId,
           quantity: params.quantity,

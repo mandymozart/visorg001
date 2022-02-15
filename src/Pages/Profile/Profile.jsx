@@ -24,6 +24,9 @@ const Container = styled.div`
     display: flex;
     gap: 1rem;
   }
+  .actions {
+    margin: 1rem 0;
+  }
 `;
 
 const Profile = () => {
@@ -45,7 +48,7 @@ const Profile = () => {
     return <PageLoader />;
   }
 
-  if (!isAuthenticated) return null;
+  if (!isAuthenticated);
 
   return (
     <Layout>
@@ -62,20 +65,25 @@ const Profile = () => {
                 <small>{artistName}</small>
               </h3>
               <p>
-              <Tag>{abbreviation}</Tag>| <small>{user.sub}</small></p>
+                <Tag>{abbreviation}</Tag>| <small>{user.sub}</small>
+              </p>
               <address>
                 {user.email}
                 <br />
-                <small>Member since
-                {dayjs(createdDate).format(config.DATE_FORMAT)}</small>
+                <small>
+                  Member since
+                  {dayjs(createdDate).format(config.DATE_FORMAT)}
+                </small>
               </address>
             </div>
           </header>
           <MiniWallet />
-          <PrimaryButton>Top up</PrimaryButton>{" "}
-          <Link to="/wallet">
-            <Button>My wallet</Button>
-          </Link>
+          <div className="actions">
+            <PrimaryButton>Top up</PrimaryButton>{" "}
+            <Link to="/wallet">
+              <Button>My wallet</Button>
+            </Link>
+          </div>
         </FadeInView>
       </Container>
     </Layout>

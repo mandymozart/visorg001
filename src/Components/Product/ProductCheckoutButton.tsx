@@ -82,8 +82,11 @@ const ProductCheckoutButton = () => {
    */
   const addInventoryEvent = async () => {
     if (!selectedProduct?.productId) throw new Error(`No product selected`);
+    const beneficiaryAddress = getBeneficiaryWallet();
+    if (!beneficiaryAddress) throw new Error(`Beneficiary address not found`);
     const newInventoryEvent = {
       renter: address,
+      rentedFrom: beneficiaryAddress,
       abbreviation: abbreviation,
       type: InventoryEventType.RESERVATION,
       productId: selectedProduct?.productId || "",

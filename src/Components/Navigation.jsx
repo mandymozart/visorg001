@@ -5,10 +5,13 @@ import Hamburger from "hamburger-react";
 import React, { useState } from "react";
 import {
   Gi3DGlasses,
-  GiAchillesHeel, GiAstronautHelmet, GiBackpack,
+  GiAchillesHeel,
+  GiAstronautHelmet,
+  GiBackpack,
   GiMagicPortal,
   GiToken
 } from "react-icons/gi";
+import { RiLoginCircleLine } from "react-icons/ri";
 import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
 import NavigationLink from "./Navigation/NavigationLink";
@@ -100,7 +103,7 @@ const Container = styled.div`
 `;
 
 const ProfileLink = styled(NavigationLink)`
-justify-content: center;
+  justify-content: center;
   img {
     width: 2rem;
     height: 2rem;
@@ -119,9 +122,16 @@ const Navigation = () => {
         <NavigationLink setIsOpen={setIsOpen} to="/">
           <ViennaStruggleLogo />
         </NavigationLink>
-        <ProfileLink to="/profile" setIsOpen={setIsOpen}>
-        {user?.picture && (<img src={user?.picture} alt={user?.name} />)}
-        </ProfileLink>
+
+        {user?.picture ? (
+          <ProfileLink to="/profile" setIsOpen={setIsOpen}>
+            <img src={user?.picture} alt={user?.name} />
+          </ProfileLink>
+        ) : (
+          <ProfileLink to="/login" setIsOpen={setIsOpen}>
+            <RiLoginCircleLine />
+          </ProfileLink>
+        )}
       </header>
       <nav className={clsx({ isOpen: isOpen }, "glassomorphism")}>
         <ul>

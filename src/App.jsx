@@ -14,6 +14,7 @@ import Success from "./Pages/Contact/Success";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import CreateEpics from "./Pages/Epics/Create";
 import FindUs from "./Pages/FindUs/FindUs";
+import { BaseSection } from "./Pages/LandingPage/BaseSection";
 import LandingPage from "./Pages/LandingPage/LandingPage";
 import NewsletterPage from "./Pages/Newsletter/Newsletter";
 import NotFound from "./Pages/NotFound";
@@ -101,7 +102,15 @@ const App = () => {
             element={<PortalMembershipForm />}
           />
           <Route exact path="/success" element={<Success />} />
-          <Route exact path="/login" element={<LoginButton />} />
+          <Route
+            exact
+            path="/login"
+            element={
+              <BaseSection>
+                <LoginButton />
+              </BaseSection>
+            }
+          />
           <Route exact path="/logout" element={<LogoutButton />} />
           {isAuthenticated && (
             <>

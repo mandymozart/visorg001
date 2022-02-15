@@ -4,6 +4,7 @@ import React from "react";
 import { FaUserAstronaut } from "react-icons/fa";
 import FadeInView from "../../Animations/FadeInView";
 import Rates from "../../Pages/Products/Rates";
+import { useCartStore } from "../../Stores/CartStore";
 import { useProductStore } from "../../Stores/ProductStore";
 import { useWalletStore } from "../../Stores/WalletStore";
 import PlaintextParagraph from "../PlaintextParagraph";
@@ -30,6 +31,7 @@ const Container = styled.div`
 
 const SelectedProduct = () => {
   const { selectedProduct } = useProductStore();
+  const { addItem } = useCartStore();
   const { abbreviation } = useWalletStore();
   if (!selectedProduct) return <></>;
   return (
@@ -57,6 +59,9 @@ const SelectedProduct = () => {
               </span>
               <span className="status">
                 <Tag>{selectedProduct.status}</Tag>
+              </span>
+              <span onClick={()=>addItem(selectedProduct.id)} className="favorite">
+                <Tag>Favorite x</Tag>
               </span>
             </div>
           </FadeInView>

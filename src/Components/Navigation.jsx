@@ -8,7 +8,9 @@ import {
   GiAchillesHeel,
   GiAstronautHelmet,
   GiBackpack,
+  GiHomeGarage,
   GiMagicPortal,
+  GiRocketFlight,
   GiToken
 } from "react-icons/gi";
 import { RiLoginCircleLine } from "react-icons/ri";
@@ -119,9 +121,9 @@ const Navigation = () => {
     <Container>
       <header className="glassomorphism">
         <Hamburger toggled={isOpen} toggle={setIsOpen} color={"var(--color)"} />
-        <NavigationLink setIsOpen={setIsOpen} to="/">
+        <a onClick={() =>setIsOpen(!isOpen)}>
           <ViennaStruggleLogo />
-        </NavigationLink>
+        </a>
 
         {user?.picture ? (
           <ProfileLink to="/profile" setIsOpen={setIsOpen}>
@@ -135,6 +137,15 @@ const Navigation = () => {
       </header>
       <nav className={clsx({ isOpen: isOpen }, "glassomorphism")}>
         <ul>
+          <li>
+            <NavigationLink
+              icon={<GiRocketFlight />}
+              setIsOpen={setIsOpen}
+              to="/"
+            >
+              Homepage
+            </NavigationLink>
+          </li>
           <li>
             <NavigationLink
               icon={<GiAchillesHeel />}
@@ -174,6 +185,15 @@ const Navigation = () => {
                 to="/profile"
               >
                 {user?.name}
+              </NavigationLink>
+            </li>
+            <li>
+              <NavigationLink
+                icon={<GiHomeGarage />}
+                setIsOpen={setIsOpen}
+                to="/dashboard"
+              >
+                Dashboard
               </NavigationLink>
             </li>
             <li>

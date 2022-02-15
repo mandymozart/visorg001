@@ -1,4 +1,3 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import styled from "@emotion/styled";
 import React, { ButtonHTMLAttributes, FC, forwardRef } from "react";
 import { useNavigate } from "react-router-dom";
@@ -31,12 +30,10 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const NavigationLink = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ setIsOpen, to, isLoading = false, icon, children, ...props }, ref) => {
-    const { isAuthenticated } = useAuth0();
     const navigate = useNavigate();
 
     const goToLink = () => {
       setIsOpen(false);
-      if (to === "/" && isAuthenticated) to = "/dashboard";
       navigate(to);
     };
     return (

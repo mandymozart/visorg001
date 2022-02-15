@@ -11,7 +11,7 @@ const Container = styled.div`
   padding: 1rem;
 `
 
-const Projects = ({ match }) => {
+const Projects = () => {
   const [document, { state, error }] = useAllPrismicDocumentsByType("project");
 
   if (state === "failed") return <NotFound error={error} />;

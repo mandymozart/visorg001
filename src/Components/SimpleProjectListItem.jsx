@@ -10,7 +10,7 @@ const Container = styled(Link)`
   line-height: 1.2;
   padding: 1rem 0;
   h3 {
-    margin: 0;
+    margin: 0.5rem 0;
     display: block;
     align-items: center;
   }

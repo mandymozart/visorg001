@@ -9,6 +9,16 @@ export const useWalletStore = create<State>((set, get) => ({
   owner: "",
   status: WalletStatus.UNAUTHORIZED,
   abbreviation: "",
+  name:"",
+  artistName:"",
+  street:"",
+  zipCode:"",
+  city:"",
+  country:"",
+  phoneNumber:"",
+  email:"",
+  createdDate:"",
+  updatedDate:"",
   balance: 0,
   hydrate: (wallet) =>
     set(
@@ -21,10 +31,18 @@ export const useWalletStore = create<State>((set, get) => ({
         state.createdDate = wallet.createdDate;
         state.updatedDate = wallet.updatedDate;
         state.status = wallet.status;
+        state.name = wallet.name;
+        state.artistName = wallet.artistName;
+        state.street = wallet.street;
+        state.zipCode = wallet.zipCode;
+        state.city = wallet.city;
+        state.country = wallet.country;
+        state.phoneNumber = wallet.phoneNumber;
+        state.email = wallet.email;
+        state.createdDate = wallet.createdDate;
+        state.updatedDate = wallet.updatedDate;
       })
     ),
-  createdDate: "",
-  updatedDate: "",
 }));
 
 type State = Wallet & {

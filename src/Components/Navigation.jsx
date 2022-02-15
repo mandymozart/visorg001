@@ -119,8 +119,8 @@ const Navigation = () => {
         <NavigationLink setIsOpen={setIsOpen} to="/">
           <ViennaStruggleLogo />
         </NavigationLink>
-        <ProfileLink to="/wallet" setIsOpen={setIsOpen}>
-        <img src={user?.picture} alt={user?.name} />
+        <ProfileLink to="/profile" setIsOpen={setIsOpen}>
+        {user?.picture && (<img src={user?.picture} alt={user?.name} />)}
         </ProfileLink>
       </header>
       <nav className={clsx({ isOpen: isOpen }, "glassomorphism")}>

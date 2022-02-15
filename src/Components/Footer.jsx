@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import React from "react";
 import { Link } from "react-router-dom";
+import FadeInView from "../Animations/FadeInView";
 import ViennaStruggleLogo from "./ViennaStruggleLogo";
 
 const Container = styled.footer`
@@ -54,73 +55,75 @@ const Container = styled.footer`
 `;
 const Footer = () => {
   return (
-    <Container>
-      <div>
-        <ViennaStruggleLogo />
-        <br />
-        <small>&copy; 2021</small>
-      </div>
-      <ul>
-        <li>
-          <h5>Struggle</h5>
-        </li>
-        <li>
-          <Link to={"/projects"}>Projects</Link>{" "}
-        </li>
-        <li>
-          <Link to={"/portal"}>Portal</Link>{" "}
-        </li>
-        <li>
-          <Link to={"/tutorials"}>Tutorials</Link>{" "}
-        </li>
-        <li>
-          <a href={"https://struggle.tv"} rel="noreferrer">
-            Sessions
-          </a>
-        </li>
-      </ul>
-      <ul>
-        <li>
-          <h5>Third-Party</h5>
-        </li>
-        <li>
-          <a href="https://soundcloud.com/viennastruggle" rel="noreferrer">
-            Soundcloud
-          </a>{" "}
-        </li>
-        <li>
-          <a
-            href="https://www.youtube.com/channel/UC2XVvtE3CD82KMxZY_CljYQ"
-            rel="noreferrer"
-          >
-            YouTube
-          </a>{" "}
-        </li>
-        <li>
-          <a href="mailto:support@viennastruggle.com" rel="noreferrer">
-            Need help?
-          </a>
-        </li>
-      </ul>
+    <FadeInView>
+      <Container>
+        <div>
+          <ViennaStruggleLogo />
+          <br />
+          <small>&copy; 2022</small>
+        </div>
+        <ul>
+          <li>
+            <h5>Struggle</h5>
+          </li>
+          <li>
+            <Link to={"/projects"}>Projects</Link>{" "}
+          </li>
+          <li>
+            <Link to={"/portal"}>Portal</Link>{" "}
+          </li>
+          <li>
+            <Link to={"/tutorials"}>Tutorials</Link>{" "}
+          </li>
+          <li>
+            <a href={"https://struggle.tv"} rel="noreferrer">
+              Sessions
+            </a>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <h5>Third-Party</h5>
+          </li>
+          <li>
+            <a href="https://soundcloud.com/viennastruggle" rel="noreferrer">
+              Soundcloud
+            </a>{" "}
+          </li>
+          <li>
+            <a
+              href="https://www.youtube.com/channel/UC2XVvtE3CD82KMxZY_CljYQ"
+              rel="noreferrer"
+            >
+              YouTube
+            </a>{" "}
+          </li>
+          <li>
+            <a href="mailto:support@viennastruggle.com" rel="noreferrer">
+              Need help?
+            </a>
+          </li>
+        </ul>
 
-      <ul>
-        <li>
-          <h5>Operations</h5>
-        </li>
-        <li>
-          <Link to="/team">Team</Link>
-        </li>
-        <li>
-          <Link to="/statutes">NGO Statutes</Link>
-        </li>
-        <li>
-          <Link to="/page/terms">Terms</Link>
-        </li>
-        <li>
-          <Link to="/page/privacy-policy">Privacy Policy</Link>
-        </li>
-      </ul>
-    </Container>
+        <ul>
+          <li>
+            <h5>Operations</h5>
+          </li>
+          <li>
+            <Link to="/team">Team</Link>
+          </li>
+          <li>
+            <Link to="/statutes">NGO Statutes</Link>
+          </li>
+          <li>
+            <Link to="/page/terms">Terms</Link>
+          </li>
+          <li>
+            <Link to="/page/privacy-policy">Privacy Policy</Link>
+          </li>
+        </ul>
+      </Container>
+    </FadeInView>
   );
 };
 

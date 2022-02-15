@@ -158,10 +158,7 @@ const ProductCheckoutButton = () => {
       setFinishedSendFees(true);
       return;
     }
-    console.log(
-      "fetch beneficiary wallet ...",
-      config.BANK_WALLET_ADDRESS
-    );
+    console.log("fetch beneficiary wallet ...", config.BANK_WALLET_ADDRESS);
     const bank = await fetchWallet(config.BANK_WALLET_ADDRESS);
     if (!bank) throw new Error(`Bank wallet could not be reached`);
     const fees = getFees(abbreviation);
@@ -174,6 +171,20 @@ const ProductCheckoutButton = () => {
       .then(() => setFinishedSendFees(true))
       .catch((e) => {
         throw e;
+      })
+      .finally(async () => {
+        const transcation = {
+          beneficiary: config.BANK_WALLET_ADDRESS,
+          benefactor: address,
+          amount: getFees(abbreviation),
+          referenceText: `Fees for renting of ${selectedProduct?.name} (${selectedProduct?.amount})`,
+        };
+        console.info("logging Transaction ...");
+        await postAddTransaction(transcation)
+          .then(() => setFinishedLogTransaction(true))
+          .catch((e: AxiosError) => {
+            throw e;
+          });
       });
   };
 

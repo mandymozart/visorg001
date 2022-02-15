@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import React from "react";
 import FadeInView from "../../Animations/FadeInView";
 import { BaseSection } from "../../Pages/LandingPage/BaseSection";
+import AuthentificationRequired from "../Authentification/AuthentificationRequired";
 import { PrimaryButton } from "../FormElements/Button";
 import WalletCard from "./WalletCard";
 
@@ -16,6 +17,7 @@ const Container = styled.div`
   }
   .actions {
     text-align: center;
+    margin-bottom: 1rem;
   }
   p {
     font-size: 1.5rem;
@@ -25,7 +27,7 @@ const Container = styled.div`
 
 const Wallet = () => {
   const { isAuthenticated } = useAuth0();
-
+  if (!isAuthenticated) return <AuthentificationRequired />;
   return (
     <Container>
       <BaseSection>
@@ -40,15 +42,15 @@ const Wallet = () => {
             With Vienna Struggle tokens we simplify payments amongst our
             members. Together we automatically transfer tokens each time
             somebody is using your infrastructure or services. In simple words:
-            Each time somebody uses your gear, you earn as well.
+            Each time somebody uses something made by you, you profit as well.
           </p>
           <p>
-            Paying with tokens already saves tokens saves you 50% compared on
-            our list prices with just our standard plan.
+            Paying with tokens already saves you 50% on
+            our list prices which you can invoice to your clients. And that is just our standard plan!
           </p>
 
           <div className="actions">
-            <PrimaryButton>Upgrade plan</PrimaryButton>
+            <PrimaryButton>Compare plans</PrimaryButton>
           </div>
         </FadeInView>
         <FadeInView>

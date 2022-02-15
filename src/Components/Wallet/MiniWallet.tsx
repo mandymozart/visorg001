@@ -3,7 +3,7 @@ import React from "react";
 import { GiToken } from "react-icons/gi";
 import Rates from "../../Pages/Products/Rates";
 import { useWalletStore } from "../../Stores/WalletStore";
-import { Button } from "../FormElements/Button";
+import { round } from "../../utils";
 
 const Container = styled.div`
   padding: 0.5rem;
@@ -15,14 +15,18 @@ const Container = styled.div`
 `;
 
 const MiniWallet = () => {
-  const { balance } = useWalletStore();
+  const {
+    balance
+  } = useWalletStore();
   return (
     <Container>
       <h5>Your current balance</h5>
-      <GiToken /> {balance} <br />
+      <GiToken /> {round(balance, 3)} <br />
       <Rates amountInTokens={balance} />
-      <br />
-      <Button>Top up</Button>
+      <small>
+        Balance is rounded to 3 digits for display purposes. We do not reduct
+        your earnings internally. Real time exchange rates provided by Coinbase.
+      </small>
     </Container>
   );
 };

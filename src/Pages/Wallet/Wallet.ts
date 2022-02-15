@@ -5,6 +5,14 @@ export type Wallet = {
   status: WalletStatus;
   abbreviation: string; // vis abbreviation
   balance: number;
+  artistName: string,
+  name: string,
+  street: string,
+  zipCode: string,
+  city: string,
+  country: string,
+  phoneNumber: string,
+  email: string,
   createdDate: string;
   updatedDate: string;
 };

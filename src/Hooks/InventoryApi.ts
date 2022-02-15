@@ -127,11 +127,18 @@ export const postBalanceUpdate = async (params: BalanceUpdateParams) => {
 export const fetchEvents = async (): Promise<InventoryEvent[] | undefined> =>
   await axios.get(getUrl("/events")).then((response) => response.data.events);
 
-export const fetchReservationsForAddress = async (
+export const fetchReservationsByRenter = async (
   address: string
 ): Promise<InventoryEvent[] | undefined> =>
   await axios
     .get(getUrl(`/events?filter[renter]=${address}`))
+    .then((response) => response.data.events);
+
+export const fetchReservationsByRentedFrom = async (
+  address: string
+): Promise<InventoryEvent[] | undefined> =>
+  await axios
+    .get(getUrl(`/events?filter[rentedFrom]=${address}`))
     .then((response) => response.data.events);
 
 export const fetchReservationsForProduct = async (

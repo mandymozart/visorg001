@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import FadeInView from "../../Animations/FadeInView";
 import Loader from "../../Components/Loader";
 import Tag from "../../Components/Tag";
-import { useGetReservationsForAddress } from "../../Hooks/InventoryQueries";
+import { useGetReservationsByRenter } from "../../Hooks/InventoryQueries";
 import { useWalletStore } from "../../Stores/WalletStore";
 import InventoryReservationItem from "../Inventory/InventoryReservationItem";
 import { InventoryEvent } from "./InventoryEvent";
@@ -37,7 +37,7 @@ const MyInventoryReservations = () => {
   const [reservations, setReservations] = useState<
     InventoryEvent[] | undefined
   >();
-  const { mutate } = useGetReservationsForAddress();
+  const { mutate } = useGetReservationsByRenter();
 
   useEffect(() => {
     mutate(address, {
@@ -58,7 +58,7 @@ const MyInventoryReservations = () => {
     <Container>
       <FadeInView>
         <h2>
-          My reservations <Tag>{reservations?.length}</Tag>
+          Rented <Tag>{reservations?.length}</Tag>
         </h2>
       </FadeInView>
       <FadeInView>

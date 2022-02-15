@@ -8,7 +8,7 @@ import {
   fetchEvents,
   fetchProduct,
   fetchProducts,
-  fetchReservationsForAddress,
+  fetchReservationsByRenter,
   fetchReservationsForProduct,
   fetchWallet,
   fetchWalletForOwner,
@@ -50,9 +50,15 @@ export const useGetInventoryEvents = () => {
   return useQuery("getInventoryEvents", () => fetchEvents());
 };
 
-export const useGetReservationsForAddress = () => {
+export const useGetReservationsByRenter = () => {
   return useMutation("getGetReservationsForAddress", (address: string) =>
-    fetchReservationsForAddress(address)
+    fetchReservationsByRenter(address)
+  );
+};
+
+export const useGetReservationsByRentedFrom = () => {
+  return useMutation("getGetReservationsForAddress", (address: string) =>
+    fetchReservationsByRenter(address)
   );
 };
 

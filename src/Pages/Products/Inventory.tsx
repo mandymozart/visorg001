@@ -9,6 +9,7 @@ import InventoryWelcomePage from "../Inventory/InventoryWelcomePage";
 import InventoryFavorites from "./InventoryFavorites";
 import MyInventoryReservations from "./InventoryMyReservations";
 import InventoryProducts from "./InventoryProducts";
+import InventoryReservations from "./InventoryReservations";
 
 const Container = styled.div`
   padding: 1rem;
@@ -97,7 +98,10 @@ const Inventory = () => {
                 <CustomLink to="product">Pick a date</CustomLink>{" "}
               </li>
               <li>
-                <CustomLink to="reservations">My reservations</CustomLink>{" "}
+                <CustomLink to="rented">Rented</CustomLink>{" "}
+              </li>
+              <li>
+                <CustomLink to="lented">Lented</CustomLink>{" "}
               </li>
               <li>
                 <CustomLink to="favorites">Favorites</CustomLink>
@@ -108,7 +112,8 @@ const Inventory = () => {
         <Body>
           <Routes>
             <Route path="/" element={<InventoryWelcomePage />} />
-            <Route path="reservations" element={<MyInventoryReservations />} />
+            <Route path="rented" element={<MyInventoryReservations />} />
+            <Route path="lented" element={<InventoryReservations />} />
             <Route path="favorites" element={<InventoryFavorites />} />
             <Route path="product" element={<InventoryProducts />} />
             <Route path="product/:productId" element={<InventoryProducts />} />

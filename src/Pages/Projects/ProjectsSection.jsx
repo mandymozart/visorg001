@@ -11,11 +11,9 @@ const Container = styled.section`
   width: var(--content-width-narrow);
   margin: 0 auto;
   text-align: left;
-  img {
-    max-width: 100%;
-    &.full {
-      width: 100%;
-    }
+  p {
+    &:first-of-type{text-indent: 2rem;}
+    margin-bottom: 1.5rem;
   }
 `;
 const ProjectsSection = () => {
@@ -41,10 +39,14 @@ const ProjectsSection = () => {
       </h1>
 
       <p className="text-xl">
-        You share your story with us! We share it with the beings on this planet and beyond through
-        music videos!
-        Together we are an orchestra!
+        You share your story with us! We share it with the beings on this planet
+        and beyond through music videos! Together we are an orchestra!
       </p>
+      <h2>
+        Unstruggle yourself!
+        <br />
+        &mdash; <br />
+      </h2>
       <p className="text-xl">
         Our songs are crowdsourced stories of strugglers from around the world.
         We want to hear about the little stories, the big stories, and the sad
@@ -58,13 +60,9 @@ const ProjectsSection = () => {
       </p>
       <p className="text-xl">
         In the meantime you can browse through our first two release in our
-        <Link to="/projects">project section</Link> or join us for a root beer in our <Link to="/portal/findus">portal</Link>.
+        <Link to="/projects">project section</Link> or join us for a root beer
+        in our <Link to="/portal/findus">portal</Link>.
       </p>
-      <h1>
-        Unstruggle yourself!
-        <br />
-        &mdash; <br />
-      </h1>
       {/* <h3>How does it work?</h3>
       <ul>
         <li>

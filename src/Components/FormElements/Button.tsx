@@ -12,7 +12,7 @@ const Container = styled.button`
   font-size: 1rem;
   justify-self: center;
   font-weight: 400;
-  text-align: center;
+  &&& { text-align: center; }
   padding: 0 1rem;
   cursor: pointer;
   border: 0;

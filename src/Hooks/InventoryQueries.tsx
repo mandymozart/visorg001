@@ -1,7 +1,21 @@
 import { useMutation, useQuery } from "react-query";
 import {
   AddTransactionParams,
-  BalanceUpdateParams, fetchBenefactorTransactions, fetchBeneficiaryTransactions, fetchEvents, fetchProduct, fetchProducts, fetchReservationsForAddress, fetchReservationsForProduct, fetchWallet, fetchWallets, postAddTransaction, postBalanceUpdate
+  AddWalletParams,
+  BalanceUpdateParams,
+  fetchBenefactorTransactions,
+  fetchBeneficiaryTransactions,
+  fetchEvents,
+  fetchProduct,
+  fetchProducts,
+  fetchReservationsForAddress,
+  fetchReservationsForProduct,
+  fetchWallet,
+  fetchWalletForOwner,
+  fetchWallets,
+  postAddTransaction,
+  postBalanceUpdate,
+  postWallet
 } from "./InventoryApi";
 
 export const useGetWallets = () => {
@@ -11,6 +25,18 @@ export const useGetWallets = () => {
 export const useGetWallet = () => {
   return useMutation("getWallet", async (address: string) =>
     fetchWallet(address)
+  );
+};
+
+export const useGetWalletForOwner = () => {
+  return useMutation("getWalletForOwner", async (owner: string) =>
+    fetchWalletForOwner(owner)
+  );
+};
+
+export const useAddWallet = () => {
+  return useMutation("addWallet", async (params: AddWalletParams) =>
+    postWallet(params)
   );
 };
 

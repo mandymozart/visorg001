@@ -160,7 +160,7 @@ const ProductCheckoutButton = () => {
     }
     console.log(
       "fetch beneficiary wallet ...",
-      config.BANK_WALLET_ABBREVIATION
+      config.BANK_WALLET_ADDRESS
     );
     const bank = await fetchWallet(config.BANK_WALLET_ADDRESS);
     if (!bank) throw new Error(`Bank wallet could not be reached`);

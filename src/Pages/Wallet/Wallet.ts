@@ -10,7 +10,7 @@ export type Wallet = {
 };
 
 export enum WalletStatus {
-  ACTIVATE = "active",
+  ACTIVE = "active",
   SUSPENDED = "suspended",
   UNAUTHORIZED = "unauhorized",
 }

@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import React from "react";
 import { NavLink, NavLinkProps, Outlet, Route, Routes } from "react-router-dom";
 import FadeInView from "../../Animations/FadeInView";
+import AuthentificationRequired from "../../Components/Authentification/AuthentificationRequired";
 import Layout from "../../Components/Layout";
 import InventoryWelcomePage from "../Inventory/InventoryWelcomePage";
 import InventoryFavorites from "./InventoryFavorites";
@@ -84,7 +85,7 @@ function CustomLink({ children, to, ...props }: NavLinkProps) {
 
 const Inventory = () => {
   const { isAuthenticated } = useAuth0();
-  if (!isAuthenticated) return null;
+  if (!isAuthenticated) return <AuthentificationRequired />;
   return (
     <Layout>
       <Container>

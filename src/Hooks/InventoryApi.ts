@@ -1,7 +1,7 @@
 import axios from "axios";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { nanoid } from "nanoid";
+import { customAlphabet, nanoid } from "nanoid";
 import { config } from "../config";
 import {
   InventoryEvent,
@@ -10,7 +10,7 @@ import {
 } from "../Pages/Products/InventoryEvent";
 import { Product } from "../Pages/Products/Product";
 import { Transaction, TransactionStatus } from "../Pages/Wallet/Transaction";
-import { Wallet } from "../Pages/Wallet/Wallet";
+import { Wallet, WalletStatus } from "../Pages/Wallet/Wallet";
 
 dayjs.extend(relativeTime);
 
@@ -52,6 +52,52 @@ export const fetchWallet = async (
     .then((response) => {
       return response.data.wallets[0];
     });
+
+export const fetchWalletForOwner = async (
+  owner: string
+): Promise<Wallet | undefined> => {
+console.log("fetch", owner)
+  return await axios
+  .get(getUrl(`/wallets/?filter[owner]=${owner}`))
+  .then((response) => {
+    return response.data.wallets[0];
+  });
+}
+
+export type AddWalletParams = {
+  owner: string;
+  email: string;
+  name: string;
+};
+
+export const postWallet = async (
+  params: AddWalletParams
+): Promise<Wallet | undefined> => {
+  const url = getUrl(`/wallets`);
+  const nanoid = customAlphabet(config.WALLET_NANOID_ALPHABET, 8);
+  return await axios
+    .post(
+      url,
+      {
+        wallet: {
+          address: nanoid(),
+          owner: params.owner,
+          email: params.email,
+          name: params.name,
+          balance: config.WALLET_WELCOME_BALANCE,
+          status: WalletStatus.ACTIVE,
+          updatedDate: dayjs().format(),
+          createdDate: dayjs().format(),
+        },
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
+    .then((res) => res.data);
+};
 
 export type BalanceUpdateParams = {
   id: number;

@@ -17,8 +17,10 @@ const environment = process.env.REACT_APP_STAGE
 export const config = {
   // Add common config values here
   DATE_FORMAT: "YYYY-MM-DD",
+  WALLET_NANOID_ALPHABET: '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
+  WALLET_WELCOME_BALANCE: 300,
   BANK_WALLET_ABBREVIATION: "vis", // your primary account all fees to there
-  BANK_WALLET_ADDRESS: "6b9e0bab-ae49-43a4-8cda-49a9b17f9c61", // same but saver
+  BANK_WALLET_ADDRESS: "tAZhmouE", // same but saver
   MAILCHIMP_SUBSCRIBE_URL:
     "https://viennastruggle.us14.list-manage.com/subscribe/post?u=1babc648dbf7faf505f6cd64f&amp;id=d0274af64c",
   EUR_TO_TOKEN_EXCHANGE_RATE: 2,

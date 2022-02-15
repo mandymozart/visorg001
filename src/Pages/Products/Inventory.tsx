@@ -101,7 +101,7 @@ const Inventory = () => {
                 <CustomLink to="rented">Rented</CustomLink>{" "}
               </li>
               <li>
-                <CustomLink to="lented">Lented</CustomLink>{" "}
+                <CustomLink to="lent-out">Lent out</CustomLink>{" "}
               </li>
               <li>
                 <CustomLink to="favorites">Favorites</CustomLink>
@@ -113,7 +113,7 @@ const Inventory = () => {
           <Routes>
             <Route path="/" element={<InventoryWelcomePage />} />
             <Route path="rented" element={<MyInventoryReservations />} />
-            <Route path="lented" element={<InventoryReservations />} />
+            <Route path="lent-out" element={<InventoryReservations />} />
             <Route path="favorites" element={<InventoryFavorites />} />
             <Route path="product" element={<InventoryProducts />} />
             <Route path="product/:productId" element={<InventoryProducts />} />

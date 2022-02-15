@@ -58,7 +58,7 @@ const InventoryReservations = () => {
     <Container>
       <FadeInView>
         <h2>
-          Lented <Tag>{reservations?.length}</Tag>
+          Lent out <Tag>{reservations?.length}</Tag>
         </h2>
       </FadeInView>
       <FadeInView>

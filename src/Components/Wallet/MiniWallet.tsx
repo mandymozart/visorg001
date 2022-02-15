@@ -4,6 +4,7 @@ import { GiToken } from "react-icons/gi";
 import Rates from "../../Pages/Products/Rates";
 import { useWalletStore } from "../../Stores/WalletStore";
 import { round } from "../../utils";
+import Tag from "../Tag";
 
 const Container = styled.div`
   padding: 0.5rem;
@@ -16,11 +17,12 @@ const Container = styled.div`
 
 const MiniWallet = () => {
   const {
-    balance
+    balance,
+    address
   } = useWalletStore();
   return (
     <Container>
-      <h5>Your current balance</h5>
+      <h5>Wallet address: <Tag>{address}</Tag><br />Your current balance</h5>
       <GiToken /> {round(balance, 3)} <br />
       <Rates amountInTokens={balance} />
       <small>

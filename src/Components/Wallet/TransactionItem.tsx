@@ -14,13 +14,16 @@ const Container = styled.div`
   border-bottom: 1px solid var(--color);
   line-height: 2;
   display: grid;
-  grid-template-columns: 9rem 1fr 1fr 5rem;
+  grid-template-columns: 9rem 5rem auto 5rem;
   gap: 1rem;
   .amount {
     text-align: right;
   }
   div {
     word-break: break-word;
+  }
+  @media (max-width: 600px){
+    display: block;
   }
 `;
 
@@ -46,7 +49,7 @@ const TransactionItem = ({ transaction, type }: Props) => {
           {transaction.referenceText}
         </div>
         <div className="amount">
-          {transaction.amount} <GiToken />
+          {type === TransactionType.OUTGOING ? "-" : ""}{transaction.amount} <GiToken />
         </div>
       </Container>
     </FadeInView>

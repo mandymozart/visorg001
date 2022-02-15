@@ -20,13 +20,18 @@ const Container = styled.div`
 
 const TransactionsHeader = styled.div`
   display: grid;
-  grid-template-columns: 9rem 1fr 1fr 5rem;
+  grid-template-columns: 9rem 5rem auto 5rem;
   gap: 1rem;
   width: 100%;
   line-height: 3;
   border-bottom: 1px solid var(--color);
   div:last-of-type {
     text-align: right;
+  }
+  @media (max-width: 600px){
+    div {
+      display: none;
+    }
   }
 `;
 
@@ -35,7 +40,7 @@ type Props = {
   isLoading: boolean;
   type: TransactionType;
 };
-const TransactionList = ({ transactions, type }: Props) => {
+const TransactionList = ({ transactions, type}: Props) => {
   return (
     <FadeInView>
       <Container>
@@ -46,7 +51,7 @@ const TransactionList = ({ transactions, type }: Props) => {
           <>
             <TransactionsHeader>
               <div className="text-sm">Date</div>
-              <div className="text-sm">Wallet address</div>
+              <div className="text-sm">Address</div>
               <div className="text-sm">Reference text</div>
               <div className="text-sm">Amount</div>
             </TransactionsHeader>

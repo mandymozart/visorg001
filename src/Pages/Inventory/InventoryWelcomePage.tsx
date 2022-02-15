@@ -1,9 +1,10 @@
 import styled from "@emotion/styled";
 import React from "react";
 import { GiAbacus, GiCalendar, GiMoneyStack, GiSharpAxe } from "react-icons/gi";
+import { Link } from "react-router-dom";
 import FadeInView from "../../Animations/FadeInView";
+import { Button, PrimaryButton } from "../../Components/FormElements/Button";
 import { BaseSection } from "../LandingPage/BaseSection";
-import { Hero } from "../LandingPage/Hero";
 
 const Container = styled.div`
   p {
@@ -13,19 +14,21 @@ const Container = styled.div`
 `;
 
 const Perk = styled.div`
-display: flex;
-gap: 2rem;
-justify-content: center;
-align-items: center;
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 3rem;
   > div:first-of-type {
-    font-size: 7rem;
+    font-size: 9rem;
+    align-self: flex-start;
   }
 `;
 const InventoryWelcomePage = () => {
   return (
     <Container>
       <BaseSection>
-        <Hero>
+        <BaseSection>
           <FadeInView>
             <div>
               <h1>
@@ -37,9 +40,12 @@ const InventoryWelcomePage = () => {
                 pay for the rentals guarantees long term sustainability of the
                 portal, the project and the people you work with.
               </p>
+              <Link to="/inventory/products">
+                <PrimaryButton>Get started</PrimaryButton>
+              </Link>
             </div>
           </FadeInView>
-        </Hero>
+        </BaseSection>
         <FadeInView>
           <Perk>
             <div>
@@ -51,6 +57,9 @@ const InventoryWelcomePage = () => {
                 Make a new reservation to rent equipment. The app will let you
                 know when an item is not available or where it is.
               </p>
+              <Link to="/inventory/products">
+                <Button>Pick a date</Button>
+              </Link>
             </div>
           </Perk>
         </FadeInView>
@@ -66,6 +75,9 @@ const InventoryWelcomePage = () => {
                 you can either grow your influence in the governance of Vienna
                 Struggle or you can use for maintenance or rent.
               </p>
+              <Link to="/wallet">
+                <Button>Check your wallet</Button>
+              </Link>
             </div>
           </Perk>
         </FadeInView>
@@ -81,6 +93,9 @@ const InventoryWelcomePage = () => {
                 month. This is especially useful if you do many small
                 productions.
               </p>
+              <a href="mailto:accounting@viennastruggle.com">
+                <Button>Contact accounting</Button>
+              </a>
             </div>
           </Perk>
         </FadeInView>

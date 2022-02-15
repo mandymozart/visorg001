@@ -3,7 +3,6 @@ import clsx from "clsx";
 import React from "react";
 import { FaUserAstronaut } from "react-icons/fa";
 import FadeInView from "../../Animations/FadeInView";
-import { PageSection } from "../../Pages/LandingPage/BaseSection";
 import Rates from "../../Pages/Products/Rates";
 import { useProductStore } from "../../Stores/ProductStore";
 import { useWalletStore } from "../../Stores/WalletStore";
@@ -43,36 +42,34 @@ const SelectedProduct = () => {
         <FadeInView>
           <h2 className="name">{selectedProduct.name}</h2>
         </FadeInView>
-        <PageSection hasPadding={false}>
-          <div className="meta">
-            <FadeInView>
-              <div className="tags">
-                <span className="abbreviation">
-                  <Tag>
-                    <FaUserAstronaut />{" "}
-                    {selectedProduct.abbreviation === abbreviation ? (
-                      <strong>You own this item</strong>
-                    ) : (
-                      selectedProduct.abbreviation
-                    )}
-                  </Tag>
-                </span>
-                <span className="status">
-                  <Tag>{selectedProduct.status}</Tag>
-                </span>
-              </div>
-            </FadeInView>
-          </div>
+        <div className="meta">
           <FadeInView>
-            <PlaintextParagraph text={selectedProduct.description} />
-          </FadeInView>
-          <FadeInView>
-            <div className="rrp">
-              <h4>RRP (recommended retail price):</h4>
-              <Rates amountInTokens={parseInt(selectedProduct.listPrice)} />
+            <div className="tags">
+              <span className="abbreviation">
+                <Tag>
+                  <FaUserAstronaut />{" "}
+                  {selectedProduct.abbreviation === abbreviation ? (
+                    <strong>You own this item</strong>
+                  ) : (
+                    selectedProduct.abbreviation
+                  )}
+                </Tag>
+              </span>
+              <span className="status">
+                <Tag>{selectedProduct.status}</Tag>
+              </span>
             </div>
           </FadeInView>
-        </PageSection>
+        </div>
+        <FadeInView>
+          <PlaintextParagraph text={selectedProduct.description} />
+        </FadeInView>
+        <FadeInView>
+          <div className="rrp">
+            <h4>RRP (recommended retail price):</h4>
+            <Rates amountInTokens={parseInt(selectedProduct.listPrice)} />
+          </div>
+        </FadeInView>
         <ProductReservations product={selectedProduct} />
       </Container>
       <ProductCheckoutActions />

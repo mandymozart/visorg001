@@ -17,6 +17,7 @@ const Container = styled.div`
 
 const Body = styled.div`
   padding: 0;
+  margin-top: 2rem;
   line-height: 1.3;
   .item {
     display: flex;
@@ -50,8 +51,17 @@ const Body = styled.div`
 `;
 
 const TabNavigation = styled.nav`
+  position: fixed;
+  top: 0;
+  left: 0;
   text-align: center;
-  margin-bottom: 1rem;
+  width: 100%;
+  height: 11.5rem;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  z-index: 1;
+  border-bottom: 1px solid var(--color);
   ul {
     list-style: none;
     padding: 0;
@@ -91,22 +101,26 @@ const Inventory = () => {
     <Layout>
       <Container>
         <FadeInView>
-          <h2>Rent items from portal</h2>
-          <TabNavigation>
-            <ul>
-              <li>
-                <CustomLink to="product">Pick a date</CustomLink>{" "}
-              </li>
-              <li>
-                <CustomLink to="rented">Rented</CustomLink>{" "}
-              </li>
-              <li>
-                <CustomLink to="lent-out">Lent out</CustomLink>{" "}
-              </li>
-              <li>
-                <CustomLink to="favorites">Favorites</CustomLink>
-              </li>
-            </ul>
+          <TabNavigation className="glassomorphism">
+            <div>
+              <ul>
+                <li>
+                  <CustomLink to="">Reservations</CustomLink>{" "}
+                </li>
+                <li>
+                  <CustomLink to="product">Pick a date</CustomLink>{" "}
+                </li>
+                <li>
+                  <CustomLink to="rented">Rented</CustomLink>{" "}
+                </li>
+                <li>
+                  <CustomLink to="lent-out">Lent out</CustomLink>{" "}
+                </li>
+                <li>
+                  <CustomLink to="favorites">Favorites</CustomLink>
+                </li>
+              </ul>
+            </div>
           </TabNavigation>
         </FadeInView>
         <Body>

@@ -4,7 +4,7 @@ import React, { ReactElement } from "react";
 
 export const BaseSection = styled.section`
   padding: 1rem;
-  min-height: calc(100vh - 2.75rem);
+  min-height: calc(50vh - 2.75rem);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -23,7 +23,7 @@ const Container =  styled.section`
   .hasPadding {
     padding: 1rem;
   }
-  min-height: calc(100vh - 2.75rem);
+  min-height: calc(50vh - 2.75rem);
   img {
     max-width: 100%;
     &.full {

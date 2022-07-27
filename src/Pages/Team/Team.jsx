@@ -54,6 +54,14 @@ const Team = () => {
             mam@viennastruggle.com
           </p>
         </TeamMember>
+        <TeamMember>
+          <h3>Falvia Mudesto</h3>
+          <p>
+            Director
+            <br />
+            flm@viennastruggle.com
+          </p>
+        </TeamMember>
       </BaseSection>
     </Layout>
   );

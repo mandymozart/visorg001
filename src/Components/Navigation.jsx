@@ -142,7 +142,7 @@ const Navigation = () => {
               setIsOpen={setIsOpen}
               to="/"
             >
-              Homepage
+              About
             </NavigationLink>
           </li>
           <li>
@@ -154,15 +154,15 @@ const Navigation = () => {
               Projects
             </NavigationLink>
           </li>
-          {/* <li>
+          <li>
             <NavigationLink
-              icon={<Gi3DGlasses />}
+              icon={<GiAstronautHelmet />}
               setIsOpen={setIsOpen}
-              to="/tutorials"
+              to="/team"
             >
-              Tutorials
+              Team
             </NavigationLink>
-          </li> */}
+          </li>
           <li>
             <NavigationLink
               icon={<GiMagicPortal />}

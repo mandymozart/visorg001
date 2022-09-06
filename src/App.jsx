@@ -59,7 +59,7 @@ const App = () => {
     <Container>
       <BrowserRouter>
         <Notification>
-          Currently we are accepting applications for Portal Memberships only.
+          Think you can contribute? Need our help? Just contact us.
         </Notification>
         <Toaster position="bottom-left" toastOptions={{ duration: 5000 }}>
           {(t) => (

@@ -55,9 +55,9 @@ const Team = () => {
           </p>
         </TeamMember>
         <TeamMember>
-          <h3>Falvia Mudesto</h3>
+          <h3>Flávia Mudesto</h3>
           <p>
-            Director
+            Director, Performer, Visual Artist
             <br />
             flm@viennastruggle.com
           </p>

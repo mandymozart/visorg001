@@ -4,7 +4,6 @@ import clsx from "clsx";
 import Hamburger from "hamburger-react";
 import React, { useState } from "react";
 import {
-  Gi3DGlasses,
   GiAchillesHeel,
   GiAstronautHelmet,
   GiBackpack,
@@ -155,7 +154,7 @@ const Navigation = () => {
               Projects
             </NavigationLink>
           </li>
-          <li>
+          {/* <li>
             <NavigationLink
               icon={<Gi3DGlasses />}
               setIsOpen={setIsOpen}
@@ -163,7 +162,7 @@ const Navigation = () => {
             >
               Tutorials
             </NavigationLink>
-          </li>
+          </li> */}
           <li>
             <NavigationLink
               icon={<GiMagicPortal />}

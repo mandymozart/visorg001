@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import React from "react";
 import Layout from "../../Components/Layout";
+import team from "../../images/photos/group-photo-hd.png";
 import { BaseSection } from "../LandingPage/BaseSection";
-
 const TeamMember = styled.div`
   display: inline-block;
   margin-right: 1rem;
@@ -14,6 +14,7 @@ const Team = () => {
     <Layout>
       <BaseSection>
         <h2>Team</h2>
+        <img src={team} alt="team"/>
         <TeamMember>
           <h3>Eva Perner</h3>
           <p>

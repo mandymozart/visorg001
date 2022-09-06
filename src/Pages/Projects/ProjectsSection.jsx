@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Container = styled.section`
   color: var(--background);
@@ -17,7 +18,7 @@ const ProjectsSection = () => {
   return (
     <Container>
       <h1>Vienna Struggle</h1>
-      <h2>“Unstruggle Yourself”</h2>
+      <p>“Unstruggle Yourself”</p>
       <p>Overcoming failure in the collective – a healing process!</p>
       <p>
         Under the pretence of Vienna as the city with the highest quality of
@@ -103,8 +104,8 @@ const ProjectsSection = () => {
       want to support working across time zones and living conditions. By taking
       care of physical as well as language barriers we make Vienna Struggle
       accessible to everyone who wants to be involved in the process.
-      <h2>How to join?</h2>
-      <p>We share our resources and infrastructure.</p>
+      <h2>How?</h2>
+      <p>We share our resources and infrastructure. Meet the <Link to="/team">team</Link>.</p>
     </Container>
   );
 };
